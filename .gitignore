@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables (NEVER commit credentials)
+.env
+.env.local
+.env.*.local
+credential.txt
+secrets/
+*.key
+*.pem
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Testing
+coverage/
+.coverage
+
+# Temporary files
+tmp/
+temp/
+*.tmp
