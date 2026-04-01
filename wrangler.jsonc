@@ -1,0 +1,63 @@
+{
+  // My Automation Partner - Client Portal
+  // Cloudflare Pages Configuration
+
+  "name": "my-automation-partner-portal",
+  "compatibility_date": "2026-04-01",
+
+  // Assets configuration for static files
+  "assets": {
+    "directory": "./assets",
+    "binding": "ASSETS"
+  },
+
+  // Build configuration
+  "build": {
+    "command": "echo 'No build step required - static site'",
+    "cwd": "./",
+    "watch_paths": ["index.html", "login.html", "assets/**/*"]
+  },
+
+  // Environment variables (non-sensitive only)
+  "env": {
+    "production": {
+      "routes": [
+        {
+          "pattern": "myautomationpartner.com",
+          "zone_name": "myautomationpartner.com"
+        },
+        {
+          "pattern": "www.myautomationpartner.com",
+          "zone_name": "myautomationpartner.com"
+        }
+      ],
+      "vars": {
+        "ENVIRONMENT": "production"
+      }
+    },
+    "staging": {
+      "routes": [
+        {
+          "pattern": "staging.myautomationpartner.com",
+          "zone_name": "myautomationpartner.com"
+        }
+      ],
+      "vars": {
+        "ENVIRONMENT": "staging"
+      }
+    }
+  },
+
+  // Cloudflare Pages specific settings
+  "pages_build_output_dir": "./",
+
+  // Triggers for automatic deployments
+  "triggers": {
+    "crons": []
+  },
+
+  // Analytics Engine binding (optional - for future use)
+  "analytics_engine_datasets": {
+    "ANALYTICS": {}
+  }
+}
