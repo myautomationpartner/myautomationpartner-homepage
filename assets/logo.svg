@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Black background with rounded corners -->
+  <rect width="400" height="400" rx="40" ry="40" fill="#0a0a0a"/>
+
+  <!-- Head silhouette (profile facing right) -->
+  <g fill="none" stroke="#FFD700" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Head outline -->
+    <path d="M 155 280
+             C 155 280 130 270 125 250
+             C 120 230 128 215 128 215
+             L 128 185
+             C 128 155 148 130 175 120
+             C 185 116 200 114 215 116
+             C 250 120 272 148 272 180
+             L 272 215
+             C 272 215 278 228 275 248
+             C 272 265 255 278 245 280
+             Z" />
+    <!-- Ear -->
+    <path d="M 272 210 C 285 210 292 222 290 235 C 288 248 278 252 272 250" />
+    <!-- Neck -->
+    <line x1="170" y1="278" x2="165" y2="308" />
+    <line x1="245" y1="278" x2="250" y2="308" />
+    <!-- Shoulder line -->
+    <path d="M 155 308 C 155 308 180 320 205 320 C 230 320 255 308 255 308" />
+    <!-- Eye dot -->
+    <circle cx="240" cy="185" r="5" fill="#FFD700" stroke="none"/>
+
+    <!-- CPU/Chip on top of head -->
+    <!-- Chip body -->
+    <rect x="175" y="82" width="62" height="50" rx="4" ry="4" stroke="#FFD700" stroke-width="4" fill="#0a0a0a"/>
+    <!-- Chip inner grid -->
+    <rect x="185" y="92" width="42" height="30" rx="2" ry="2" stroke="#FFD700" stroke-width="2" fill="none"/>
+    <!-- Chip pins left -->
+    <line x1="175" y1="95" x2="162" y2="95" stroke-width="3"/>
+    <line x1="175" y1="105" x2="162" y2="105" stroke-width="3"/>
+    <line x1="175" y1="115" x2="162" y2="115" stroke-width="3"/>
+    <line x1="175" y1="125" x2="162" y2="125" stroke-width="3"/>
+    <!-- Chip pins right -->
+    <line x1="237" y1="95" x2="250" y2="95" stroke-width="3"/>
+    <line x1="237" y1="105" x2="250" y2="105" stroke-width="3"/>
+    <line x1="237" y1="115" x2="250" y2="115" stroke-width="3"/>
+    <line x1="237" y1="125" x2="250" y2="125" stroke-width="3"/>
+    <!-- Chip pins top -->
+    <line x1="190" y1="82" x2="190" y2="70" stroke-width="3"/>
+    <line x1="206" y1="82" x2="206" y2="70" stroke-width="3"/>
+    <line x1="222" y1="82" x2="222" y2="70" stroke-width="3"/>
+    <!-- Connection line from chip to head -->
+    <line x1="206" y1="132" x2="206" y2="148" stroke-width="3"/>
+  </g>
+
+  <!-- MY AUTOMATION text -->
+  <text x="200" y="348"
+        font-family="Arial, sans-serif"
+        font-size="22"
+        font-weight="600"
+        letter-spacing="5"
+        fill="#FFD700"
+        text-anchor="middle">MY AUTOMATION</text>
+
+  <!-- PARTNER text (larger) -->
+  <text x="200" y="375"
+        font-family="Arial, sans-serif"
+        font-size="30"
+        font-weight="800"
+        letter-spacing="6"
+        fill="#FFD700"
+        text-anchor="middle">PARTNER</text>
+
+  <!-- Underline -->
+  <line x1="90" y1="385" x2="310" y2="385" stroke="#FFD700" stroke-width="3"/>
+</svg>
