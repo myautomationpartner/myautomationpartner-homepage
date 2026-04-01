@@ -1,24 +1,14 @@
 {
   // My Automation Partner - Client Portal
-  // Cloudflare Pages Configuration
+  // Cloudflare Pages Configuration (Static Site)
 
-  "name": "my-automation-partner-portal",
+  "name": "my-automation-partner-homepage",
+  "type": "javascript",
   "compatibility_date": "2026-04-01",
 
-  // Assets configuration for static files
-  "assets": {
-    "directory": "./assets",
-    "binding": "ASSETS"
-  },
+  // Pages configuration - NO build command needed for static site
+  "pages_build_output_dir": "./",
 
-  // Build configuration
-  "build": {
-    "command": "echo 'No build step required - static site'",
-    "cwd": "./",
-    "watch_paths": ["index.html", "login.html", "assets/**/*"]
-  },
-
-  // Environment variables (non-sensitive only)
   "env": {
     "production": {
       "routes": [
@@ -46,18 +36,5 @@
         "ENVIRONMENT": "staging"
       }
     }
-  },
-
-  // Cloudflare Pages specific settings
-  "pages_build_output_dir": "./",
-
-  // Triggers for automatic deployments
-  "triggers": {
-    "crons": []
-  },
-
-  // Analytics Engine binding (optional - for future use)
-  "analytics_engine_datasets": {
-    "ANALYTICS": {}
   }
 }
