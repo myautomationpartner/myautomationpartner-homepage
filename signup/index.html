@@ -838,6 +838,7 @@
 </footer>
 
 <script>
+    const EDGE_FALLBACK_URL = 'https://zgkxrlednyovuytaejok.supabase.co/functions/v1/homepage-signup-intake';
     const form = document.getElementById('signupForm');
     const successBanner = document.getElementById('statusSuccess');
     const errorBanner = document.getElementById('statusError');
@@ -880,6 +881,39 @@
         errorBanner.classList.remove('show');
         successBanner.textContent = '';
         errorBanner.textContent = '';
+    }
+
+    async function submitSignup(payload) {
+        const primaryResponse = await fetch('/api/onboarding/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (primaryResponse.status !== 404) {
+            let primaryData = {};
+            try {
+                primaryData = await primaryResponse.json();
+            } catch {
+                throw new Error('Unexpected response from the signup endpoint.');
+            }
+            return { response: primaryResponse, data: primaryData, viaFallback: false };
+        }
+
+        const fallbackResponse = await fetch(EDGE_FALLBACK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        let fallbackData = {};
+        try {
+            fallbackData = await fallbackResponse.json();
+        } catch {
+            throw new Error('Unexpected response from the fallback signup endpoint.');
+        }
+
+        return { response: fallbackResponse, data: fallbackData, viaFallback: true };
     }
 
     function setLoading(loading) {
@@ -940,18 +974,7 @@
         setLoading(true);
 
         try {
-            const response = await fetch('/api/onboarding/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            let data = {};
-            try {
-                data = await response.json();
-            } catch {
-                throw new Error('Unexpected response from the signup endpoint.');
-            }
+            const { response, data, viaFallback } = await submitSignup(payload);
 
             if (!response.ok || !data.success) {
                 throw new Error(data.error || 'MAP could not submit your signup right now.');
@@ -964,10 +987,13 @@
             const downstreamNote = data.queuedForProvisioning
                 ? 'The downstream provisioning handoff is configured for this environment.'
                 : 'Downstream provisioning will continue once the secure internal handoff is enabled for this environment.';
+            const intakeNote = viaFallback
+                ? 'This submission used the live MAP intake fallback while the homepage backend route is being finalized.'
+                : 'This submission used the homepage intake route directly.';
 
             showMessage(
                 successBanner,
-                `${nextStep} Selected plan: ${planLabel}. Signup ID: ${data.signupId}. ${downstreamNote}`
+                `${nextStep} Selected plan: ${planLabel}. Signup ID: ${data.signupId}. ${downstreamNote} ${intakeNote}`
             );
 
             form.reset();
