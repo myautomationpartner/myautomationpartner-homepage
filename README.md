@@ -25,7 +25,7 @@ A dedicated onboarding signup route for new MAP customers:
 - Optional fields: phone, primary goal, preferred contact method, requested social platforms, notes
 - Client-side validation plus loading, success, and error states
 - Submits to a same-origin MAP endpoint at `/api/onboarding/signup`
-- Ready to forward internally to downstream provisioning once the secure webhook handoff is configured
+- Automatically falls back to the live Supabase Edge intake endpoint if the Pages backend route is unavailable in production
 
 ### Client Login (`login.html`)
 Secure login portal for authenticated clients to access:
@@ -66,7 +66,8 @@ Secure login portal for authenticated clients to access:
 
 ## Connected Systems
 - **Supabase:** Canonical onboarding intake contract and authenticated portal data
-- **Cloudflare Pages Functions:** Same-origin homepage intake endpoint (`/api/onboarding/signup`)
+- **Cloudflare Pages Functions:** Intended same-origin homepage intake endpoint (`/api/onboarding/signup`)
+- **Supabase Edge Function:** Current live signup fallback endpoint (`/functions/v1/homepage-signup-intake`)
 - **n8n:** Metrics collection & automation workflows
 - **Metricool:** Real-time Instagram, TikTok, Facebook metrics API
 - **Resend:** Email delivery for client digests
@@ -96,6 +97,8 @@ Secure login portal for authenticated clients to access:
 - ✅ Added dedicated `/signup/` onboarding flow aligned to `db-agent/ONBOARDING_CONTRACT.md`
 - ✅ Added same-origin intake handler at `/api/onboarding/signup`
 - ✅ Documented payload, env vars, and downstream webhook assumptions in `SIGNUP_INTAKE.md`
+- ✅ Restored live production signup through Supabase Edge fallback while the broken Pages backend route is tracked as future cleanup
+- ✅ Added origin/referrer allowlisting on the public intake endpoints
 
 ## Development Notes
 - Pure HTML/CSS — no build step required

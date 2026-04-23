@@ -2,13 +2,27 @@
 Last updated: 2026-04-23
 
 ## Purpose
-This document defines the public homepage signup payload, the same-origin intake route, and the backend assumptions for the MAP Customer Onboarding Automation workstream.
+This document defines the public homepage signup payload, the intended same-origin intake route, the live fallback intake path, and the backend assumptions for the MAP Customer Onboarding Automation workstream.
 
 ## Public Route
 - Page: `/signup/`
 - Submission endpoint: `/api/onboarding/signup`
 
 The browser should submit only to the same-origin MAP endpoint above. Public traffic should not post directly to a raw n8n webhook from the browser.
+
+## Current Production Intake Path
+- Intended primary route: `/api/onboarding/signup`
+- Current live fallback: `https://zgkxrlednyovuytaejok.supabase.co/functions/v1/homepage-signup-intake`
+
+Production currently falls back to the Supabase Edge Function because the Cloudflare Pages backend route still returns `404`. This is acceptable for now and is tracked as future cleanup.
+
+## Current Hardening
+- public intake endpoints now reject cross-site `Origin` / `Referer` values outside:
+  - `myautomationpartner.com`
+  - `www.myautomationpartner.com`
+  - `localhost`
+  - `127.0.0.1`
+- shared-secret validation is not used on the browser-facing fallback path because the browser cannot safely hold that secret
 
 ## Canonical Submitted Payload
 The signup page currently submits this JSON shape from the browser:
@@ -51,7 +65,7 @@ The signup page currently submits this JSON shape from the browser:
   - must remain blank
 
 ## Server-Side Intake Behavior
-The same-origin Pages Function at `functions/api/onboarding/signup.js` currently:
+The same-origin Pages Function at `functions/api/onboarding/signup.js` and the live Supabase Edge fallback currently share the same contract:
 
 1. accepts only `POST`
 2. normalizes and validates the payload
@@ -82,7 +96,7 @@ Current RPC argument mapping:
 - `p_flow_version <- homepage-signup-v1` by default
 
 ## Environment Variables
-The intake route expects these Cloudflare Pages / runtime variables:
+The intended same-origin intake route expects these Cloudflare Pages / runtime variables:
 
 ### Required now
 - `SUPABASE_URL`
@@ -94,13 +108,16 @@ The intake route expects these Cloudflare Pages / runtime variables:
 - `ONBOARDING_FORWARD_WEBHOOK_URL`
 - `ONBOARDING_FORWARD_WEBHOOK_SECRET`
 
-## Downstream Service Still Needed
-If `ONBOARDING_FORWARD_WEBHOOK_URL` is not configured, the homepage signup still creates the canonical Supabase intake record, but it does not yet hand off automatically into the next provisioning workflow.
+## Current Downstream State
+The live fallback endpoint is already forwarding into:
+- `https://n8n.myautomationpartner.com/webhook/client-onboarding-provisioning`
 
-That means the remaining downstream implementation is:
-- a secure internal webhook or service endpoint for n8n intake/provisioning handoff
-- workflow logic that consumes the signup/run identifiers returned from `create_onboarding_signup(...)`
-- any additional rate limiting, alerting, and operational logging MAP wants on the intake layer
+So production signup now creates the canonical Supabase intake record and queues downstream provisioning automatically.
+
+## Future Cleanup
+- keep the Supabase Edge fallback as the current production intake backend
+- repair/remove the broken Cloudflare Pages backend route at `/api/onboarding/signup` only if MAP later wants same-origin intake restored
+- revisit shared-secret validation only if the intake path becomes fully server-to-server later
 
 ## Recommended n8n Handoff Shape
 If MAP enables the forwarding webhook, the same-origin intake route will send:

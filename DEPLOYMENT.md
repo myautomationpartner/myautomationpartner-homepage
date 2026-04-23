@@ -212,6 +212,11 @@ Add these to your GitHub repository settings (**Settings → Secrets and variabl
 
 The homepage now includes a same-origin Pages Function at `/api/onboarding/signup`.
 
+Current production note:
+- the live site is currently accepting signup submissions through a Supabase Edge fallback because the Cloudflare Pages backend route still returns `404`
+- fallback endpoint: `https://zgkxrlednyovuytaejok.supabase.co/functions/v1/homepage-signup-intake`
+- future cleanup can either repair the Pages backend route or keep the Supabase Edge path as the permanent intake backend
+
 Set these environment variables in Cloudflare Pages before relying on live signup submission:
 
 | Variable | Required | Purpose |

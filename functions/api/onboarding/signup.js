@@ -8,6 +8,12 @@ const GOAL_VALUES = new Set([
   'operations_automation',
   'portal_rollout',
 ]);
+const ALLOWED_HOSTS = new Set([
+  'myautomationpartner.com',
+  'www.myautomationpartner.com',
+  'localhost',
+  '127.0.0.1',
+]);
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -109,6 +115,24 @@ function validatePayload(payload) {
   return '';
 }
 
+function hasAllowedRequestOrigin(request) {
+  const origin = request.headers.get('origin');
+  const referer = request.headers.get('referer');
+
+  const values = [origin, referer].filter(Boolean);
+  if (values.length === 0) {
+    return true;
+  }
+
+  return values.every((value) => {
+    try {
+      return ALLOWED_HOSTS.has(new URL(value).hostname);
+    } catch {
+      return false;
+    }
+  });
+}
+
 async function createSignupInSupabase(payload, env) {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
     throw new Error('MAP signup intake is not configured yet.');
@@ -198,6 +222,10 @@ export async function onRequestPost(context) {
   const requestId = crypto.randomUUID();
 
   try {
+    if (!hasAllowedRequestOrigin(context.request)) {
+      return json({ success: false, error: 'Invalid request origin.' }, 403);
+    }
+
     const rawText = await context.request.text();
     if (!rawText || rawText.length > 20000) {
       return json({ success: false, error: 'Invalid request body.' }, 400);
