@@ -86,7 +86,7 @@ wrangler pages deploy --project-name=my-automation-partner
 | **Build command** | (leave empty) |
 | **Build output directory** | / (root) |
 | **Root directory** | / (root) |
-| **Environment variables** | See section below |
+| **Environment variables** | See section below, especially the signup intake variables |
 
 ### Step 3: Domain Configuration
 
@@ -207,6 +207,26 @@ Add these to your GitHub repository settings (**Settings → Secrets and variabl
 ---
 
 ## Environment Configuration
+
+### Homepage Signup Intake
+
+The homepage now includes a same-origin Pages Function at `/api/onboarding/signup`.
+
+Set these environment variables in Cloudflare Pages before relying on live signup submission:
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `SUPABASE_URL` | Yes | Base URL for the live Supabase project |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Server-side key used to call `public.create_onboarding_signup(...)` |
+| `ONBOARDING_INTAKE_SOURCE` | No | Overrides the default `homepage_signup` intake source |
+| `ONBOARDING_FLOW_VERSION` | No | Overrides the default `homepage-signup-v1` flow version |
+| `ONBOARDING_FORWARD_WEBHOOK_URL` | No | Secure internal webhook for downstream n8n/provisioning handoff |
+| `ONBOARDING_FORWARD_WEBHOOK_SECRET` | No | Shared secret header value sent as `x-map-intake-secret` |
+
+Deployment note:
+- the browser should submit only to `/api/onboarding/signup`
+- do not point the public form directly at a raw n8n webhook from the browser
+- the same-origin intake route stores the canonical signup in Supabase first and only then performs any optional internal handoff
 
 ### Production Environment
 

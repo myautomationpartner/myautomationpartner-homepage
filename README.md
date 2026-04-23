@@ -15,7 +15,17 @@ A fully responsive marketing site showcasing:
 - **Benefits** — Why clients choose MAP (zero tech skills, expert support, custom workflows) with impact stats
 - **Features** — 6 detailed capability cards (all-in-one hub, hourly syncs, secure portals, automated digests, fast onboarding, scalability)
 - **Pricing** — 3 transparent plans (Starter $29, Growth $79, Agency $199)
-- **CTA & Footer** — Conversion points with company info & links
+- **Structured Signup CTA** — homepage CTAs now route to `/signup/` instead of `mailto:` conversion
+- **CTA & Footer** — Conversion points with company info, signup flow, and portal links
+
+### Public Signup (`/signup/`)
+A dedicated onboarding signup route for new MAP customers:
+- Structured intake form aligned to the live onboarding DB contract
+- Required fields: business name, contact name, email, website URL, selected plan, consent
+- Optional fields: phone, primary goal, preferred contact method, requested social platforms, notes
+- Client-side validation plus loading, success, and error states
+- Submits to a same-origin MAP endpoint at `/api/onboarding/signup`
+- Ready to forward internally to downstream provisioning once the secure webhook handoff is configured
 
 ### Client Login (`login.html`)
 Secure login portal for authenticated clients to access:
@@ -28,7 +38,13 @@ Secure login portal for authenticated clients to access:
 ```
 01-portal/
 ├── index.html              # Main landing page (production)
+├── signup/
+│   └── index.html          # Structured MAP signup experience
+├── functions/
+│   └── api/onboarding/
+│       └── signup.js       # Same-origin intake handler
 ├── login.html              # Client login page
+├── SIGNUP_INTAKE.md        # Canonical homepage payload + backend contract
 ├── README.md               # This file
 ├── .gitignore              # Git ignore rules
 └── assets/
@@ -49,7 +65,8 @@ Secure login portal for authenticated clients to access:
 - **Animations:** Smooth scrollbar, hover effects, pulse animations
 
 ## Connected Systems
-- **Zite/Fillout:** Backend database for authenticated client records (login.html)
+- **Supabase:** Canonical onboarding intake contract and authenticated portal data
+- **Cloudflare Pages Functions:** Same-origin homepage intake endpoint (`/api/onboarding/signup`)
 - **n8n:** Metrics collection & automation workflows
 - **Metricool:** Real-time Instagram, TikTok, Facebook metrics API
 - **Resend:** Email delivery for client digests
@@ -59,6 +76,7 @@ Secure login portal for authenticated clients to access:
 - **Domain:** myautomationpartner.com
 - **DNS:** Cloudflare
 - **Assets:** Served locally + Cloudflare R2 for additional resources
+- **Runtime config:** Cloudflare Pages environment variables for the signup intake route
 
 ## Client Access
 - Public landing page: No authentication required
@@ -73,6 +91,12 @@ Secure login portal for authenticated clients to access:
 - ✅ Enhanced responsive design for mobile/tablet
 - ✅ All sections fully styled and animated
 
+## Recent Updates (Apr 23, 2026)
+- ✅ Replaced homepage `mailto:` pricing conversions with `/signup/`
+- ✅ Added dedicated `/signup/` onboarding flow aligned to `db-agent/ONBOARDING_CONTRACT.md`
+- ✅ Added same-origin intake handler at `/api/onboarding/signup`
+- ✅ Documented payload, env vars, and downstream webhook assumptions in `SIGNUP_INTAKE.md`
+
 ## Development Notes
 - Pure HTML/CSS — no build step required
 - Self-contained — all styles in `<style>` tag
@@ -82,6 +106,6 @@ Secure login portal for authenticated clients to access:
 
 ---
 
-**Last Updated:** April 1, 2026
-**Status:** Production Ready
+**Last Updated:** April 23, 2026
+**Status:** Production-ready marketing site with structured signup intake path
 **Maintained By:** My Automation Partner Team

@@ -15,6 +15,7 @@
 - [x] Image assets properly sourced (local assets/)
 - [x] No external CDN dependencies for critical assets
 - [x] Secure form practices in login.html
+- [x] Public signup now submits through same-origin MAP intake, not direct browser-to-webhook posting
 
 ## Performance
 - [x] All CSS embedded (no blocking external stylesheets)
@@ -48,6 +49,13 @@
 - [x] Pricing (3 transparent plans)
 - [x] Footer (4 columns, legal links)
 
+### Signup Flow (`/signup/`)
+- [x] Dedicated routed signup experience
+- [x] Required field set aligned to onboarding DB contract
+- [x] Loading, success, and error states
+- [x] Consent capture
+- [x] Same-origin intake endpoint documented
+
 ### Client Login (login.html)
 - [x] Secure login form
 - [x] Password toggle functionality
@@ -62,7 +70,7 @@
 
 ## Deployment Ready
 - [x] All internal links working
-- [x] Forms configured (mail-to for contact)
+- [x] Conversion CTAs routed to structured signup flow
 - [x] Logo assets in place
 - [x] No build step required
 - [x] Can be deployed directly to Cloudflare Pages

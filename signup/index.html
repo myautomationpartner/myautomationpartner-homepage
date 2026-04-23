@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAP Signup | My Automation Partner</title>
+    <meta name="description" content="Start your My Automation Partner onboarding with a structured signup flow built for secure intake, branding review, and downstream provisioning.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold: #ffd700;
+            --gold-soft: rgba(255, 215, 0, 0.14);
+            --gold-border: rgba(255, 215, 0, 0.24);
+            --bg: #090909;
+            --bg-elevated: #121212;
+            --bg-panel: rgba(255, 255, 255, 0.03);
+            --line: rgba(255, 255, 255, 0.08);
+            --text: #f5f3ec;
+            --muted: #aba69b;
+            --success: #9fe1a8;
+            --danger: #ffd3d3;
+            --max: 1220px;
+            --radius-lg: 26px;
+            --radius-md: 18px;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(255, 215, 0, 0.12), transparent 30%),
+                linear-gradient(180deg, #0a0a0a 0%, #090909 45%, #050505 100%);
+            color: var(--text);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; }
+        code { color: var(--gold); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+        .shell {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            background: rgba(9, 9, 9, 0.84);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+        }
+
+        .header-inner {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .logo-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-wrap img {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.05;
+        }
+
+        .logo-text span:first-child {
+            font-size: 10px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .logo-text span:last-child {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-muted,
+        .button-primary,
+        .button-secondary {
+            border-radius: 999px;
+            text-decoration: none;
+            transition: 160ms ease;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .link-muted {
+            color: var(--muted);
+            padding: 10px 14px;
+        }
+
+        .link-muted:hover { color: var(--text); }
+
+        .button-primary,
+        .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background: var(--gold);
+            color: #080808;
+            padding: 12px 18px;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(255, 215, 0, 0.18);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--gold);
+            border-color: var(--gold-border);
+            padding: 12px 18px;
+        }
+
+        .button-secondary:hover {
+            background: var(--gold-soft);
+            border-color: rgba(255, 215, 0, 0.42);
+        }
+
+        main { padding: 48px 0 80px; }
+
+        .intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(340px, 0.98fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .hero-panel,
+        .form-panel {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-panel {
+            padding: 34px;
+            position: sticky;
+            top: 110px;
+            overflow: hidden;
+        }
+
+        .hero-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(255, 215, 0, 0.12), transparent 35%),
+                linear-gradient(135deg, rgba(255, 215, 0, 0.08), transparent 42%);
+            pointer-events: none;
+        }
+
+        .hero-panel > * { position: relative; z-index: 1; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--gold-soft);
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        h1 {
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+            margin-bottom: 18px;
+        }
+
+        .hero-copy {
+            max-width: 54ch;
+            color: var(--muted);
+            font-size: 18px;
+            margin-bottom: 28px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero-stat,
+        .proof-list {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .hero-stat { padding: 18px; }
+
+        .hero-stat strong {
+            display: block;
+            color: var(--gold);
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+
+        .hero-stat span {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .proof-list { padding: 22px; margin-top: 14px; }
+
+        .section-kicker {
+            display: block;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .proof-list ul,
+        .proof-list ol {
+            display: grid;
+            gap: 12px;
+            color: var(--muted);
+            padding-left: 18px;
+        }
+
+        .proof-list ol { padding-left: 20px; }
+
+        .form-panel { padding: 30px; }
+
+        .form-panel h2 {
+            font-size: clamp(28px, 3vw, 42px);
+            line-height: 1.02;
+            margin-bottom: 10px;
+        }
+
+        .form-panel > p {
+            color: var(--muted);
+            margin-bottom: 26px;
+            max-width: 60ch;
+        }
+
+        .status-banner {
+            display: none;
+            margin-bottom: 20px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid transparent;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .status-banner.show { display: block; }
+
+        .status-banner.success {
+            background: rgba(136, 221, 150, 0.08);
+            border-color: rgba(136, 221, 150, 0.22);
+            color: var(--success);
+        }
+
+        .status-banner.error {
+            background: rgba(255, 143, 143, 0.08);
+            border-color: rgba(255, 143, 143, 0.22);
+            color: var(--danger);
+        }
+
+        form {
+            display: grid;
+            gap: 22px;
+        }
+
+        .group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .group-title {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        label {
+            display: grid;
+            gap: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            appearance: none;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            padding: 14px 16px;
+            font: inherit;
+            transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+        }
+
+        textarea {
+            min-height: 132px;
+            resize: vertical;
+        }
+
+        input::placeholder,
+        textarea::placeholder { color: #7f7a70; }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.08);
+        }
+
+        .field-note {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .plan-grid,
+        .choice-grid,
+        .platform-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .plan-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .platform-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        .choice-card {
+            position: relative;
+        }
+
+        .choice-card input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .choice-body {
+            display: grid;
+            gap: 8px;
+            min-height: 100%;
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+            cursor: pointer;
+            transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+        }
+
+        .choice-card:hover .choice-body {
+            transform: translateY(-1px);
+            border-color: rgba(255, 215, 0, 0.24);
+        }
+
+        .choice-card input:checked + .choice-body {
+            border-color: rgba(255, 215, 0, 0.46);
+            background: rgba(255, 215, 0, 0.08);
+            box-shadow: inset 0 0 0 1px rgba(255, 215, 0, 0.12);
+        }
+
+        .choice-body strong {
+            font-size: 15px;
+            line-height: 1.2;
+        }
+
+        .choice-body small,
+        .choice-body span {
+            color: var(--muted);
+        }
+
+        .choice-body .plan-price {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .choice-body ul {
+            display: grid;
+            gap: 6px;
+            padding-left: 18px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .checkbox-row input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--gold);
+        }
+
+        .checkbox-row p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .actions .button-primary {
+            min-width: 190px;
+            min-height: 52px;
+            padding-inline: 22px;
+        }
+
+        .button-primary[disabled] {
+            opacity: 0.65;
+            cursor: wait;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(8, 8, 8, 0.24);
+            border-top-color: #080808;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+        }
+
+        .button-primary.loading .spinner { display: inline-block; }
+        .button-primary.loading .button-text { display: none; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footnote {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 28px 0 42px;
+        }
+
+        .footer-row {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            color: #7f7a70;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1080px) {
+            .intro { grid-template-columns: 1fr; }
+            .hero-panel { position: static; }
+        }
+
+        @media (max-width: 760px) {
+            .header-inner,
+            .shell,
+            .footer-row {
+                width: min(var(--max), calc(100% - 24px));
+            }
+
+            .header-inner { min-height: 72px; }
+            .header-actions { display: none; }
+            main { padding-top: 28px; }
+            .hero-panel,
+            .form-panel { padding: 22px; }
+            .hero-grid,
+            .field-grid,
+            .plan-grid,
+            .choice-grid,
+            .platform-grid { grid-template-columns: 1fr; }
+            .actions { align-items: stretch; }
+            .actions .button-primary,
+            .actions .button-secondary { width: 100%; }
+            .footer-row { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="/" class="logo-wrap">
+            <img alt="My Automation Partner Logo" src="/assets/MyAutomationPartner-Logo.png" width="46" height="46">
+            <div class="logo-text">
+                <span>My</span>
+                <span>Automation Partner</span>
+            </div>
+        </a>
+        <div class="header-actions">
+            <a href="/" class="link-muted">Homepage</a>
+            <a href="/login" class="link-muted">Client Portal</a>
+            <a href="mailto:billing@myautomationpartner.com" class="button-secondary">Billing Questions</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="shell intro">
+        <section class="hero-panel" aria-label="Signup overview">
+            <span class="eyebrow">Secure MAP Intake</span>
+            <h1>Start your MAP onboarding with one clean brief.</h1>
+            <p class="hero-copy">
+                This signup flow is designed to capture the public intake data MAP needs to review your website, choose the right plan, create your onboarding record, and hand off cleanly to provisioning.
+            </p>
+
+            <div class="hero-grid">
+                <div class="hero-stat">
+                    <strong>1</strong>
+                    <span>Structured intake route from the homepage</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>3</strong>
+                    <span>Plan tracks ready to route into onboarding</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>MAP</strong>
+                    <span>MAP-managed domain path, not a personal worker host</span>
+                </div>
+                <div class="hero-stat">
+                    <strong>RPC</strong>
+                    <span>Canonical DB contract ready for downstream provisioning</span>
+                </div>
+            </div>
+
+            <div class="proof-list">
+                <span class="section-kicker">What happens next</span>
+                <ol>
+                    <li>Your signup is validated through a MAP-owned intake endpoint.</li>
+                    <li>The canonical onboarding record is created for downstream review and provisioning.</li>
+                    <li>MAP can then continue branding extraction, portal setup, and workflow handoff.</li>
+                </ol>
+            </div>
+
+            <div class="proof-list">
+                <span class="section-kicker">What we collect</span>
+                <ul>
+                    <li>Business name, contact name, email, and website URL</li>
+                    <li>Selected MAP plan and optional business context</li>
+                    <li>Consent to review your business information for onboarding</li>
+                    <li>Optional goals, notes, and requested social platforms</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="form-panel">
+            <span class="section-kicker">Customer Signup</span>
+            <h2>Tell MAP how you want onboarding to start.</h2>
+            <p>
+                Choose the plan that best matches your current stage, then share the business details MAP needs for intake review. Required fields are aligned to the live onboarding contract.
+            </p>
+
+            <div id="statusSuccess" class="status-banner success" role="status" aria-live="polite"></div>
+            <div id="statusError" class="status-banner error" role="alert"></div>
+
+            <form id="signupForm" novalidate>
+                <div class="group">
+                    <span class="group-title">Choose your plan</span>
+                    <div class="plan-grid">
+                        <label class="choice-card">
+                            <input type="radio" name="selected_plan" value="starter">
+                            <div class="choice-body">
+                                <strong>Starter</strong>
+                                <span class="plan-price">$29/mo</span>
+                                <small>For early MAP rollouts that need the essentials.</small>
+                                <ul>
+                                    <li>Up to 3 social profiles</li>
+                                    <li>Weekly digest</li>
+                                    <li>Basic analytics</li>
+                                </ul>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="selected_plan" value="growth">
+                            <div class="choice-body">
+                                <strong>Growth</strong>
+                                <span class="plan-price">$79/mo</span>
+                                <small>Best for active teams that need automation plus visibility.</small>
+                                <ul>
+                                    <li>Advanced reporting</li>
+                                    <li>Client portal access</li>
+                                    <li>Priority support</li>
+                                </ul>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="selected_plan" value="agency">
+                            <div class="choice-body">
+                                <strong>Agency</strong>
+                                <span class="plan-price">$199/mo</span>
+                                <small>For MAP-managed white-label and custom workflow delivery.</small>
+                                <ul>
+                                    <li>Unlimited profiles</li>
+                                    <li>White-label portals</li>
+                                    <li>Dedicated account manager</li>
+                                </ul>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span class="group-title">Required business details</span>
+                    <div class="field-grid">
+                        <label>
+                            Business name
+                            <input id="business_name" name="business_name" type="text" autocomplete="organization" placeholder="Example Studio Co." required>
+                        </label>
+                        <label>
+                            Contact name
+                            <input id="contact_name" name="contact_name" type="text" autocomplete="name" placeholder="Jordan Lee" required>
+                        </label>
+                        <label>
+                            Email
+                            <input id="contact_email" name="contact_email" type="email" autocomplete="email" placeholder="jordan@example.com" required>
+                        </label>
+                        <label>
+                            Website URL
+                            <input id="website_url" name="website_url" type="url" autocomplete="url" placeholder="https://www.example.com" required>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <span class="group-title">Optional onboarding context</span>
+                    <div class="field-grid">
+                        <label>
+                            Phone
+                            <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555">
+                        </label>
+                        <label>
+                            Primary goal
+                            <select id="primary_goal" name="primary_goal">
+                                <option value="">Select your priority</option>
+                                <option value="social_growth">Social growth and visibility</option>
+                                <option value="client_reporting">Client reporting and analytics</option>
+                                <option value="content_scheduling">Content scheduling and approvals</option>
+                                <option value="operations_automation">Operations automation</option>
+                                <option value="portal_rollout">Portal rollout and onboarding</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="choice-grid">
+                        <label class="choice-card">
+                            <input type="radio" name="preferred_contact_method" value="" checked>
+                            <div class="choice-body">
+                                <strong>No preference</strong>
+                                <small>MAP can follow up using the best available contact path.</small>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="preferred_contact_method" value="email">
+                            <div class="choice-body">
+                                <strong>Email first</strong>
+                                <small>Best when approvals and details should stay documented.</small>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="radio" name="preferred_contact_method" value="phone">
+                            <div class="choice-body">
+                                <strong>Phone first</strong>
+                                <small>Best when you want a quick kickoff conversation.</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="platform-grid">
+                        <label class="choice-card">
+                            <input type="checkbox" name="social_platforms_requested" value="instagram">
+                            <div class="choice-body">
+                                <strong>Instagram</strong>
+                                <small>Visibility and performance tracking</small>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="checkbox" name="social_platforms_requested" value="facebook">
+                            <div class="choice-body">
+                                <strong>Facebook</strong>
+                                <small>Audience and page management</small>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="checkbox" name="social_platforms_requested" value="tiktok">
+                            <div class="choice-body">
+                                <strong>TikTok</strong>
+                                <small>Short-form publishing and insights</small>
+                            </div>
+                        </label>
+                        <label class="choice-card">
+                            <input type="checkbox" name="social_platforms_requested" value="youtube">
+                            <div class="choice-body">
+                                <strong>YouTube</strong>
+                                <small>Video publishing and reporting</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <label>
+                        Notes for the onboarding team
+                        <textarea id="notes" name="notes" placeholder="Tell MAP anything that will help with onboarding, branding, provisioning, or rollout timing."></textarea>
+                        <span class="field-note">Optional, but useful if you already know your launch timing, portal needs, or client-facing requirements.</span>
+                    </label>
+                </div>
+
+                <div class="group">
+                    <span class="group-title">Consent and review</span>
+                    <label class="checkbox-row">
+                        <input id="agreed_to_terms" name="agreed_to_terms" type="checkbox" required>
+                        <div>
+                            <strong>I confirm MAP can review the business information I submit here for onboarding and provisioning.</strong>
+                            <p>This includes contacting me about setup, reviewing my website for branding context, and creating an onboarding intake record for internal provisioning workflows.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <label class="sr-only" for="company_address">Leave this field empty</label>
+                <input id="company_address" name="company_address" type="text" class="sr-only" tabindex="-1" autocomplete="off">
+
+                <div class="actions">
+                    <button id="submitButton" type="submit" class="button-primary">
+                        <span class="spinner" aria-hidden="true"></span>
+                        <span class="button-text">Submit Signup</span>
+                    </button>
+                    <a href="/" class="button-secondary">Back to Homepage</a>
+                </div>
+
+                <p class="footnote">
+                    Submission target: <code>/api/onboarding/signup</code>. MAP stores the canonical intake record server-side and can optionally forward it into downstream provisioning when that secure webhook is configured.
+                </p>
+            </form>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-row">
+        <span>© 2026 My Automation Partner</span>
+        <span>Homepage signup is aligned with the MAP onboarding contract.</span>
+    </div>
+</footer>
+
+<script>
+    const form = document.getElementById('signupForm');
+    const successBanner = document.getElementById('statusSuccess');
+    const errorBanner = document.getElementById('statusError');
+    const submitButton = document.getElementById('submitButton');
+    const planInputs = Array.from(document.querySelectorAll('input[name="selected_plan"]'));
+
+    const planMeta = {
+        starter: 'Starter',
+        growth: 'Growth',
+        agency: 'Agency'
+    };
+
+    function setSelectedPlan(plan) {
+        const fallback = 'growth';
+        const nextPlan = Object.prototype.hasOwnProperty.call(planMeta, plan) ? plan : fallback;
+        const match = planInputs.find((input) => input.value === nextPlan);
+        if (match) {
+            match.checked = true;
+        }
+    }
+
+    function planFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('plan');
+    }
+
+    function normalizeUrl(value) {
+        const raw = String(value || '').trim();
+        if (!raw) return '';
+        return /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+    }
+
+    function showMessage(element, message) {
+        element.textContent = message;
+        element.classList.add('show');
+    }
+
+    function clearMessages() {
+        successBanner.classList.remove('show');
+        errorBanner.classList.remove('show');
+        successBanner.textContent = '';
+        errorBanner.textContent = '';
+    }
+
+    function setLoading(loading) {
+        submitButton.disabled = loading;
+        submitButton.classList.toggle('loading', loading);
+    }
+
+    function getSelectedPlatforms() {
+        return Array.from(document.querySelectorAll('input[name="social_platforms_requested"]:checked')).map((input) => input.value);
+    }
+
+    function validate(payload) {
+        if (!payload.selected_plan) return 'Choose a MAP plan before submitting.';
+        if (!payload.business_name) return 'Business name is required.';
+        if (!payload.contact_name) return 'Contact name is required.';
+        if (!payload.contact_email) return 'Email is required.';
+        if (!payload.website_url) return 'Website URL is required.';
+        if (!payload.agreed_to_terms) return 'You must confirm the consent acknowledgment before submitting.';
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(payload.contact_email)) return 'Enter a valid email address.';
+
+        try {
+            new URL(payload.website_url);
+        } catch {
+            return 'Enter a valid website URL.';
+        }
+
+        if (payload.company_address) return 'Submission blocked.';
+        return '';
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        clearMessages();
+
+        const payload = {
+            business_name: document.getElementById('business_name').value.trim(),
+            contact_name: document.getElementById('contact_name').value.trim(),
+            contact_email: document.getElementById('contact_email').value.trim(),
+            website_url: normalizeUrl(document.getElementById('website_url').value),
+            selected_plan: (planInputs.find((input) => input.checked) || {}).value || '',
+            phone: document.getElementById('phone').value.trim(),
+            primary_goal: document.getElementById('primary_goal').value,
+            preferred_contact_method: (document.querySelector('input[name="preferred_contact_method"]:checked') || {}).value || '',
+            social_platforms_requested: getSelectedPlatforms(),
+            notes: document.getElementById('notes').value.trim(),
+            agreed_to_terms: document.getElementById('agreed_to_terms').checked,
+            company_address: document.getElementById('company_address').value.trim()
+        };
+
+        const validationError = validate(payload);
+        if (validationError) {
+            showMessage(errorBanner, validationError);
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await fetch('/api/onboarding/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            let data = {};
+            try {
+                data = await response.json();
+            } catch {
+                throw new Error('Unexpected response from the signup endpoint.');
+            }
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'MAP could not submit your signup right now.');
+            }
+
+            const planLabel = planMeta[payload.selected_plan] || payload.selected_plan;
+            const nextStep = data.manualAttentionRequired
+                ? 'MAP received your request and flagged it for manual review before provisioning continues.'
+                : 'MAP received your request and created the onboarding intake record successfully.';
+            const downstreamNote = data.queuedForProvisioning
+                ? 'The downstream provisioning handoff is configured for this environment.'
+                : 'Downstream provisioning will continue once the secure internal handoff is enabled for this environment.';
+
+            showMessage(
+                successBanner,
+                `${nextStep} Selected plan: ${planLabel}. Signup ID: ${data.signupId}. ${downstreamNote}`
+            );
+
+            form.reset();
+            setSelectedPlan(payload.selected_plan);
+        } catch (error) {
+            showMessage(errorBanner, error.message || 'MAP could not submit your signup right now.');
+        } finally {
+            setLoading(false);
+        }
+    });
+
+    setSelectedPlan(planFromQuery());
+</script>
+</body>
+</html>
