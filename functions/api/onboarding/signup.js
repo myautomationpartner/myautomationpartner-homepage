@@ -1,4 +1,4 @@
-const PLAN_VALUES = new Set(['starter', 'growth', 'agency']);
+const CANONICAL_PLAN = 'starter';
 const CONTACT_METHOD_VALUES = new Set(['', 'email', 'phone']);
 const GOAL_VALUES = new Set([
   '',
@@ -64,7 +64,7 @@ function normalizeEmail(value) {
 
 function normalizePayload(raw) {
   const preferredContactMethod = trimText(raw.preferred_contact_method, 20).toLowerCase();
-  const selectedPlan = trimText(raw.selected_plan, 40).toLowerCase();
+  const requestedPlan = trimText(raw.selected_plan, 40).toLowerCase();
   const primaryGoal = trimText(raw.primary_goal, 40).toLowerCase();
 
   return {
@@ -72,7 +72,7 @@ function normalizePayload(raw) {
     contact_name: trimText(raw.contact_name, 160),
     contact_email: normalizeEmail(raw.contact_email),
     website_url: normalizeUrl(raw.website_url),
-    selected_plan: selectedPlan,
+    selected_plan: requestedPlan || CANONICAL_PLAN,
     phone: trimText(raw.phone, 40),
     primary_goal: primaryGoal,
     preferred_contact_method: preferredContactMethod,
@@ -98,9 +98,6 @@ function validatePayload(payload) {
   }
   if (!payload.website_url) {
     return 'website_url must be valid';
-  }
-  if (!PLAN_VALUES.has(payload.selected_plan)) {
-    return 'selected_plan must be one of starter, growth, or agency';
   }
   if (!payload.agreed_to_terms) {
     return 'agreed_to_terms must be true';

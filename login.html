@@ -564,13 +564,12 @@
 
 <!-- ===== FOOTER ===== -->
 <footer>
-    <p>&copy; 2026 <a href="/">My Automation Partner</a> &nbsp;&middot;&nbsp; Secure login powered by n8n</p>
+    <p>&copy; 2026 <a href="/">My Automation Partner</a> &nbsp;&middot;&nbsp; Secure login powered by Supabase</p>
 </footer>
 
 <script>
     // ===== CONFIG =====
-    // Update this URL once your n8n webhook is live
-    const WEBHOOK_URL = 'https://n8n.myautomationpartner.com/webhook/portal-login';
+    const LOGIN_ENDPOINT = 'https://zgkxrlednyovuytaejok.supabase.co/functions/v1/portal-login-intake';
 
     // ===== PASSWORD VISIBILITY TOGGLE =====
     const togglePw = document.getElementById('togglePw');
@@ -647,7 +646,7 @@
         setLoading(true);
 
         try {
-            const response = await fetch(WEBHOOK_URL, {
+            const response = await fetch(LOGIN_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -660,12 +659,18 @@
                 throw new Error('Unexpected server response. Please try again.');
             }
 
-            if (response.ok && data.success && data.redirectUrl) {
+            if (response.ok && data.success && data.redirectUrl && data.accessToken && data.refreshToken) {
                 // Success — show message then redirect
                 showSuccess();
                 failedAttempts = 0;
                 setTimeout(() => {
-                    window.location.href = data.redirectUrl;
+                    const redirectUrl = new URL(data.redirectUrl);
+                    redirectUrl.hash = new URLSearchParams({
+                        access_token: data.accessToken,
+                        refresh_token: data.refreshToken,
+                        type: 'login'
+                    }).toString();
+                    window.location.href = redirectUrl.toString();
                 }, 1200);
             } else {
                 // Failed login
