@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAP Signup | My Automation Partner</title>
-    <meta name="description" content="Start your My Automation Partner onboarding with a structured signup flow built for secure intake, branding review, and downstream provisioning.">
+    <meta name="description" content="Start your 30-day free trial with My Automation Partner. No payment information required at signup. Just $25/month if you continue after the trial.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -595,56 +595,55 @@
 <main>
     <div class="shell intro">
         <section class="hero-panel" aria-label="Signup overview">
-            <span class="eyebrow">Secure MAP Intake</span>
-            <h1>Start your MAP onboarding with one clean brief.</h1>
+            <span class="eyebrow">30-Day Free Trial</span>
+            <h1>Start your free trial, then pay only if you keep going.</h1>
             <p class="hero-copy">
-                This signup flow is designed to capture the public intake data MAP needs to review your website, choose the right plan, create your onboarding record, and hand off cleanly to provisioning.
+                Start with a simple setup form. No card is required today. If you decide to continue after 30 days, your subscription is just $25 per month. We will send a reminder 5 days before the trial ends.
             </p>
 
             <div class="hero-grid">
                 <div class="hero-stat">
-                    <strong>1</strong>
-                    <span>Structured intake route from the homepage</span>
+                    <strong>30</strong>
+                    <span>Full days to try the portal before payment is needed</span>
                 </div>
                 <div class="hero-stat">
-                    <strong>3</strong>
-                    <span>Plan tracks ready to route into onboarding</span>
+                    <strong>$25</strong>
+                    <span>Simple monthly subscription after the free trial</span>
                 </div>
                 <div class="hero-stat">
-                    <strong>MAP</strong>
-                    <span>MAP-managed domain path, not a personal worker host</span>
+                    <strong>0</strong>
+                    <span>Payment details required to start your signup</span>
                 </div>
                 <div class="hero-stat">
-                    <strong>RPC</strong>
-                    <span>Canonical DB contract ready for downstream provisioning</span>
+                    <strong>5</strong>
+                    <span>Days notice before your trial switches to payment-needed</span>
                 </div>
             </div>
 
             <div class="proof-list">
-                <span class="section-kicker">What happens next</span>
+                <span class="section-kicker">How it works</span>
                 <ol>
-                    <li>Your signup is validated through a MAP-owned intake endpoint.</li>
-                    <li>The canonical onboarding record is created for downstream review and provisioning.</li>
-                    <li>MAP can then continue branding extraction, portal setup, and workflow handoff.</li>
+                    <li>Send us your business and website details.</li>
+                    <li>We review your brand and get your portal started.</li>
+                    <li>You use the service free for 30 days before deciding whether to continue.</li>
                 </ol>
             </div>
 
             <div class="proof-list">
                 <span class="section-kicker">What we collect</span>
                 <ul>
-                    <li>Business name, contact name, email, and website URL</li>
-                    <li>Selected MAP plan and optional business context</li>
-                    <li>Consent to review your business information for onboarding</li>
-                    <li>Optional goals, notes, and requested social platforms</li>
+                    <li>Business name, contact name, email, and website</li>
+                    <li>A few notes about what you need help with</li>
+                    <li>Your approval for us to review the business details you submit</li>
                 </ul>
             </div>
         </section>
 
         <section class="form-panel">
             <span class="section-kicker">Customer Signup</span>
-            <h2>Tell MAP how you want onboarding to start.</h2>
+            <h2>Start your 30-day free trial.</h2>
             <p>
-                Choose the plan that best matches your current stage, then share the business details MAP needs for intake review. Required fields are aligned to the live onboarding contract.
+                There is only one subscription: $25 per month after the trial. No payment information is required today.
             </p>
 
             <div id="statusSuccess" class="status-banner success" role="status" aria-live="polite"></div>
@@ -652,47 +651,12 @@
 
             <form id="signupForm" novalidate>
                 <div class="group">
-                    <span class="group-title">Choose your plan</span>
-                    <div class="plan-grid">
-                        <label class="choice-card">
-                            <input type="radio" name="selected_plan" value="starter">
-                            <div class="choice-body">
-                                <strong>Starter</strong>
-                                <span class="plan-price">$29/mo</span>
-                                <small>For early MAP rollouts that need the essentials.</small>
-                                <ul>
-                                    <li>Up to 3 social profiles</li>
-                                    <li>Weekly digest</li>
-                                    <li>Basic analytics</li>
-                                </ul>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="radio" name="selected_plan" value="growth">
-                            <div class="choice-body">
-                                <strong>Growth</strong>
-                                <span class="plan-price">$79/mo</span>
-                                <small>Best for active teams that need automation plus visibility.</small>
-                                <ul>
-                                    <li>Advanced reporting</li>
-                                    <li>Client portal access</li>
-                                    <li>Priority support</li>
-                                </ul>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="radio" name="selected_plan" value="agency">
-                            <div class="choice-body">
-                                <strong>Agency</strong>
-                                <span class="plan-price">$199/mo</span>
-                                <small>For MAP-managed white-label and custom workflow delivery.</small>
-                                <ul>
-                                    <li>Unlimited profiles</li>
-                                    <li>White-label portals</li>
-                                    <li>Dedicated account manager</li>
-                                </ul>
-                            </div>
-                        </label>
+                    <span class="group-title">Subscription</span>
+                    <input id="selected_plan" name="selected_plan" type="hidden" value="starter">
+                    <div class="choice-body" aria-label="Single MAP subscription">
+                        <strong>My Automation Partner Subscription</strong>
+                        <span class="plan-price">$25/mo</span>
+                        <small>Starts only if you continue after the 30-day free trial.</small>
                     </div>
                 </div>
 
@@ -719,84 +683,11 @@
                 </div>
 
                 <div class="group">
-                    <span class="group-title">Optional onboarding context</span>
-                    <div class="field-grid">
-                        <label>
-                            Phone
-                            <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555">
-                        </label>
-                        <label>
-                            Primary goal
-                            <select id="primary_goal" name="primary_goal">
-                                <option value="">Select your priority</option>
-                                <option value="social_growth">Social growth and visibility</option>
-                                <option value="client_reporting">Client reporting and analytics</option>
-                                <option value="content_scheduling">Content scheduling and approvals</option>
-                                <option value="operations_automation">Operations automation</option>
-                                <option value="portal_rollout">Portal rollout and onboarding</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="choice-grid">
-                        <label class="choice-card">
-                            <input type="radio" name="preferred_contact_method" value="" checked>
-                            <div class="choice-body">
-                                <strong>No preference</strong>
-                                <small>MAP can follow up using the best available contact path.</small>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="radio" name="preferred_contact_method" value="email">
-                            <div class="choice-body">
-                                <strong>Email first</strong>
-                                <small>Best when approvals and details should stay documented.</small>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="radio" name="preferred_contact_method" value="phone">
-                            <div class="choice-body">
-                                <strong>Phone first</strong>
-                                <small>Best when you want a quick kickoff conversation.</small>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="platform-grid">
-                        <label class="choice-card">
-                            <input type="checkbox" name="social_platforms_requested" value="instagram">
-                            <div class="choice-body">
-                                <strong>Instagram</strong>
-                                <small>Visibility and performance tracking</small>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="checkbox" name="social_platforms_requested" value="facebook">
-                            <div class="choice-body">
-                                <strong>Facebook</strong>
-                                <small>Audience and page management</small>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="checkbox" name="social_platforms_requested" value="tiktok">
-                            <div class="choice-body">
-                                <strong>TikTok</strong>
-                                <small>Short-form publishing and insights</small>
-                            </div>
-                        </label>
-                        <label class="choice-card">
-                            <input type="checkbox" name="social_platforms_requested" value="youtube">
-                            <div class="choice-body">
-                                <strong>YouTube</strong>
-                                <small>Video publishing and reporting</small>
-                            </div>
-                        </label>
-                    </div>
-
+                    <span class="group-title">Optional details</span>
                     <label>
-                        Notes for the onboarding team
-                        <textarea id="notes" name="notes" placeholder="Tell MAP anything that will help with onboarding, branding, provisioning, or rollout timing."></textarea>
-                        <span class="field-note">Optional, but useful if you already know your launch timing, portal needs, or client-facing requirements.</span>
+                        Notes
+                        <textarea id="notes" name="notes" placeholder="Tell us anything helpful about your business, goals, or timing."></textarea>
+                        <span class="field-note">Optional. Use this if there is anything you want us to know before setup starts.</span>
                     </label>
                 </div>
 
@@ -805,8 +696,8 @@
                     <label class="checkbox-row">
                         <input id="agreed_to_terms" name="agreed_to_terms" type="checkbox" required>
                         <div>
-                            <strong>I confirm MAP can review the business information I submit here for onboarding and provisioning.</strong>
-                            <p>This includes contacting me about setup, reviewing my website for branding context, and creating an onboarding intake record for internal provisioning workflows.</p>
+                            <strong>I confirm MAP can review the business information I submit here to set up my account and portal.</strong>
+                            <p>This includes contacting me about setup and reviewing my website for branding and onboarding.</p>
                         </div>
                     </label>
                 </div>
@@ -817,13 +708,13 @@
                 <div class="actions">
                     <button id="submitButton" type="submit" class="button-primary">
                         <span class="spinner" aria-hidden="true"></span>
-                        <span class="button-text">Submit Signup</span>
+                        <span class="button-text">Start 30-Day Trial</span>
                     </button>
                     <a href="/" class="button-secondary">Back to Homepage</a>
                 </div>
 
                 <p class="footnote">
-                    Submission target: <code>/api/onboarding/signup</code>. MAP stores the canonical intake record server-side and can optionally forward it into downstream provisioning when that secure webhook is configured.
+                    No payment information is collected on this form. If you continue after your 30-day trial, billing is $25 per month.
                 </p>
             </form>
         </section>
@@ -833,7 +724,7 @@
 <footer>
     <div class="footer-row">
         <span>© 2026 My Automation Partner</span>
-        <span>Homepage signup is aligned with the MAP onboarding contract.</span>
+        <span>Simple signup, 30-day trial, then $25/month only if you continue.</span>
     </div>
 </footer>
 
@@ -843,21 +734,16 @@
     const successBanner = document.getElementById('statusSuccess');
     const errorBanner = document.getElementById('statusError');
     const submitButton = document.getElementById('submitButton');
-    const planInputs = Array.from(document.querySelectorAll('input[name="selected_plan"]'));
+    const selectedPlanInput = document.getElementById('selected_plan');
 
     const planMeta = {
-        starter: 'Starter',
-        growth: 'Growth',
-        agency: 'Agency'
+        starter: 'MAP Monthly Subscription'
     };
 
     function setSelectedPlan(plan) {
-        const fallback = 'growth';
-        const nextPlan = Object.prototype.hasOwnProperty.call(planMeta, plan) ? plan : fallback;
-        const match = planInputs.find((input) => input.value === nextPlan);
-        if (match) {
-            match.checked = true;
-        }
+        if (!selectedPlanInput) return;
+        const nextPlan = Object.prototype.hasOwnProperty.call(planMeta, plan) ? plan : 'starter';
+        selectedPlanInput.value = nextPlan;
     }
 
     function planFromQuery() {
@@ -921,12 +807,12 @@
         submitButton.classList.toggle('loading', loading);
     }
 
-    function getSelectedPlatforms() {
-        return Array.from(document.querySelectorAll('input[name="social_platforms_requested"]:checked')).map((input) => input.value);
+    function getValue(id) {
+        const element = document.getElementById(id);
+        return element ? element.value.trim() : '';
     }
 
     function validate(payload) {
-        if (!payload.selected_plan) return 'Choose a MAP plan before submitting.';
         if (!payload.business_name) return 'Business name is required.';
         if (!payload.contact_name) return 'Contact name is required.';
         if (!payload.contact_email) return 'Email is required.';
@@ -951,18 +837,18 @@
         clearMessages();
 
         const payload = {
-            business_name: document.getElementById('business_name').value.trim(),
-            contact_name: document.getElementById('contact_name').value.trim(),
-            contact_email: document.getElementById('contact_email').value.trim(),
+            business_name: getValue('business_name'),
+            contact_name: getValue('contact_name'),
+            contact_email: getValue('contact_email'),
             website_url: normalizeUrl(document.getElementById('website_url').value),
-            selected_plan: (planInputs.find((input) => input.checked) || {}).value || '',
-            phone: document.getElementById('phone').value.trim(),
-            primary_goal: document.getElementById('primary_goal').value,
-            preferred_contact_method: (document.querySelector('input[name="preferred_contact_method"]:checked') || {}).value || '',
-            social_platforms_requested: getSelectedPlatforms(),
-            notes: document.getElementById('notes').value.trim(),
+            selected_plan: selectedPlanInput ? selectedPlanInput.value : 'starter',
+            phone: '',
+            primary_goal: '',
+            preferred_contact_method: '',
+            social_platforms_requested: [],
+            notes: getValue('notes'),
             agreed_to_terms: document.getElementById('agreed_to_terms').checked,
-            company_address: document.getElementById('company_address').value.trim()
+            company_address: getValue('company_address')
         };
 
         const validationError = validate(payload);
@@ -982,18 +868,16 @@
 
             const planLabel = planMeta[payload.selected_plan] || payload.selected_plan;
             const nextStep = data.manualAttentionRequired
-                ? 'MAP received your request and flagged it for manual review before provisioning continues.'
-                : 'MAP received your request and created the onboarding intake record successfully.';
-            const downstreamNote = data.queuedForProvisioning
-                ? 'The downstream provisioning handoff is configured for this environment.'
-                : 'Downstream provisioning will continue once the secure internal handoff is enabled for this environment.';
+                ? 'We received your request and flagged it for a quick manual review before setup continues.'
+                : 'We received your request and your free-trial setup is in motion.';
+            const trialNote = 'No payment information was required today. We will remind you 5 days before the 30-day trial ends.';
             const intakeNote = viaFallback
-                ? 'This submission used the live MAP intake fallback while the homepage backend route is being finalized.'
-                : 'This submission used the homepage intake route directly.';
+                ? 'Your submission was accepted through the live signup service.'
+                : 'Your submission was accepted successfully.';
 
             showMessage(
                 successBanner,
-                `${nextStep} Selected plan: ${planLabel}. Signup ID: ${data.signupId}. ${downstreamNote} ${intakeNote}`
+                `${nextStep} Plan: ${planLabel}. ${trialNote} ${intakeNote}`
             );
 
             form.reset();

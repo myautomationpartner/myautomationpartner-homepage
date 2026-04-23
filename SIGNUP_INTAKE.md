@@ -16,6 +16,11 @@ The browser should submit only to the same-origin MAP endpoint above. Public tra
 
 Production currently falls back to the Supabase Edge Function because the Cloudflare Pages backend route still returns `404`. This is acceptable for now and is tracked as future cleanup.
 
+The public signup experience is intentionally simplified to a single subscription:
+- 30-day free trial
+- no card required at signup
+- `$25/month` only if the customer continues after the trial
+
 ## Current Hardening
 - public intake endpoints now reject cross-site `Origin` / `Referer` values outside:
   - `myautomationpartner.com`
@@ -33,12 +38,12 @@ The signup page currently submits this JSON shape from the browser:
   "contact_name": "Jordan Lee",
   "contact_email": "jordan@example.com",
   "website_url": "https://www.example.com",
-  "selected_plan": "growth",
-  "phone": "(555) 555-5555",
-  "primary_goal": "portal_rollout",
-  "preferred_contact_method": "email",
-  "social_platforms_requested": ["instagram", "facebook"],
-  "notes": "Need a MAP-managed portal domain for launch.",
+  "selected_plan": "starter",
+  "phone": "",
+  "primary_goal": "",
+  "preferred_contact_method": "",
+  "social_platforms_requested": [],
+  "notes": "Need help getting our portal set up.",
   "agreed_to_terms": true,
   "company_address": ""
 }
@@ -53,11 +58,13 @@ The signup page currently submits this JSON shape from the browser:
 - `agreed_to_terms`
 
 ### Optional fields currently collected
+- `notes`
+
+### Optional fields still supported by the backend but not currently shown in the public form
 - `phone`
 - `primary_goal`
 - `preferred_contact_method`
 - `social_platforms_requested`
-- `notes`
 
 ### Bot-check field
 - `company_address`
@@ -113,6 +120,12 @@ The live fallback endpoint is already forwarding into:
 - `https://n8n.myautomationpartner.com/webhook/client-onboarding-provisioning`
 
 So production signup now creates the canonical Supabase intake record and queues downstream provisioning automatically.
+
+## Current Billing Posture
+- signup currently collects no payment information
+- this public form is intended to start a 30-day free trial without card collection
+- MAP should send a billing reminder when 5 days remain in the trial
+- payment collection belongs in a later Stripe Checkout step, not in the initial homepage signup payload
 
 ## Future Cleanup
 - keep the Supabase Edge fallback as the current production intake backend
