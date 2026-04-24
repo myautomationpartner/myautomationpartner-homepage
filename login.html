@@ -13,19 +13,21 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #f5efe8;
-            --surface: rgba(255,255,255,0.78);
-            --surface-strong: rgba(255,255,255,0.9);
-            --line: rgba(24,39,51,0.1);
-            --text: #182733;
-            --muted: #61717d;
+            --bg: #edf3fb;
+            --surface: rgba(255,255,255,0.68);
+            --surface-strong: rgba(255,255,255,0.82);
+            --line: rgba(57,75,97,0.12);
+            --text: #15202c;
+            --muted: #617185;
             --danger: #c75656;
             --danger-bg: rgba(199, 86, 86, 0.08);
-            --success: #246b66;
-            --success-bg: rgba(58, 163, 154, 0.12);
-            --accent: #3aa39a;
-            --accent-warm: #d9915c;
+            --success: #256e61;
+            --success-bg: rgba(121, 216, 197, 0.18);
+            --accent: #3b82f6;
+            --accent-soft: #79a8ff;
+            --accent-mint: #79d8c5;
             --max: 1120px;
+            --shadow: 0 26px 70px rgba(24,39,51,0.12);
         }
 
         body {
@@ -33,9 +35,10 @@
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(58, 163, 154, 0.14), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(217, 145, 92, 0.12), transparent 22%),
-                linear-gradient(180deg, #fcfaf5 0%, #f4ede4 100%);
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 23%),
+                radial-gradient(circle at top right, rgba(121, 216, 197, 0.2), transparent 18%),
+                radial-gradient(circle at bottom right, rgba(133, 151, 255, 0.18), transparent 20%),
+                linear-gradient(180deg, #f7fbff 0%, #edf3fb 58%, #e7edf7 100%);
             -webkit-font-smoothing: antialiased;
             display: flex;
             flex-direction: column;
@@ -44,9 +47,9 @@
         a { color: inherit; text-decoration: none; }
 
         header {
-            border-bottom: 1px solid rgba(24,39,51,0.08);
-            background: rgba(251,248,242,0.72);
-            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(57,75,97,0.1);
+            background: rgba(247,251,255,0.68);
+            backdrop-filter: blur(24px) saturate(140%);
         }
 
         .header-inner,
@@ -76,7 +79,7 @@
             padding: 6px;
             border-radius: 18px;
             background: rgba(255,255,255,0.94);
-            border: 1px solid rgba(24,39,51,0.08);
+            border: 1px solid rgba(57,75,97,0.1);
             box-shadow: 0 14px 32px rgba(24,39,51,0.08);
         }
 
@@ -103,8 +106,9 @@
             font-size: 14px;
             font-weight: 700;
             color: var(--muted);
-            background: rgba(255,255,255,0.56);
-            border: 1px solid rgba(24,39,51,0.08);
+            background: rgba(255,255,255,0.58);
+            border: 1px solid rgba(57,75,97,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
         }
 
         main {
@@ -126,8 +130,8 @@
             border-radius: 34px;
             border: 1px solid var(--line);
             background: var(--surface);
-            box-shadow: 0 24px 60px rgba(24,39,51,0.08);
-            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(26px) saturate(145%);
         }
 
         .panel {
@@ -141,9 +145,9 @@
             gap: 10px;
             padding: 8px 14px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.8);
-            border: 1px solid rgba(24,39,51,0.1);
-            color: #246b66;
+            background: rgba(255,255,255,0.78);
+            border: 1px solid rgba(57,75,97,0.1);
+            color: #275fd5;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.12em;
@@ -156,13 +160,13 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            background: linear-gradient(135deg, var(--accent), var(--accent-mint));
         }
 
         h1, h2 {
             font-family: 'Fraunces', Georgia, serif;
             letter-spacing: -0.05em;
-            color: #14212c;
+            color: #101b28;
         }
 
         h1 {
@@ -180,17 +184,49 @@
             margin-bottom: 22px;
         }
 
+        .visual-stack {
+            display: grid;
+            gap: 14px;
+        }
+
         .visual {
             overflow: hidden;
             border-radius: 28px;
-            border: 1px solid rgba(24,39,51,0.08);
-            background: #f7f4ee;
+            border: 1px solid rgba(57,75,97,0.1);
+            background: rgba(255,255,255,0.82);
+            box-shadow: 0 20px 44px rgba(24,39,51,0.1);
+        }
+
+        .visual-topbar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(57,75,97,0.08);
+            background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(244,248,255,0.72));
+        }
+
+        .visual-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(137, 152, 173, 0.72);
+        }
+
+        .visual-title {
+            margin-left: auto;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6c7d92;
+            font-weight: 800;
         }
 
         .visual img {
             width: 100%;
-            aspect-ratio: 1.08 / 1;
+            aspect-ratio: 1.4 / 1;
             object-fit: cover;
+            object-position: top center;
         }
 
         .proof-row {
@@ -203,8 +239,9 @@
         .proof-card {
             padding: 16px;
             border-radius: 20px;
-            background: rgba(255,255,255,0.84);
-            border: 1px solid rgba(24,39,51,0.08);
+            background: rgba(255,255,255,0.74);
+            border: 1px solid rgba(57,75,97,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.64);
         }
 
         .proof-card strong {
@@ -283,7 +320,7 @@
             width: 100%;
             border: 1px solid rgba(24,39,51,0.12);
             border-radius: 18px;
-            background: rgba(255,255,255,0.82);
+            background: rgba(255,255,255,0.78);
             color: var(--text);
             padding: 15px 16px;
             font: inherit;
@@ -294,8 +331,8 @@
         input::placeholder { color: #83909a; }
 
         input:focus {
-            border-color: rgba(58, 163, 154, 0.5);
-            box-shadow: 0 0 0 4px rgba(58, 163, 154, 0.12);
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
             background: rgba(255,255,255,0.96);
         }
 
@@ -333,11 +370,11 @@
             padding: 15px 22px;
             font: inherit;
             font-weight: 800;
-            color: #f6f3ee;
-            background: #182733;
+            color: #f7fbff;
+            background: linear-gradient(180deg, #243447 0%, #16212f 100%);
             cursor: pointer;
             transition: 160ms ease;
-            box-shadow: 0 14px 28px rgba(24,39,51,0.18);
+            box-shadow: 0 18px 34px rgba(21,32,44,0.22);
         }
 
         .btn-login:hover:not(:disabled) { transform: translateY(-1px); }
@@ -425,8 +462,26 @@
                 <h1>Sign in to your portal workspace.</h1>
                 <p class="lead">Everything lives in one place now: planning, approvals, documents, settings, and billing-aware access for your account.</p>
 
-                <div class="visual">
-                    <img src="/assets/portal-overview.png" alt="Portal workspace preview">
+                <div class="visual-stack">
+                    <div class="visual">
+                        <div class="visual-topbar">
+                            <span class="visual-dot"></span>
+                            <span class="visual-dot"></span>
+                            <span class="visual-dot"></span>
+                            <span class="visual-title">Publishing</span>
+                        </div>
+                        <img src="/assets/portal-publishing-live.png" alt="Portal publishing preview">
+                    </div>
+
+                    <div class="visual">
+                        <div class="visual-topbar">
+                            <span class="visual-dot"></span>
+                            <span class="visual-dot"></span>
+                            <span class="visual-dot"></span>
+                            <span class="visual-title">Documents</span>
+                        </div>
+                        <img src="/assets/portal-documents-live.png" alt="Portal documents preview">
+                    </div>
                 </div>
 
                 <div class="proof-row">

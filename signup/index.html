@@ -12,16 +12,20 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #f6f1ea;
-            --surface: rgba(255,255,255,0.76);
-            --line: rgba(24, 39, 51, 0.1);
-            --text: #182733;
-            --muted: #61717d;
-            --accent: #3aa39a;
-            --accent-warm: #d9915c;
+            --bg: #edf3fb;
+            --surface: rgba(255,255,255,0.68);
+            --surface-strong: rgba(255,255,255,0.84);
+            --line: rgba(57, 75, 97, 0.12);
+            --text: #15202c;
+            --muted: #617185;
+            --accent: #3b82f6;
+            --accent-soft: #79a8ff;
+            --accent-mint: #79d8c5;
+            --shadow: 0 26px 70px rgba(24, 39, 51, 0.12);
             --max: 1080px;
             --radius-xl: 34px;
             --radius-lg: 24px;
+            --radius-md: 18px;
         }
 
         body {
@@ -29,18 +33,19 @@
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(58, 163, 154, 0.16), transparent 26%),
-                radial-gradient(circle at top right, rgba(217, 145, 92, 0.12), transparent 20%),
-                linear-gradient(180deg, #fbf8f2 0%, #f2ebe1 100%);
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 24%),
+                radial-gradient(circle at top right, rgba(121, 216, 197, 0.2), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(133, 151, 255, 0.16), transparent 22%),
+                linear-gradient(180deg, #f7fbff 0%, #edf3fb 56%, #e7edf7 100%);
             -webkit-font-smoothing: antialiased;
         }
 
         a { color: inherit; text-decoration: none; }
 
         header {
-            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
-            background: rgba(251, 248, 242, 0.72);
-            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(57, 75, 97, 0.1);
+            background: rgba(247, 251, 255, 0.68);
+            backdrop-filter: blur(24px) saturate(140%);
         }
 
         .header-inner,
@@ -70,7 +75,7 @@
             padding: 6px;
             border-radius: 18px;
             background: rgba(255,255,255,0.92);
-            border: 1px solid rgba(24, 39, 51, 0.08);
+            border: 1px solid rgba(57, 75, 97, 0.1);
             box-shadow: 0 14px 32px rgba(24, 39, 51, 0.08);
         }
 
@@ -97,8 +102,9 @@
             font-size: 14px;
             font-weight: 700;
             color: var(--muted);
-            background: rgba(255,255,255,0.56);
-            border: 1px solid rgba(24,39,51,0.08);
+            background: rgba(255,255,255,0.58);
+            border: 1px solid rgba(57,75,97,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
         }
 
         main {
@@ -117,8 +123,8 @@
             border-radius: var(--radius-xl);
             border: 1px solid var(--line);
             background: var(--surface);
-            box-shadow: 0 24px 60px rgba(24, 39, 51, 0.08);
-            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(26px) saturate(145%);
         }
 
         .eyebrow {
@@ -128,8 +134,8 @@
             padding: 8px 14px;
             border-radius: 999px;
             background: rgba(255,255,255,0.76);
-            border: 1px solid rgba(24,39,51,0.1);
-            color: #246b66;
+            border: 1px solid rgba(57,75,97,0.1);
+            color: #275fd5;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.12em;
@@ -142,13 +148,13 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            background: linear-gradient(135deg, var(--accent), var(--accent-mint));
         }
 
         h1, h2 {
             font-family: 'Fraunces', Georgia, serif;
             letter-spacing: -0.05em;
-            color: #14212c;
+            color: #101b28;
         }
 
         h1 {
@@ -169,8 +175,9 @@
         .notice {
             padding: 18px 20px;
             border-radius: 22px;
-            background: rgba(255,255,255,0.82);
-            border: 1px solid rgba(24,39,51,0.08);
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(57,75,97,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
             margin-bottom: 18px;
         }
 
@@ -207,15 +214,16 @@
         }
 
         .button {
-            color: #f6f3ee;
-            background: #182733;
-            box-shadow: 0 14px 28px rgba(24, 39, 51, 0.18);
+            color: #f7fbff;
+            background: linear-gradient(180deg, #243447 0%, #16212f 100%);
+            box-shadow: 0 18px 34px rgba(21, 32, 44, 0.22);
         }
 
         .button-secondary {
             color: var(--text);
-            background: rgba(255,255,255,0.78);
-            border-color: rgba(24,39,51,0.1);
+            background: rgba(255,255,255,0.74);
+            border-color: rgba(57,75,97,0.12);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
         }
 
         .button:hover,
@@ -226,16 +234,47 @@
             gap: 14px;
         }
 
+        .preview-stack {
+            display: grid;
+            gap: 14px;
+        }
+
         .preview-shot {
             overflow: hidden;
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(24,39,51,0.08);
-            background: rgba(255,255,255,0.86);
+            border-radius: 28px;
+            border: 1px solid rgba(57,75,97,0.1);
+            background: rgba(255,255,255,0.82);
+            box-shadow: 0 20px 44px rgba(24, 39, 51, 0.1);
+        }
+
+        .preview-topbar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(57,75,97,0.08);
+            background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(244,248,255,0.72));
+        }
+
+        .preview-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(137, 152, 173, 0.72);
+        }
+
+        .preview-title {
+            margin-left: auto;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6c7d92;
+            font-weight: 800;
         }
 
         .preview-shot img {
             width: 100%;
-            aspect-ratio: 1.1 / 1;
+            aspect-ratio: 1.35 / 1;
             object-fit: cover;
             object-position: top center;
         }
@@ -243,14 +282,15 @@
         .side-card {
             padding: 18px;
             border-radius: var(--radius-lg);
-            background: rgba(255,255,255,0.84);
-            border: 1px solid rgba(24,39,51,0.08);
+            background: rgba(255,255,255,0.72);
+            border: 1px solid rgba(57,75,97,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.64);
         }
 
         .side-card small {
             display: inline-block;
             margin-bottom: 10px;
-            color: #246b66;
+            color: #275fd5;
             font-size: 11px;
             font-weight: 800;
             letter-spacing: 0.12em;
@@ -306,6 +346,7 @@
             .button,
             .button-secondary { width: 100%; }
             .footer-row { flex-direction: column; align-items: flex-start; }
+            .preview-shot img { aspect-ratio: 1.22 / 1; }
         }
     </style>
 </head>
@@ -349,8 +390,26 @@
             </section>
 
             <aside class="panel side-list">
-                <div class="preview-shot">
-                    <img src="/assets/portal-publishing-live.png" alt="Live publishing preview">
+                <div class="preview-stack">
+                    <div class="preview-shot">
+                        <div class="preview-topbar">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-title">Publishing workflow</span>
+                        </div>
+                        <img src="/assets/portal-publishing-live.png" alt="Live publishing preview">
+                    </div>
+
+                    <div class="preview-shot">
+                        <div class="preview-topbar">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-title">Documents hub</span>
+                        </div>
+                        <img src="/assets/portal-documents-live.png" alt="Live documents preview">
+                    </div>
                 </div>
 
                 <article class="side-card">
