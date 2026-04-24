@@ -3,92 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Automation Partner — Business Automation, Simplified</title>
-    <meta name="description" content="Centralize your social media, metrics, content, and team management in one powerful hub. Built for growing businesses.">
+    <title>My Automation Partner | Client Portals, Planner, and Publishing</title>
+    <meta name="description" content="My Automation Partner gives service businesses a branded client portal, an industry-aware content planner, and a simpler way to manage publishing in one place.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --gold: #FFD700;
-            --gold-light: #FFE84D;
-            --gold-dim: rgba(255, 215, 0, 0.12);
-            --dark: #0a0a0a;
-            --dark-2: #111111;
-            --dark-3: #1a1a1a;
-            --dark-4: #222222;
-            --text: #f0f0f0;
-            --text-muted: #888888;
-            --text-dim: #555555;
-            --radius: 12px;
-            --shadow-gold: 0 0 40px rgba(255, 215, 0, 0.15);
+            --bg: #f4efe7;
+            --surface: rgba(255, 255, 255, 0.72);
+            --surface-strong: #fffdf9;
+            --line: rgba(25, 42, 54, 0.12);
+            --text: #182733;
+            --muted: #61717d;
+            --ink-soft: #243845;
+            --accent: #3aa39a;
+            --accent-deep: #236f69;
+            --accent-warm: #d9915c;
+            --shadow: 0 24px 70px rgba(23, 35, 43, 0.12);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --max: 1180px;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--dark);
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             color: var(--text);
-            line-height: 1.6;
+            background:
+                radial-gradient(circle at top left, rgba(58, 163, 154, 0.16), transparent 28%),
+                radial-gradient(circle at top right, rgba(217, 145, 92, 0.14), transparent 24%),
+                linear-gradient(180deg, #fbf8f2 0%, #f4efe7 54%, #efe8dd 100%);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--dark-2); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
 
-        /* ===== HEADER ===== */
+        .shell {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(18px);
+        }
+
+        .topbar-inner {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .topbar-inner strong { color: var(--ink-soft); }
+
         header {
             position: sticky;
             top: 0;
-            z-index: 1000;
-            background: rgba(10,10,10,0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,215,0,0.2);
-            padding: 0 40px;
-            height: 72px;
+            z-index: 20;
+            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
+            background: rgba(251, 248, 242, 0.76);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-inner {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+            min-height: 78px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 18px;
         }
 
-        .logo-wrap {
-            display: flex;
+        .brand {
+            display: inline-flex;
             align-items: center;
             gap: 14px;
-            text-decoration: none;
         }
 
-        .logo-wrap img {
-            height: 46px;
-            width: 46px;
-            border-radius: 8px;
+        .brand-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(24, 39, 51, 0.08);
+            box-shadow: 0 16px 32px rgba(24, 39, 51, 0.08);
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
+        .brand-copy {
+            display: grid;
+            gap: 3px;
         }
 
-        .logo-text span:first-child {
-            font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 3px;
-            color: var(--text-muted);
+        .brand-copy span:first-child {
+            font-size: 11px;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
+            color: var(--muted);
         }
 
-        .logo-text span:last-child {
+        .brand-copy span:last-child {
             font-size: 18px;
             font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--gold);
-            text-transform: uppercase;
+            color: var(--ink-soft);
         }
 
         nav {
@@ -98,1000 +132,535 @@
         }
 
         nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            color: var(--muted);
             font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-weight: 600;
+            transition: 160ms ease;
         }
 
-        nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--dark);
-            padding: 10px 22px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
+        nav a:hover {
+            color: var(--text);
+            background: rgba(24, 39, 51, 0.05);
         }
 
-        .btn-primary:hover {
-            background: var(--gold-light);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(255,215,0,0.25);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            padding: 10px 22px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            border: 1.5px solid rgba(255,215,0,0.5);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-outline:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: calc(100vh - 72px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,215,0,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255,215,0,0.04) 0%, transparent 60%);
-        }
-
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,215,0,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,215,0,0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-        }
-
-        .hero-content { position: relative; z-index: 1; max-width: 900px; }
-
-        .hero-badge {
+        .button,
+        .button-secondary {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: var(--gold-dim);
-            border: 1px solid rgba(255,215,0,0.25);
-            border-radius: 100px;
-            padding: 6px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gold);
+            justify-content: center;
+            gap: 10px;
+            border-radius: 999px;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 160ms ease;
+            border: 1px solid transparent;
+        }
+
+        .button {
+            background: var(--text);
+            color: #f6f3ee;
+            box-shadow: 0 14px 28px rgba(24, 39, 51, 0.18);
+        }
+
+        .button:hover { transform: translateY(-1px); }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--ink-soft);
+            border-color: rgba(24, 39, 51, 0.1);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.92);
+            transform: translateY(-1px);
+        }
+
+        main { padding: 40px 0 72px; }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(360px, 500px);
+            gap: 30px;
+            align-items: center;
+            padding: 28px 0 18px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.64);
+            border: 1px solid rgba(24, 39, 51, 0.1);
+            color: var(--accent-deep);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+        }
+
+        h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(3rem, 5vw, 5.2rem);
+            line-height: 0.96;
+            letter-spacing: -0.05em;
+            max-width: 10ch;
+            margin-bottom: 20px;
+            color: #14212c;
+        }
+
+        .hero-copy {
+            max-width: 60ch;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--muted);
             margin-bottom: 28px;
         }
 
-        .hero-badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--gold);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        .hero h1 {
-            font-size: clamp(40px, 7vw, 72px);
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-            color: var(--text);
-        }
-
-        .hero h1 .highlight {
-            color: var(--gold);
-            position: relative;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 2.5vw, 20px);
-            color: var(--text-muted);
-            max-width: 620px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
-            font-weight: 400;
-        }
+        .hero-copy strong { color: var(--ink-soft); }
 
         .hero-actions {
             display: flex;
-            justify-content: center;
-            gap: 14px;
             flex-wrap: wrap;
-            margin-bottom: 42px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        .hero-stats {
+        .mini-proof {
             display: flex;
-            justify-content: center;
-            gap: 60px;
             flex-wrap: wrap;
+            gap: 22px;
+            color: var(--muted);
+            font-size: 14px;
         }
 
-        .stat { text-align: center; }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* ===== SECTION WRAPPER ===== */
-        .section { padding: 100px 40px; }
-
-        .section-label {
+        .mini-proof strong {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 14px;
-            text-align: center;
+            margin-bottom: 3px;
+            color: var(--ink-soft);
+            font-size: 15px;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .showcase {
+            position: relative;
+            overflow: hidden;
+            border-radius: 36px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.62));
+            border: 1px solid rgba(24, 39, 51, 0.09);
+            box-shadow: var(--shadow);
+            padding: 18px;
+        }
+
+        .showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(58, 163, 154, 0.14), transparent 26%),
+                radial-gradient(circle at bottom left, rgba(217, 145, 92, 0.1), transparent 20%);
+            pointer-events: none;
+        }
+
+        .shot-frame {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: 28px;
+            border: 1px solid rgba(24, 39, 51, 0.08);
+            background: #f8f6f1;
+        }
+
+        .shot-frame img {
+            width: 100%;
+            aspect-ratio: 1 / 1.02;
+            object-fit: cover;
+        }
+
+        .float-card {
+            position: absolute;
+            z-index: 2;
+            max-width: 220px;
+            border-radius: 22px;
+            border: 1px solid rgba(24, 39, 51, 0.08);
+            background: rgba(255, 253, 249, 0.96);
+            padding: 16px;
+            box-shadow: 0 20px 44px rgba(24, 39, 51, 0.14);
+        }
+
+        .float-card strong {
+            display: block;
+            color: var(--ink-soft);
+            margin-bottom: 6px;
+        }
+
+        .float-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .float-top {
+            top: -12px;
+            left: -18px;
+        }
+
+        .float-bottom {
+            right: -18px;
+            bottom: 18px;
+        }
+
+        .section {
+            margin-top: 34px;
+            padding: 28px;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(24, 39, 51, 0.08);
+            background: var(--surface);
+            box-shadow: 0 18px 40px rgba(24, 39, 51, 0.06);
+            backdrop-filter: blur(18px);
         }
 
         .section-title {
-            font-size: clamp(28px, 4vw, 44px);
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            line-height: 1.1;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .section-sub {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 17px;
-            max-width: 560px;
-            margin: 0 auto 60px;
-            line-height: 1.7;
+        .section-title h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            letter-spacing: -0.04em;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title p {
+            max-width: 56ch;
+            color: var(--muted);
+            line-height: 1.65;
+        }
 
-        /* ===== INTEGRATIONS CARDS ===== */
-        .integrations-bg { background: var(--dark-2); }
-
-        .cards-grid {
+        .feature-grid,
+        .step-grid,
+        .screen-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
+            gap: 16px;
         }
+
+        .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .step-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .screen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
         .card {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 36px 28px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            padding: 22px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(24, 39, 51, 0.08);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .card:hover {
-            border-color: rgba(255,215,0,0.2);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), var(--shadow-gold);
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        .card-icon {
-            width: 52px; height: 52px;
-            background: var(--gold-dim);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 20px;
+        .card small {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--accent-deep);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text);
+            font-size: 20px;
+            line-height: 1.2;
             margin-bottom: 10px;
+            color: var(--ink-soft);
         }
 
         .card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            gap: 16px;
-            padding: 24px;
-            border-radius: 12px;
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: border-color 0.2s;
-        }
-
-        .feature-item:hover { border-color: rgba(255,215,0,0.2); }
-
-        .feature-dot {
-            width: 36px; height: 36px;
-            min-width: 36px;
-            background: var(--gold-dim);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .feature-item h3 {
+            color: var(--muted);
+            line-height: 1.65;
             font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--text);
         }
 
-        .feature-item p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.6;
+        .screen-card {
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(24, 39, 51, 0.08);
+            background: rgba(255, 255, 255, 0.82);
         }
 
-        /* ===== LOGOS / INTEGRATIONS SCROLL ===== */
-        .logos-bg { background: var(--dark); overflow: hidden; }
-
-        .logos-track {
-            display: flex;
-            gap: 50px;
-            align-items: center;
-            white-space: nowrap;
-            animation: scroll-logos 25s linear infinite;
+        .screen-card img {
+            width: 100%;
+            aspect-ratio: 1.18 / 1;
+            object-fit: cover;
+            object-position: top center;
+            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
         }
 
-        @keyframes scroll-logos {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .screen-card figcaption {
+            padding: 16px 18px 18px;
         }
 
-        .logo-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 22px;
-            border: 1px solid rgba(255,215,0,0.15);
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        /* ===== PRICING ===== */
-        .pricing-bg { background: var(--dark-2); }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 40px 32px;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .pricing-card:hover {
-            border-color: rgba(255,215,0,0.2);
-            transform: translateY(-4px);
-        }
-
-        .pricing-card.featured {
-            border-color: var(--gold);
-            background: linear-gradient(135deg, var(--dark-3) 0%, rgba(255,215,0,0.05) 100%);
-        }
-
-        .pricing-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold);
-            color: var(--dark);
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 4px 14px;
-            border-radius: 100px;
-        }
-
-        .plan-name {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .plan-price {
-            font-size: 52px;
-            font-weight: 900;
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 4px;
-            letter-spacing: -2px;
-        }
-
-        .plan-price span {
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 0;
-        }
-
-        .plan-period {
-            font-size: 13px;
-            color: var(--text-dim);
-            margin-bottom: 28px;
-        }
-
-        .plan-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.07);
-            margin-bottom: 24px;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 32px;
-        }
-
-        .plan-features li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: var(--text-muted);
-            padding: 7px 0;
-        }
-
-        .plan-features li::before {
-            content: '✓';
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 13px;
-            min-width: 16px;
-        }
-
-        .plan-cta { width: 100%; text-align: center; display: block; }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--dark-2);
-            border-top: 1px solid rgba(255,215,0,0.12);
-            padding: 60px 40px 40px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            max-width: 1200px;
-            margin: 0 auto 48px;
-        }
-
-        .footer-brand p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-top: 14px;
-            max-width: 280px;
-        }
-
-        .footer-col h4 {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--text);
-            margin-bottom: 18px;
-        }
-
-        .footer-col a {
+        .screen-card strong {
             display: block;
-            font-size: 14px;
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-bottom: 10px;
-            transition: color 0.2s;
-        }
-
-        .footer-col a:hover { color: var(--gold); }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 28px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .footer-bottom p { font-size: 13px; color: var(--text-dim); }
-
-        /* ===== FIVE PILLARS ===== */
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        .pillars-grid-bottom {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .pillar-card {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 36px 28px;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .pillar-card:hover {
-            border-color: rgba(255,215,0,0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), var(--shadow-gold);
-        }
-
-        .pillar-card.highlighted {
-            border-color: rgba(255,215,0,0.25);
-            background: linear-gradient(135deg, var(--dark-3) 0%, rgba(255,215,0,0.05) 100%);
-        }
-
-        .pillar-icon {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .pillar-card h3 {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .pillar-card.small h3 { font-size: 18px; }
-
-        .pillar-card p {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .pillar-card.small p { font-size: 14px; }
-
-        .pillar-tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 24px;
-            flex-wrap: wrap;
-        }
-
-        .pillar-tag {
-            background: var(--dark-4);
-            border: 1px solid rgba(255,215,0,0.2);
-            color: var(--gold);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 4px;
-        }
-
-        /* ===== BENEFITS ===== */
-        .benefits-bg {
-            background: var(--dark-2);
-            border-top: 1px solid rgba(255,215,0,0.1);
-            border-bottom: 1px solid rgba(255,215,0,0.1);
-        }
-
-        .benefits-inner {
-            display: flex;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .benefits-left { flex: 1; }
-
-        .benefits-left h2 {
-            font-size: clamp(28px, 3.5vw, 42px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 18px;
-            line-height: 1.1;
-        }
-
-        .benefits-left > p {
-            font-size: 17px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 28px;
-        }
-
-        .benefits-list { list-style: none; }
-
-        .benefits-list li {
-            display: flex;
-            align-items: center;
-            gap: 14px;
+            margin-bottom: 6px;
+            color: var(--ink-soft);
             font-size: 16px;
-            color: var(--text);
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .benefits-list li:last-child { border-bottom: none; }
-
-        .benefits-list li::before {
-            content: '✓';
-            color: var(--gold);
-            font-weight: 800;
-            font-size: 15px;
-            min-width: 20px;
+        .screen-card span {
+            display: block;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
         }
 
-        .benefits-right {
-            flex: 1;
+        .cta-block {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: minmax(0, 1.1fr) auto;
+            gap: 18px;
+            align-items: center;
         }
 
-        .benefit-stat {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,215,0,0.2);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .benefit-stat:hover { transform: translateY(-3px); }
-        .benefit-stat.wide { grid-column: span 2; }
-
-        .benefit-stat-number {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--gold);
+        .cta-block h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(2rem, 3vw, 2.8rem);
             line-height: 1;
-            margin-bottom: 8px;
-            letter-spacing: -2px;
+            letter-spacing: -0.04em;
+            margin-bottom: 10px;
         }
 
-        .benefit-stat.wide .benefit-stat-number { font-size: 60px; }
-
-        .benefit-stat-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-muted);
+        .cta-block p {
+            color: var(--muted);
+            max-width: 55ch;
+            line-height: 1.65;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            header { padding: 0 20px; }
-            nav a:not(.btn-primary) { display: none; }
-            .hero { padding: 60px 20px; }
-            .section { padding: 70px 20px; }
-            footer { padding: 40px 20px 30px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-            .pillars-grid { grid-template-columns: 1fr; }
-            .pillars-grid-bottom { grid-template-columns: 1fr 1fr; }
-            .benefits-inner { flex-direction: column; }
-            .benefits-right { width: 100%; }
+        footer {
+            padding: 30px 0 44px;
         }
 
-        @media (max-width: 600px) {
-            .hero-stats { gap: 32px; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; text-align: center; }
-            .pillars-grid-bottom { grid-template-columns: 1fr; }
-            .benefits-right { grid-template-columns: 1fr; }
-            .benefit-stat.wide { grid-column: span 1; }
+        .footer-row {
+            width: min(var(--max), calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .feature-grid,
+            .step-grid,
+            .cta-block {
+                grid-template-columns: 1fr;
+            }
+
+            .float-top,
+            .float-bottom {
+                position: static;
+                margin-top: 14px;
+                max-width: none;
+            }
+
+            .hero-visual { order: -1; }
+        }
+
+        @media (max-width: 760px) {
+            .header-inner,
+            .topbar-inner,
+            .shell,
+            .footer-row {
+                width: min(var(--max), calc(100% - 24px));
+            }
+
+            nav { display: none; }
+            main { padding-top: 22px; }
+            .section { padding: 22px; }
+            .button,
+            .button-secondary { width: 100%; }
+            .hero-actions { align-items: stretch; }
+            .footer-row { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
-
-<!-- ===== HEADER ===== -->
-<header>
-    <a href="/" class="logo-wrap">
-        <img alt="My Automation Partner Logo" width="46" height="46" src="./assets/MyAutomationPartner-Logo.png" style="border-radius:8px; object-fit:cover;" />
-        <div class="logo-text">
-            <span>My</span>
-            <span>Automation Partner</span>
-        </div>
-    </a>
-    <nav>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="/signup/">Sign Up</a>
-        <a href="/login" class="btn-primary">Client Portal →</a>
-    </nav>
-</header>
-
-<!-- ===== HERO ===== -->
-<section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-content">
-        <div class="hero-badge">Now serving 50+ businesses across the US</div>
-        <h1>Business Automation,<br><span class="highlight">Finally Simplified</span></h1>
-        <p>Centralize your social media analytics, content calendar, client reporting, and team management in one intelligent hub. Start with a 30-day free trial, then continue for just $25 per month if it fits your business.</p>
-        <div class="hero-actions">
-            <a href="/signup/" class="btn-primary">Start Your Free Trial</a>
-            <a href="#pricing" class="btn-outline">See Pricing</a>
-        </div>
-        <div class="hero-stats">
-            <div class="stat">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Active Clients</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">10K+</div>
-                <div class="stat-label">Posts Automated</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Uptime</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">4.9★</div>
-                <div class="stat-label">Client Rating</div>
-            </div>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <span>Beta preview underway</span>
+            <strong>Client enrollment opens June 1</strong>
         </div>
     </div>
-</section>
 
-<!-- ===== INTEGRATIONS SCROLL ===== -->
-<section class="section logos-bg" style="padding: 40px 0; overflow:hidden;">
-    <div class="logos-track">
-        <div class="logo-pill">📊 Metricool</div>
-        <div class="logo-pill">📅 Google Calendar</div>
-        <div class="logo-pill">📧 Resend</div>
-        <div class="logo-pill">☁️ Cloudflare R2</div>
-        <div class="logo-pill">💬 Slack</div>
-        <div class="logo-pill">🔗 n8n Workflows</div>
-        <div class="logo-pill">📱 Instagram</div>
-        <div class="logo-pill">🎵 TikTok</div>
-        <div class="logo-pill">📘 Facebook</div>
-        <div class="logo-pill">▶ YouTube</div>
-        <!-- Duplicate for seamless loop -->
-        <div class="logo-pill">📊 Metricool</div>
-        <div class="logo-pill">📅 Google Calendar</div>
-        <div class="logo-pill">📧 Resend</div>
-        <div class="logo-pill">☁️ Cloudflare R2</div>
-        <div class="logo-pill">💬 Slack</div>
-        <div class="logo-pill">🔗 n8n Workflows</div>
-        <div class="logo-pill">📱 Instagram</div>
-        <div class="logo-pill">🎵 TikTok</div>
-        <div class="logo-pill">📘 Facebook</div>
-        <div class="logo-pill">▶ YouTube</div>
-    </div>
-</section>
-
-<!-- ===== HOW IT WORKS ===== -->
-<section class="section integrations-bg" id="how-it-works">
-    <div class="container">
-        <span class="section-label">What We Do</span>
-        <h2 class="section-title">Everything Your Business Needs</h2>
-        <p class="section-sub">One platform connecting your tools, data, and team — so you can focus on what matters.</p>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Social Media Analytics</h3>
-                <p>Pull real-time follower counts, engagement rates, and reach data from Instagram, TikTok, and Facebook. All in one dashboard, updated hourly.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📅</div>
-                <h3>Content Calendar</h3>
-                <p>Plan, schedule, and track every post across all platforms. Your team sees what's live, what's drafted, and what's coming — no more missed posts.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <h3>Workflow Automation</h3>
-                <p>Set it and forget it. Our n8n-powered automations handle your reporting, onboarding, and data syncing while you sleep.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📋</div>
-                <h3>Client Reporting</h3>
-                <p>Auto-generated weekly performance digests sent directly to your clients. Branded, professional, and delivered without you lifting a finger.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== FIVE PILLARS ===== -->
-<section class="section" id="five-pillars">
-    <div class="container">
-        <span class="section-label">What We Offer</span>
-        <h2 class="section-title">Five Pillars of Modern Automation</h2>
-        <p class="section-sub">Simplify your operations with our integrated suite of business tools designed specifically for small business growth.</p>
-        <div class="pillars-grid">
-            <div class="pillar-card">
-                <div>
-                    <div class="pillar-icon">🖥️</div>
-                    <h3>1. Unified User Portal</h3>
-                    <p>One central dashboard to manage every aspect of your business. No more jumping between ten different tabs to get work done. Your data, team, and workflows — all in one intelligent hub.</p>
-                    <div class="pillar-tags">
-                        <span class="pillar-tag">Centralized</span>
-                        <span class="pillar-tag">Secure</span>
-                    </div>
-                </div>
-            </div>
-            <div class="pillar-card small">
-                <div class="pillar-icon">📣</div>
-                <h3>2. Social Automation</h3>
-                <p>Stay active on all platforms automatically. Schedule content and engage with followers while you focus on operations.</p>
-            </div>
-        </div>
-        <div class="pillars-grid-bottom">
-            <div class="pillar-card small">
-                <div class="pillar-icon">📊</div>
-                <h3>3. Growth Analytics</h3>
-                <p>See exactly how your business is performing with simple, visual reports that make decision-making effortless.</p>
-            </div>
-            <div class="pillar-card small">
-                <div class="pillar-icon">📬</div>
-                <h3>4. Unified Inbox</h3>
-                <p>All your emails, texts, and social messages in one single stream. Never lose a lead in a crowded inbox again.</p>
-            </div>
-            <div class="pillar-card small highlighted">
-                <div class="pillar-icon">📅</div>
-                <h3>5. Smart Calendar</h3>
-                <p>Automated appointment booking and staff scheduling that works for you 24/7 without the back-and-forth emails.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== FEATURES ===== -->
-<section class="section" id="features">
-    <div class="container">
-        <span class="section-label">Why Us</span>
-        <h2 class="section-title">Built for Agencies &amp; Growing Teams</h2>
-        <p class="section-sub">Not just another dashboard — a complete operating system for your business automation.</p>
-        <div class="features-grid">
-            <div class="feature-item">
-                <div class="feature-dot">✓</div>
-                <div>
-                    <h3>All-in-One Hub</h3>
-                    <p>Stop switching between 6 different tools. Bring your data, team, and workflows under one roof.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-dot">⚡</div>
-                <div>
-                    <h3>Hourly Metric Syncs</h3>
-                    <p>Data is never stale. Follower counts, engagement, and reach update automatically every hour.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-dot">🔒</div>
-                <div>
-                    <h3>Secure Client Portals</h3>
-                    <p>Each client gets their own branded portal with role-based access. Admin, editor, or viewer — you control who sees what.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-dot">📧</div>
-                <div>
-                    <h3>Automated Weekly Digests</h3>
-                    <p>Professional email reports delivered to clients every week. No manual exports, no formatting time.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-dot">🚀</div>
-                <div>
-                    <h3>Fast Onboarding</h3>
-                    <p>New clients are live in under 10 minutes. Webhooks handle the setup — we automate everything from account creation to first report.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-dot">📈</div>
-                <div>
-                    <h3>Scales With You</h3>
-                    <p>Whether you manage 5 clients or 500, our infrastructure scales automatically. No manual upgrades needed.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== BENEFITS ===== -->
-<section class="section benefits-bg">
-    <div class="container">
-        <div class="benefits-inner">
-            <div class="benefits-left">
-                <span class="section-label" style="text-align:left; display:block;">Why It Works</span>
-                <h2>Automate Your Daily Tasks</h2>
-                <p>We remove the technical hurdles so you can get back to what you love. Our team handles the setup, maintenance, and optimization of your business systems.</p>
-                <ul class="benefits-list">
-                    <li>Zero tech skills required from you</li>
-                    <li>Ongoing expert support and updates</li>
-                    <li>Customized workflows for your specific niche</li>
-                </ul>
-            </div>
-            <div class="benefits-right">
-                <div class="benefit-stat">
-                    <div class="benefit-stat-number">15+</div>
-                    <div class="benefit-stat-label">Hours Saved / Week</div>
-                </div>
-                <div class="benefit-stat">
-                    <div class="benefit-stat-number">24/7</div>
-                    <div class="benefit-stat-label">Active Automation</div>
-                </div>
-                <div class="benefit-stat wide">
-                    <div class="benefit-stat-number">100%</div>
-                    <div class="benefit-stat-label">Small Business Focused</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== PRICING ===== -->
-<section class="section pricing-bg" id="pricing">
-    <div class="container">
-        <span class="section-label">Pricing</span>
-        <h2 class="section-title">Simple, Transparent Pricing</h2>
-        <p class="section-sub">30 days free. Then $25 per month if you choose to continue.</p>
-        <div class="pricing-grid">
-            <div class="pricing-card featured">
-                <div class="pricing-badge">30-Day Free Trial</div>
-                <p class="plan-name">My Automation Partner</p>
-                <div class="plan-price">$25<span>/mo</span></div>
-                <p class="plan-period">Only if you continue after the free trial</p>
-                <div class="plan-divider"></div>
-                <ul class="plan-features">
-                    <li>30-day free trial with no card required at signup</li>
-                    <li>Client portal access and MAP-managed setup</li>
-                    <li>Content calendar, reporting, and workflow support</li>
-                    <li>Reminder sent 5 days before payment is needed</li>
-                    <li>Read-only access if the trial ends before payment is added</li>
-                </ul>
-                <a href="/signup/" class="btn-primary plan-cta">Start Free Trial</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <a href="/" class="logo-wrap" style="text-decoration:none;">
-                <img alt="My Automation Partner Logo" width="38" height="38" src="./assets/MyAutomationPartner-Logo.png" style="border-radius:6px; object-fit:cover;" />
-                <div class="logo-text">
-                    <span>My</span>
-                    <span>Automation Partner</span>
+    <header>
+        <div class="header-inner">
+            <a href="/" class="brand">
+                <img class="brand-mark" src="/assets/MyAutomationPartner-Logo.png" alt="My Automation Partner logo" width="52" height="52">
+                <div class="brand-copy">
+                    <span>Client systems</span>
+                    <span>My Automation Partner</span>
                 </div>
             </a>
-            <p style="margin-top:16px; color:var(--text-muted); max-width:320px;">
-                One clean signup, a 30-day free trial, and a simple $25 monthly subscription if you continue.
-            </p>
-        </div>
-        <div>
-            <h4 style="margin-bottom:14px; color:var(--text);">Get Started</h4>
-            <div style="display:grid; gap:10px;">
-                <a href="/signup/" style="color:var(--gold); text-decoration:none;">Start signup</a>
-                <a href="#pricing" style="color:var(--text-muted); text-decoration:none;">View pricing</a>
-                <a href="/login" style="color:var(--text-muted); text-decoration:none;">Client portal</a>
-            </div>
-        </div>
-        <div>
-            <h4 style="margin-bottom:14px; color:var(--text);">Contact</h4>
-            <div style="display:grid; gap:10px;">
-                <a href="mailto:billing@myautomationpartner.com" style="color:var(--text-muted); text-decoration:none;">billing@myautomationpartner.com</a>
-                <a href="mailto:support@myautomationpartner.com" style="color:var(--text-muted); text-decoration:none;">support@myautomationpartner.com</a>
-            </div>
-        </div>
-        <div>
-            <h4 style="margin-bottom:14px; color:var(--text);">Signup Intake</h4>
-            <p style="color:var(--text-muted);">
-                Start with a simple signup today, then continue for $25 per month only if the trial is a fit.
-            </p>
-        </div>
-    </div>
-    <div class="footer-bottom" style="margin-top:36px; padding-top:20px; border-top:1px solid rgba(255,215,0,0.16); display:flex; justify-content:space-between; gap:16px; color:var(--text-dim); font-size:13px;">
-        <span>© 2026 My Automation Partner</span>
-        <span>30-day free trial, then $25/month only if you continue.</span>
-    </div>
-</footer>
 
+            <nav aria-label="Primary">
+                <a href="#product">Product</a>
+                <a href="#process">How it works</a>
+                <a href="/login">Client login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="shell">
+            <section class="hero">
+                <div>
+                    <span class="eyebrow">Branded portal + planner + publishing</span>
+                    <h1>The client portal your service business has been missing.</h1>
+                    <p class="hero-copy">
+                        My Automation Partner gives your business a <strong>modern client workspace</strong>, an <strong>industry-aware content planner</strong>, and a cleaner path from onboarding to publishing. No patchwork stack. No messy handoff.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="button" href="/signup">View beta preview</a>
+                        <a class="button-secondary" href="/login">Client login</a>
+                    </div>
+
+                    <div class="mini-proof" aria-label="Product proof points">
+                        <div>
+                            <strong>Industry-aware planning</strong>
+                            <span>Every client starts with a more relevant content setup.</span>
+                        </div>
+                        <div>
+                            <strong>Branded client portal</strong>
+                            <span>One destination for posts, documents, settings, and billing.</span>
+                        </div>
+                        <div>
+                            <strong>Automated onboarding</strong>
+                            <span>Provisioning, trials, and access states are already wired.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="showcase">
+                        <div class="shot-frame">
+                            <img src="/assets/portal-overview.png" alt="My Automation Partner portal screenshot">
+                        </div>
+                    </div>
+                    <div class="float-card float-top">
+                        <strong>Built to feel client-ready</strong>
+                        <p>Real portal UI, planner context, billing states, and branded tenant setup are already part of the system.</p>
+                    </div>
+                    <div class="float-card float-bottom">
+                        <strong>Less tool sprawl</strong>
+                        <p>Clients get one workspace for planning, approvals, publishing, and secure access instead of scattered links.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="product">
+                <div class="section-title">
+                    <h2>What the product actually does</h2>
+                    <p>We repositioned MAP around the strongest part of the system: a polished client portal backed by onboarding, planner logic, and subscription-aware access.</p>
+                </div>
+
+                <div class="screen-grid" style="margin-bottom: 16px;">
+                    <figure class="screen-card">
+                        <img src="/assets/portal-overview.png" alt="Dashboard and planner portal screenshot">
+                        <figcaption>
+                            <strong>Workspace and planning view</strong>
+                            <span>A real portal surface with dashboard modules, planner context, and day-to-day client work in one place.</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="screen-card">
+                        <img src="/assets/portal-login-live.png" alt="Live client portal login screenshot">
+                        <figcaption>
+                            <strong>Client-facing access that feels intentional</strong>
+                            <span>Even the login experience now matches the product story instead of feeling like a bolt-on utility page.</span>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="feature-grid">
+                    <article class="card">
+                        <small>Client portal</small>
+                        <h3>A better front door for your clients.</h3>
+                        <p>Clients log into one place for scheduling, approvals, documents, settings, and billing instead of chasing spreadsheets and emails.</p>
+                    </article>
+                    <article class="card">
+                        <small>Planner</small>
+                        <h3>Smarter starter suggestions from day one.</h3>
+                        <p>The planner now uses industry selection, tenant profiles, and learning signals so each client starts with stronger guidance.</p>
+                    </article>
+                    <article class="card">
+                        <small>Operations</small>
+                        <h3>Onboarding that scales cleaner.</h3>
+                        <p>MAP-owned domains, trial billing, provisioning, and portal deployment are already in the build so new customers can be created consistently.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="process">
+                <div class="section-title">
+                    <h2>What happens when enrollment opens</h2>
+                    <p>We are keeping the public message simple right now: preview the product, request beta access, and roll into the full launch starting June 1.</p>
+                </div>
+
+                <div class="step-grid">
+                    <article class="card">
+                        <small>01</small>
+                        <h3>Request a beta preview</h3>
+                        <p>Interested customers can contact billing@myautomationpartner.com now while we finish the public enrollment rollout.</p>
+                    </article>
+                    <article class="card">
+                        <small>02</small>
+                        <h3>Launch with a cleaner setup</h3>
+                        <p>When enrollment opens, new customers will move into a branded portal, trial billing flow, and industry-aware planner profile.</p>
+                    </article>
+                    <article class="card">
+                        <small>03</small>
+                        <h3>Grow from a stronger baseline</h3>
+                        <p>The portal keeps learning from client behavior over time so the content system gets more useful instead of staying generic.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="cta-block">
+                    <div>
+                        <h3>Now in beta preview. Public client enrollment starts June 1.</h3>
+                        <p>If you want early access before public enrollment opens, email billing@myautomationpartner.com and we can talk through a beta preview.</p>
+                    </div>
+                    <a class="button" href="/signup">View preview page</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-row">
+            <span>&copy; 2026 My Automation Partner</span>
+            <span>Client portals, planning, publishing, and cleaner onboarding.</span>
+        </div>
+    </footer>
 </body>
 </html>
