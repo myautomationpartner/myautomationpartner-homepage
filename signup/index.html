@@ -730,6 +730,7 @@
 
 <script>
     const EDGE_FALLBACK_URL = 'https://zgkxrlednyovuytaejok.supabase.co/functions/v1/homepage-signup-intake';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_xwASGbwUsZhX5CFNizTAmg_U50hkD7o';
     const form = document.getElementById('signupForm');
     const successBanner = document.getElementById('statusSuccess');
     const errorBanner = document.getElementById('statusError');
@@ -788,7 +789,11 @@
 
         const fallbackResponse = await fetch(EDGE_FALLBACK_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_PUBLISHABLE_KEY,
+                'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            },
             body: JSON.stringify(payload)
         });
 
