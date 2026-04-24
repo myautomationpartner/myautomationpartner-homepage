@@ -184,49 +184,160 @@
             margin-bottom: 22px;
         }
 
-        .visual-stack {
-            display: grid;
-            gap: 14px;
-        }
-
-        .visual {
+        .portal-scene {
+            position: relative;
             overflow: hidden;
+            min-height: 360px;
             border-radius: 28px;
             border: 1px solid rgba(57,75,97,0.1);
-            background: rgba(255,255,255,0.82);
+            background:
+                radial-gradient(circle at top left, rgba(121, 216, 197, 0.28), transparent 28%),
+                radial-gradient(circle at 82% 18%, rgba(59, 130, 246, 0.24), transparent 24%),
+                linear-gradient(180deg, rgba(255,255,255,0.88), rgba(240,246,255,0.74));
             box-shadow: 0 20px 44px rgba(24,39,51,0.1);
+            isolation: isolate;
         }
 
-        .visual-topbar {
-            display: flex;
+        .portal-scene::before,
+        .portal-scene::after {
+            content: "";
+            position: absolute;
+            inset: auto;
+            border-radius: 999px;
+            filter: blur(8px);
+            opacity: 0.75;
+            z-index: 0;
+        }
+
+        .portal-scene::before {
+            width: 220px;
+            height: 220px;
+            right: -40px;
+            top: -20px;
+            background: radial-gradient(circle, rgba(59,130,246,0.28), transparent 70%);
+        }
+
+        .portal-scene::after {
+            width: 240px;
+            height: 240px;
+            left: -50px;
+            bottom: -50px;
+            background: radial-gradient(circle, rgba(121,216,197,0.25), transparent 68%);
+        }
+
+        .scene-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 16px;
+            padding: 24px;
+        }
+
+        .scene-row {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: 1.1fr 0.9fr;
+        }
+
+        .scene-row.secondary {
+            grid-template-columns: 0.88fr 1.12fr;
+        }
+
+        .scene-card {
+            border-radius: 24px;
+            border: 1px solid rgba(57,75,97,0.1);
+            background: rgba(255,255,255,0.62);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.74);
+            backdrop-filter: blur(18px);
+            padding: 18px;
+        }
+
+        .scene-card small {
+            display: inline-flex;
             align-items: center;
-            gap: 7px;
-            padding: 12px 14px;
-            border-bottom: 1px solid rgba(57,75,97,0.08);
-            background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(244,248,255,0.72));
-        }
-
-        .visual-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: rgba(137, 152, 173, 0.72);
-        }
-
-        .visual-title {
-            margin-left: auto;
+            gap: 8px;
+            margin-bottom: 14px;
+            color: #56708f;
             font-size: 11px;
+            font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #6c7d92;
-            font-weight: 800;
         }
 
-        .visual img {
-            width: 100%;
-            aspect-ratio: 1.4 / 1;
-            object-fit: cover;
-            object-position: top center;
+        .scene-card small::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-mint));
+        }
+
+        .scene-card strong {
+            display: block;
+            color: #18293a;
+            font-size: 22px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .scene-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .metric-strip {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .metric-pill {
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.72);
+            border: 1px solid rgba(57,75,97,0.1);
+            min-width: 108px;
+        }
+
+        .metric-pill span {
+            display: block;
+            color: #6a7d93;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .metric-pill strong {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .bullet-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .bullet-item {
+            display: flex;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .bullet-item::before {
+            content: "";
+            width: 9px;
+            height: 9px;
+            margin-top: 7px;
+            border-radius: 50%;
+            flex: 0 0 auto;
+            background: linear-gradient(135deg, var(--accent), var(--accent-mint));
         }
 
         .proof-row {
@@ -425,6 +536,11 @@
             .proof-row {
                 grid-template-columns: 1fr;
             }
+
+            .scene-row,
+            .scene-row.secondary {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 760px) {
@@ -459,28 +575,49 @@
         <div class="shell">
             <section class="panel">
                 <span class="eyebrow">Client portal</span>
-                <h1>Sign in to your portal workspace.</h1>
-                <p class="lead">Everything lives in one place now: planning, approvals, documents, settings, and billing-aware access for your account.</p>
+                <h1>Your social workflow just called. It wants you back.</h1>
+                <p class="lead">Pick up where you left off with one clean place for publishing, approvals, files, and the kind of follow-through that usually comes with an agency retainer.</p>
 
-                <div class="visual-stack">
-                    <div class="visual">
-                        <div class="visual-topbar">
-                            <span class="visual-dot"></span>
-                            <span class="visual-dot"></span>
-                            <span class="visual-dot"></span>
-                            <span class="visual-title">Publishing</span>
+                <div class="portal-scene" aria-hidden="true">
+                    <div class="scene-grid">
+                        <div class="scene-row">
+                            <article class="scene-card">
+                                <small>Publishing queue</small>
+                                <strong>Everything lined up. Nothing scattered.</strong>
+                                <p>Drafts, scheduled posts, and approvals stay in one workflow instead of getting buried in email threads and sticky notes.</p>
+                                <div class="metric-strip">
+                                    <div class="metric-pill">
+                                        <span>Queued</span>
+                                        <strong>12 posts</strong>
+                                    </div>
+                                    <div class="metric-pill">
+                                        <span>Approved</span>
+                                        <strong>Ready today</strong>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="scene-card">
+                                <small>Client rhythm</small>
+                                <strong>Small business pace. Agency-level consistency.</strong>
+                                <p>MAP keeps the moving parts tidy so staying visible feels lighter, faster, and far less manual.</p>
+                            </article>
                         </div>
-                        <img src="/assets/portal-publishing-live.png" alt="Portal publishing preview">
-                    </div>
 
-                    <div class="visual">
-                        <div class="visual-topbar">
-                            <span class="visual-dot"></span>
-                            <span class="visual-dot"></span>
-                            <span class="visual-dot"></span>
-                            <span class="visual-title">Documents</span>
+                        <div class="scene-row secondary">
+                            <article class="scene-card">
+                                <small>Workspace</small>
+                                <div class="bullet-list">
+                                    <div class="bullet-item">Document storage that keeps assets, references, and notes close to the work.</div>
+                                    <div class="bullet-item">Approval flow that cuts down back-and-forth before something goes live.</div>
+                                    <div class="bullet-item">Billing-aware access so the workspace stays organized as the account grows.</div>
+                                </div>
+                            </article>
+                            <article class="scene-card">
+                                <small>Operator note</small>
+                                <strong>Less chasing. More shipping.</strong>
+                                <p>This portal exists to help you spend less time managing the process and more time actually getting content out the door.</p>
+                            </article>
                         </div>
-                        <img src="/assets/portal-documents-live.png" alt="Portal documents preview">
                     </div>
                 </div>
 
@@ -501,8 +638,8 @@
             </section>
 
             <section class="login-panel">
-                <h2>Welcome back</h2>
-                <p>Use your client portal credentials to continue.</p>
+                <h2>Let&apos;s make the next post the easy one.</h2>
+                <p>Your workspace is warmed up and waiting. Sign in and get back to publishing without the usual chaos.</p>
 
                 <div class="alert alert-error" id="alertError" role="alert">
                     <span id="alertErrorMsg">Invalid email or password. Please try again.</span>
