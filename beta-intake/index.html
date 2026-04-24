@@ -790,6 +790,9 @@
     function showMessage(element, message) {
         element.textContent = message;
         element.classList.add('show');
+        requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     }
 
     function clearMessages() {
@@ -908,13 +911,14 @@
                 ? 'We received your request and flagged it for a quick manual review before setup continues.'
                 : 'We received your request and your free-trial setup is in motion.';
             const trialNote = `No payment information was required today. We will use ${businessTypeLabel} to seed your starter planner and remind you 5 days before the 30-day trial ends.`;
+            const activationNote = 'Next, we’ll send a verification email so you can confirm the address is real and choose your portal password.';
             const intakeNote = viaFallback
                 ? 'Your submission was accepted through the live signup service.'
                 : 'Your submission was accepted successfully.';
 
             showMessage(
                 successBanner,
-                `${nextStep} Plan: ${planLabel}. ${trialNote} ${intakeNote}`
+                `${nextStep} Plan: ${planLabel}. ${trialNote} ${activationNote} ${intakeNote}`
             );
 
             form.reset();

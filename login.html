@@ -400,6 +400,8 @@
 
         .alert.show { display: flex; }
 
+        .hidden { display: none !important; }
+
         .alert-error {
             color: var(--danger);
             background: var(--danger-bg);
@@ -516,6 +518,41 @@
         .login-footer a {
             color: #203541;
             font-weight: 700;
+        }
+
+        .build-status {
+            display: none;
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 22px;
+            border: 1px solid rgba(57,75,97,0.1);
+            background: rgba(255,255,255,0.58);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.74);
+        }
+
+        .build-status.show {
+            display: grid;
+            gap: 12px;
+        }
+
+        .build-spinner {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 4px solid rgba(59, 130, 246, 0.14);
+            border-top-color: var(--accent);
+            animation: spin 0.9s linear infinite;
+        }
+
+        .build-status strong {
+            font-size: 15px;
+            color: #102030;
+        }
+
+        .build-status p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         footer {
@@ -638,8 +675,8 @@
             </section>
 
             <section class="login-panel">
-                <h2>Let&apos;s make the next post the easy one.</h2>
-                <p>Your workspace is warmed up and waiting. Sign in and get back to publishing without the usual chaos.</p>
+                <h2 id="formHeading">Let&apos;s make the next post the easy one.</h2>
+                <p id="formLead">Your workspace is warmed up and waiting. Sign in and get back to publishing without the usual chaos.</p>
 
                 <div class="alert alert-error" id="alertError" role="alert">
                     <span id="alertErrorMsg">Invalid email or password. Please try again.</span>
@@ -663,7 +700,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password" id="passwordLabel">Password</label>
                         <div class="input-wrap">
                             <input
                                 type="password"
@@ -686,13 +723,32 @@
                         </div>
                     </div>
 
+                    <div class="form-group hidden" id="confirmGroup">
+                        <label for="confirmPassword">Confirm password</label>
+                        <div class="input-wrap">
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                            >
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn-login" id="loginBtn">
                         <span class="spinner" aria-hidden="true"></span>
-                        <span class="btn-label">Sign in to portal</span>
+                        <span class="btn-label" id="loginBtnLabel">Sign in to portal</span>
                     </button>
                 </form>
 
-                <div class="login-footer">
+                <div class="build-status" id="buildStatus" aria-live="polite">
+                    <div class="build-spinner" aria-hidden="true"></div>
+                    <strong id="buildHeading">Building your portal...</strong>
+                    <p id="buildCopy">We&apos;re connecting your new password to the workspace we just provisioned. Hang tight for a moment.</p>
+                </div>
+
+                <div class="login-footer" id="loginFooter">
                     Need help getting in? Contact <a href="mailto:support@myautomationpartner.com">support@myautomationpartner.com</a>.
                 </div>
             </section>
@@ -706,21 +762,27 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
         const LOGIN_ENDPOINT = 'https://zgkxrlednyovuytaejok.supabase.co/functions/v1/portal-login-intake';
+        const SUPABASE_URL = 'https://zgkxrlednyovuytaejok.supabase.co';
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_xwASGbwUsZhX5CFNizTAmg_U50hkD7o';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
         const togglePw = document.getElementById('togglePw');
         const pwInput = document.getElementById('password');
+        const confirmPwInput = document.getElementById('confirmPassword');
         const eyeIcon = document.getElementById('eyeIcon');
         const eyeOffIcon = document.getElementById('eyeOffIcon');
-
-        togglePw.addEventListener('click', () => {
-            const isHidden = pwInput.type === 'password';
-            pwInput.type = isHidden ? 'text' : 'password';
-            eyeIcon.style.display = isHidden ? 'none' : 'block';
-            eyeOffIcon.style.display = isHidden ? 'block' : 'none';
-        });
-
+        const formHeading = document.getElementById('formHeading');
+        const formLead = document.getElementById('formLead');
+        const passwordLabel = document.getElementById('passwordLabel');
+        const confirmGroup = document.getElementById('confirmGroup');
+        const loginBtnLabel = document.getElementById('loginBtnLabel');
+        const buildStatus = document.getElementById('buildStatus');
+        const buildCopy = document.getElementById('buildCopy');
+        const loginFooter = document.getElementById('loginFooter');
         const form = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const alertError = document.getElementById('alertError');
@@ -730,6 +792,55 @@
 
         let failedAttempts = 0;
         let lockoutUntil = null;
+        let setupMode = false;
+        let setupSession = null;
+
+        togglePw.addEventListener('click', () => {
+            const isHidden = pwInput.type === 'password';
+            pwInput.type = isHidden ? 'text' : 'password';
+            confirmPwInput.type = isHidden ? 'text' : 'password';
+            eyeIcon.style.display = isHidden ? 'none' : 'block';
+            eyeOffIcon.style.display = isHidden ? 'block' : 'none';
+        });
+
+        function clearHash() {
+            const url = new URL(window.location.href);
+            url.hash = '';
+            window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+        }
+
+        function decodeJwtPayload(token) {
+            try {
+                const [, payload] = token.split('.');
+                if (!payload) return {};
+                const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+                const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+                return JSON.parse(atob(padded));
+            } catch {
+                return {};
+            }
+        }
+
+        function setSetupMode(email) {
+            setupMode = true;
+            formHeading.textContent = 'One more step and your portal is ready.';
+            formLead.textContent = 'Choose a password to verify your email, then we’ll finish building your portal and send you to the live login page.';
+            passwordLabel.textContent = 'Create password';
+            pwInput.placeholder = 'Create a password';
+            pwInput.autocomplete = 'new-password';
+            confirmGroup.classList.remove('hidden');
+            confirmPwInput.required = true;
+            loginBtnLabel.textContent = 'Finish setup';
+            loginFooter.innerHTML = 'Need help with setup? Contact <a href="mailto:support@myautomationpartner.com">support@myautomationpartner.com</a>.';
+            alertSuccess.querySelector('span').textContent = 'Password saved. Finishing your portal setup now...';
+
+            if (email) {
+                emailInput.value = email;
+            }
+
+            emailInput.readOnly = true;
+            emailInput.setAttribute('aria-readonly', 'true');
+        }
 
         function showError(message) {
             alertError.classList.add('show');
@@ -737,6 +848,7 @@
             alertErrorMsg.textContent = message || 'Invalid email or password. Please try again.';
             emailInput.classList.remove('error');
             pwInput.classList.remove('error');
+            confirmPwInput.classList.remove('error');
             emailInput.classList.add('error');
             pwInput.classList.add('error');
         }
@@ -746,6 +858,7 @@
             alertError.classList.remove('show');
             emailInput.classList.remove('error');
             pwInput.classList.remove('error');
+            confirmPwInput.classList.remove('error');
         }
 
         function setLoading(loading) {
@@ -753,13 +866,84 @@
             loginBtn.classList.toggle('loading', loading);
         }
 
+        function showBuildStatus(message) {
+            if (message) {
+                buildCopy.textContent = message;
+            }
+            buildStatus.classList.add('show');
+        }
+
+        function hideBuildStatus() {
+            buildStatus.classList.remove('show');
+        }
+
+        async function fetchActivationProfile() {
+            const { data, error } = await supabase
+                .from('users')
+                .select('id, client_id, role, email, clients(portal_domain, slug)')
+                .single();
+
+            if (error) throw error;
+            return data;
+        }
+
+        async function waitForPortalUrl() {
+            for (let attempt = 0; attempt < 20; attempt += 1) {
+                const profile = await fetchActivationProfile();
+                const portalDomain = profile?.clients?.portal_domain;
+                const portalSlug = profile?.clients?.slug;
+                const token = setupSession?.access_token || '';
+                const claims = decodeJwtPayload(token);
+                const claimSlug = claims.client_slug || claims.app_metadata?.client_slug || '';
+                const resolvedDomain = portalDomain || (portalSlug ? `${portalSlug}.myautomationpartner.com` : '') || (claimSlug ? `${claimSlug}.myautomationpartner.com` : '');
+
+                if (resolvedDomain) {
+                    return `https://${String(resolvedDomain).replace(/^https?:\/\//i, '')}`;
+                }
+
+                showBuildStatus('We verified your email. Now we’re finishing the portal handoff so your login lands in the right workspace.');
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+            }
+
+            return '';
+        }
+
+        async function bootstrapSetupMode() {
+            const hashParams = new URLSearchParams(window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '');
+            const accessToken = hashParams.get('access_token');
+            const refreshToken = hashParams.get('refresh_token');
+            const flowType = hashParams.get('type');
+
+            if (!accessToken || !refreshToken || !['invite', 'recovery'].includes(flowType || '')) {
+                return;
+            }
+
+            const { data, error } = await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken,
+            });
+
+            if (error || !data?.session) {
+                showError('Your setup link is no longer valid. Please request a fresh activation email.');
+                clearHash();
+                return;
+            }
+
+            setupSession = data.session;
+            const { data: userData } = await supabase.auth.getUser();
+            setSetupMode(userData?.user?.email || '');
+            clearHash();
+        }
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             alertError.classList.remove('show');
             alertSuccess.classList.remove('show');
+            hideBuildStatus();
             emailInput.classList.remove('error');
             pwInput.classList.remove('error');
+            confirmPwInput.classList.remove('error');
 
             const email = emailInput.value.trim();
             const password = pwInput.value;
@@ -769,7 +953,22 @@
                 return;
             }
 
-            if (lockoutUntil && Date.now() < lockoutUntil) {
+            if (setupMode) {
+                const confirmPassword = confirmPwInput.value;
+                if (password.length < 10) {
+                    pwInput.classList.add('error');
+                    showError('Please choose a password with at least 10 characters.');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    pwInput.classList.add('error');
+                    confirmPwInput.classList.add('error');
+                    showError('Your passwords do not match yet.');
+                    return;
+                }
+            }
+
+            if (!setupMode && lockoutUntil && Date.now() < lockoutUntil) {
                 const secsLeft = Math.ceil((lockoutUntil - Date.now()) / 1000);
                 showError('Too many failed attempts. Please wait ' + secsLeft + ' seconds.');
                 return;
@@ -778,6 +977,47 @@
             setLoading(true);
 
             try {
+                if (setupMode) {
+                    if (!setupSession) {
+                        throw new Error('Your setup session is missing. Please request a fresh activation email.');
+                    }
+
+                    const { data, error } = await supabase.auth.updateUser({ password });
+                    if (error) {
+                        throw error;
+                    }
+
+                    setupSession = (await supabase.auth.getSession()).data.session || setupSession;
+                    if (!data?.user) {
+                        throw new Error('We could not finish setting your password.');
+                    }
+
+                    showSuccess();
+                    showBuildStatus();
+
+                    const portalBaseUrl = await waitForPortalUrl();
+                    if (!portalBaseUrl) {
+                        throw new Error('Your portal is still provisioning. Please try the activation link again in a few minutes.');
+                    }
+
+                    const redirectUrl = new URL('/login', portalBaseUrl);
+                    redirectUrl.searchParams.set('setup', 'complete');
+                    if (email) {
+                        redirectUrl.searchParams.set('email', email);
+                    }
+
+                    try {
+                        await supabase.auth.signOut();
+                    } catch {
+                        // Best effort only. We still want to land the user on their tenant login page.
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = redirectUrl.toString();
+                    }, 1800);
+                    return;
+                }
+
                 const response = await fetch(LOGIN_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -815,22 +1055,29 @@
                     setLoading(false);
                 }
             } catch (err) {
-                const msg = err.message.includes('fetch')
+                const message = err instanceof Error ? err.message : 'Unable to continue right now.';
+                const msg = message.includes('fetch')
                     ? 'Unable to connect. Please check your internet connection.'
-                    : err.message;
+                    : message;
                 showError(msg);
                 setLoading(false);
             }
         });
 
-        [emailInput, pwInput].forEach(input => {
+        [emailInput, pwInput, confirmPwInput].forEach((input) => {
             input.addEventListener('input', () => {
                 input.classList.remove('error');
-                if (!emailInput.classList.contains('error') && !pwInput.classList.contains('error')) {
+                if (
+                    !emailInput.classList.contains('error')
+                    && !pwInput.classList.contains('error')
+                    && !confirmPwInput.classList.contains('error')
+                ) {
                     alertError.classList.remove('show');
                 }
             });
         });
+
+        bootstrapSetupMode();
     </script>
 </body>
 </html>
