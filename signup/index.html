@@ -633,6 +633,7 @@
                 <span class="section-kicker">What we collect</span>
                 <ul>
                     <li>Business name, contact name, email, and website</li>
+                    <li>Your industry so we can seed the right starter planner</li>
                     <li>A few notes about what you need help with</li>
                     <li>Your approval for us to review the business details you submit</li>
                 </ul>
@@ -678,6 +679,22 @@
                         <label>
                             Website URL
                             <input id="website_url" name="website_url" type="url" autocomplete="url" placeholder="https://www.example.com" required>
+                        </label>
+                        <label>
+                            Industry
+                            <select id="business_type" name="business_type" required>
+                                <option value="">Select your industry</option>
+                                <option value="dance_studio">Dance Studio</option>
+                                <option value="gym_fitness">Gym / Fitness</option>
+                                <option value="salon_spa">Salon / Spa</option>
+                                <option value="restaurant_cafe">Restaurant / Cafe</option>
+                                <option value="professional_services">Professional Services</option>
+                                <option value="home_services">Home Services</option>
+                                <option value="real_estate">Real Estate</option>
+                                <option value="medical_wellness">Medical / Wellness</option>
+                                <option value="other_small_business">Other Small Business</option>
+                            </select>
+                            <span class="field-note">We use this to preload the right planner and starter content strategy for your portal.</span>
                         </label>
                     </div>
                 </div>
@@ -739,6 +756,17 @@
 
     const planMeta = {
         starter: 'MAP Monthly Subscription'
+    };
+    const businessTypeMeta = {
+        dance_studio: 'Dance Studio',
+        gym_fitness: 'Gym / Fitness',
+        salon_spa: 'Salon / Spa',
+        restaurant_cafe: 'Restaurant / Cafe',
+        professional_services: 'Professional Services',
+        home_services: 'Home Services',
+        real_estate: 'Real Estate',
+        medical_wellness: 'Medical / Wellness',
+        other_small_business: 'Other Small Business'
     };
 
     function setSelectedPlan(plan) {
@@ -822,6 +850,7 @@
         if (!payload.contact_name) return 'Contact name is required.';
         if (!payload.contact_email) return 'Email is required.';
         if (!payload.website_url) return 'Website URL is required.';
+        if (!payload.business_type) return 'Industry is required.';
         if (!payload.agreed_to_terms) return 'You must confirm the consent acknowledgment before submitting.';
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -846,6 +875,7 @@
             contact_name: getValue('contact_name'),
             contact_email: getValue('contact_email'),
             website_url: normalizeUrl(document.getElementById('website_url').value),
+            business_type: getValue('business_type'),
             selected_plan: selectedPlanInput ? selectedPlanInput.value : 'starter',
             phone: '',
             primary_goal: '',
@@ -872,10 +902,11 @@
             }
 
             const planLabel = planMeta[payload.selected_plan] || payload.selected_plan;
+            const businessTypeLabel = businessTypeMeta[payload.business_type] || 'your industry';
             const nextStep = data.manualAttentionRequired
                 ? 'We received your request and flagged it for a quick manual review before setup continues.'
                 : 'We received your request and your free-trial setup is in motion.';
-            const trialNote = 'No payment information was required today. We will remind you 5 days before the 30-day trial ends.';
+            const trialNote = `No payment information was required today. We will use ${businessTypeLabel} to seed your starter planner and remind you 5 days before the 30-day trial ends.`;
             const intakeNote = viaFallback
                 ? 'Your submission was accepted through the live signup service.'
                 : 'Your submission was accepted successfully.';

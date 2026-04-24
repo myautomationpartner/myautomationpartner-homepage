@@ -8,6 +8,18 @@ const GOAL_VALUES = new Set([
   'operations_automation',
   'portal_rollout',
 ]);
+const BUSINESS_TYPE_VALUES = new Set([
+  '',
+  'dance_studio',
+  'gym_fitness',
+  'salon_spa',
+  'restaurant_cafe',
+  'professional_services',
+  'home_services',
+  'real_estate',
+  'medical_wellness',
+  'other_small_business',
+]);
 const ALLOWED_HOSTS = new Set([
   'myautomationpartner.com',
   'www.myautomationpartner.com',
@@ -66,6 +78,7 @@ function normalizePayload(raw) {
   const preferredContactMethod = trimText(raw.preferred_contact_method, 20).toLowerCase();
   const requestedPlan = trimText(raw.selected_plan, 40).toLowerCase();
   const primaryGoal = trimText(raw.primary_goal, 40).toLowerCase();
+  const businessType = trimText(raw.business_type, 40).toLowerCase();
 
   return {
     business_name: trimText(raw.business_name, 160),
@@ -73,6 +86,7 @@ function normalizePayload(raw) {
     contact_email: normalizeEmail(raw.contact_email),
     website_url: normalizeUrl(raw.website_url),
     selected_plan: requestedPlan || CANONICAL_PLAN,
+    business_type: businessType,
     phone: trimText(raw.phone, 40),
     primary_goal: primaryGoal,
     preferred_contact_method: preferredContactMethod,
@@ -99,8 +113,14 @@ function validatePayload(payload) {
   if (!payload.website_url) {
     return 'website_url must be valid';
   }
+  if (!payload.business_type) {
+    return 'business_type is required';
+  }
   if (!payload.agreed_to_terms) {
     return 'agreed_to_terms must be true';
+  }
+  if (!BUSINESS_TYPE_VALUES.has(payload.business_type)) {
+    return 'business_type is invalid';
   }
   if (!CONTACT_METHOD_VALUES.has(payload.preferred_contact_method)) {
     return 'preferred_contact_method is invalid';
@@ -149,6 +169,7 @@ async function createSignupInSupabase(payload, env) {
       p_contact_email: payload.contact_email,
       p_website_url: payload.website_url,
       p_selected_plan: payload.selected_plan,
+      p_business_type: payload.business_type || null,
       p_agreed_to_terms: true,
       p_phone: payload.phone || null,
       p_primary_goal: payload.primary_goal || null,
