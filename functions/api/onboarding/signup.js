@@ -8,6 +8,81 @@ const GOAL_VALUES = new Set([
   'operations_automation',
   'portal_rollout',
 ]);
+const ALLOWED_HOSTS = new Set([
+  'myautomationpartner.com',
+  'www.myautomationpartner.com',
+  'localhost',
+  '127.0.0.1',
+]);
+const BUSINESS_REACH_VALUES = new Set(['local', 'national_global']);
+const BUSINESS_CATEGORY_VALUES = new Set([
+  'sports_fitness',
+  'beauty_personal_care',
+  'food_beverage',
+  'professional_services',
+  'home_services',
+  'real_estate_housing',
+  'health_wellness',
+  'retail_ecommerce',
+  'community_education_services',
+]);
+const BUSINESS_SUBTYPE_TO_PLANNER_TYPE = {
+  dance_studio: 'dance_studio',
+  gym: 'gym_fitness',
+  yoga_studio: 'gym_fitness',
+  pilates_studio: 'gym_fitness',
+  martial_arts_school: 'gym_fitness',
+  swim_school: 'gym_fitness',
+  personal_training: 'gym_fitness',
+  hair_salon: 'salon_spa',
+  nail_salon: 'salon_spa',
+  day_spa: 'salon_spa',
+  med_spa: 'medical_wellness',
+  esthetician: 'salon_spa',
+  barber_shop: 'salon_spa',
+  restaurant: 'restaurant_cafe',
+  cafe: 'restaurant_cafe',
+  bakery: 'restaurant_cafe',
+  catering: 'restaurant_cafe',
+  food_truck: 'restaurant_cafe',
+  bar_lounge: 'restaurant_cafe',
+  law_firm: 'professional_services',
+  accounting_bookkeeping: 'professional_services',
+  insurance_agency: 'professional_services',
+  marketing_agency: 'professional_services',
+  business_consulting: 'professional_services',
+  financial_advisor: 'professional_services',
+  plumbing: 'home_services',
+  hvac: 'home_services',
+  electrical: 'home_services',
+  roofing: 'home_services',
+  landscaping: 'home_services',
+  cleaning_service: 'home_services',
+  pest_control: 'home_services',
+  real_estate_agent: 'real_estate',
+  real_estate_brokerage: 'real_estate',
+  property_management: 'real_estate',
+  mortgage_broker: 'real_estate',
+  dental_practice: 'medical_wellness',
+  orthodontics: 'medical_wellness',
+  chiropractic: 'medical_wellness',
+  physical_therapy: 'medical_wellness',
+  counseling_practice: 'medical_wellness',
+  wellness_clinic: 'medical_wellness',
+  boutique: 'other_small_business',
+  gift_shop: 'other_small_business',
+  jewelry_store: 'other_small_business',
+  home_decor_store: 'other_small_business',
+  specialty_retail: 'other_small_business',
+  ecommerce_brand: 'other_small_business',
+  child_care: 'other_small_business',
+  tutoring_center: 'other_small_business',
+  event_venue: 'other_small_business',
+  photography_studio: 'other_small_business',
+  pet_grooming: 'other_small_business',
+  other_small_business: 'other_small_business',
+};
+const BUSINESS_SUBTYPE_VALUES = new Set(Object.keys(BUSINESS_SUBTYPE_TO_PLANNER_TYPE));
 const BUSINESS_TYPE_VALUES = new Set([
   '',
   'dance_studio',
@@ -19,12 +94,6 @@ const BUSINESS_TYPE_VALUES = new Set([
   'real_estate',
   'medical_wellness',
   'other_small_business',
-]);
-const ALLOWED_HOSTS = new Set([
-  'myautomationpartner.com',
-  'www.myautomationpartner.com',
-  'localhost',
-  '127.0.0.1',
 ]);
 
 function json(body, status = 200) {
@@ -74,11 +143,18 @@ function normalizeEmail(value) {
   return trimText(value, 320).toLowerCase();
 }
 
+function normalizeSlug(value) {
+  return trimText(value, 80).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+}
+
 function normalizePayload(raw) {
   const preferredContactMethod = trimText(raw.preferred_contact_method, 20).toLowerCase();
   const requestedPlan = trimText(raw.selected_plan, 40).toLowerCase();
   const primaryGoal = trimText(raw.primary_goal, 40).toLowerCase();
-  const businessType = trimText(raw.business_type, 40).toLowerCase();
+  const businessCategory = normalizeSlug(raw.business_category);
+  const businessSubtype = normalizeSlug(raw.business_subtype || raw.business_type);
+  const businessType = BUSINESS_SUBTYPE_TO_PLANNER_TYPE[businessSubtype] || normalizeSlug(raw.business_type) || 'other_small_business';
+  const businessReach = normalizeSlug(raw.business_reach);
 
   return {
     business_name: trimText(raw.business_name, 160),
@@ -87,6 +163,13 @@ function normalizePayload(raw) {
     website_url: normalizeUrl(raw.website_url),
     selected_plan: requestedPlan || CANONICAL_PLAN,
     business_type: businessType,
+    business_subtype: businessSubtype,
+    business_category: businessCategory,
+    business_reach: businessReach,
+    country_code: trimText(raw.country_code, 8).toUpperCase(),
+    state_code: trimText(raw.state_code, 32).toUpperCase(),
+    postal_code: trimText(raw.postal_code, 32).toUpperCase(),
+    county: trimText(raw.county, 120),
     phone: trimText(raw.phone, 40),
     primary_goal: primaryGoal,
     preferred_contact_method: preferredContactMethod,
@@ -113,20 +196,49 @@ function validatePayload(payload) {
   if (!payload.website_url) {
     return 'website_url must be valid';
   }
+  if (!payload.business_category) {
+    return 'business_category is required';
+  }
+  if (!payload.business_subtype) {
+    return 'business_subtype is required';
+  }
   if (!payload.business_type) {
     return 'business_type is required';
+  }
+  if (!payload.business_reach) {
+    return 'business_reach is required';
   }
   if (!payload.agreed_to_terms) {
     return 'agreed_to_terms must be true';
   }
+  if (!BUSINESS_CATEGORY_VALUES.has(payload.business_category)) {
+    return 'business_category is invalid';
+  }
+  if (!BUSINESS_SUBTYPE_VALUES.has(payload.business_subtype)) {
+    return 'business_subtype is invalid';
+  }
   if (!BUSINESS_TYPE_VALUES.has(payload.business_type)) {
     return 'business_type is invalid';
+  }
+  if (!BUSINESS_REACH_VALUES.has(payload.business_reach)) {
+    return 'business_reach is invalid';
   }
   if (!CONTACT_METHOD_VALUES.has(payload.preferred_contact_method)) {
     return 'preferred_contact_method is invalid';
   }
   if (!GOAL_VALUES.has(payload.primary_goal)) {
     return 'primary_goal is invalid';
+  }
+  if (payload.business_reach === 'local') {
+    if (!payload.country_code) {
+      return 'country_code is required';
+    }
+    if (!payload.state_code) {
+      return 'state_code is required';
+    }
+    if (!payload.postal_code) {
+      return 'postal_code is required';
+    }
   }
 
   return '';
@@ -170,6 +282,13 @@ async function createSignupInSupabase(payload, env) {
       p_website_url: payload.website_url,
       p_selected_plan: payload.selected_plan,
       p_business_type: payload.business_type || null,
+      p_business_subtype: payload.business_subtype || null,
+      p_business_category: payload.business_category || null,
+      p_business_reach: payload.business_reach || null,
+      p_country_code: payload.country_code || null,
+      p_state_code: payload.state_code || null,
+      p_postal_code: payload.postal_code || null,
+      p_county: payload.county || null,
       p_agreed_to_terms: true,
       p_phone: payload.phone || null,
       p_primary_goal: payload.primary_goal || null,
