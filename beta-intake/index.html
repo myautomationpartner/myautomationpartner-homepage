@@ -913,21 +913,10 @@
                 throw new Error(data.error || 'MAP could not submit your signup right now.');
             }
 
-            const planLabel = planMeta[payload.selected_plan] || payload.selected_plan;
-            const businessTypeLabel = businessTypeMeta[payload.business_type] || 'your industry';
             const nextStep = data.manualAttentionRequired
-                ? 'We received your request and flagged it for a quick manual review before setup continues.'
-                : 'We received your request and your free-trial setup is in motion.';
-            const trialNote = `No payment information was required today. We will use ${businessTypeLabel} to seed your starter planner and remind you 5 days before the 30-day trial ends.`;
-            const activationNote = 'Next, we’ll send a verification email so you can confirm the address is real and choose your portal password.';
-            const intakeNote = viaFallback
-                ? 'Your submission was accepted through the live signup service.'
-                : 'Your submission was accepted successfully.';
-
-            showMessage(
-                successBanner,
-                `${nextStep} Plan: ${planLabel}. ${trialNote} ${activationNote} ${intakeNote}`
-            );
+                ? 'Signup received. We need a quick manual review before setup continues.'
+                : 'Signup received. Check your email to verify your address and create your password.';
+            showMessage(successBanner, nextStep);
 
             form.reset();
             setSelectedPlan(payload.selected_plan);

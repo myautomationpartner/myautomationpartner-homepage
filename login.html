@@ -908,6 +908,26 @@
             return '';
         }
 
+        async function waitForPortalReadiness(portalBaseUrl) {
+            if (!portalBaseUrl) return false;
+
+            for (let attempt = 0; attempt < 20; attempt += 1) {
+                try {
+                    await fetch(`${portalBaseUrl}/login?healthcheck=${Date.now()}`, {
+                        method: 'GET',
+                        mode: 'no-cors',
+                        cache: 'no-store',
+                    });
+                    return true;
+                } catch {
+                    showBuildStatus('Your portal is still finishing deployment. We’ll open the live login page as soon as it is reachable.');
+                    await new Promise((resolve) => setTimeout(resolve, 3000));
+                }
+            }
+
+            return false;
+        }
+
         async function bootstrapSetupMode() {
             const hashParams = new URLSearchParams(window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '');
             const accessToken = hashParams.get('access_token');
@@ -998,6 +1018,11 @@
                     const portalBaseUrl = await waitForPortalUrl();
                     if (!portalBaseUrl) {
                         throw new Error('Your portal is still provisioning. Please try the activation link again in a few minutes.');
+                    }
+
+                    const portalReady = await waitForPortalReadiness(portalBaseUrl);
+                    if (!portalReady) {
+                        throw new Error('Your portal is still finishing deployment. Please wait a minute, then sign in from the live portal link.');
                     }
 
                     const redirectUrl = new URL('/login', portalBaseUrl);
