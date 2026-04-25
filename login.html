@@ -825,7 +825,7 @@
         function setSetupMode(email) {
             setupMode = true;
             formHeading.textContent = 'One more step and your portal is ready.';
-            formLead.textContent = 'Choose a password to verify your email, then we’ll finish building your portal and send you to the live login page.';
+            formLead.textContent = 'Choose a password to verify your email. If final deployment checks are still running, we’ll keep you posted here and email your private access link when the workspace is live.';
             passwordLabel.textContent = 'Create password';
             pwInput.placeholder = 'Create a password';
             pwInput.autocomplete = 'new-password';
@@ -833,7 +833,7 @@
             confirmPwInput.required = true;
             loginBtnLabel.textContent = 'Finish setup';
             loginFooter.innerHTML = 'Need help with setup? Contact <a href="mailto:support@myautomationpartner.com">support@myautomationpartner.com</a>.';
-            alertSuccess.querySelector('span').textContent = 'Password saved. Finishing your portal setup now...';
+            alertSuccess.querySelector('span').textContent = 'Password saved. Your portal is coming to life...';
 
             if (email) {
                 emailInput.value = email;
@@ -936,10 +936,11 @@
 
                 const manualAttention = payload.manualAttentionRequired === true;
                 if (manualAttention) {
-                    throw new Error('Your account needs a quick manual review before the live portal can open.');
+                    showBuildStatus('Your password is set. We’re finishing one automated setup check and will email your private portal link as soon as it passes.');
+                    return '';
                 }
 
-                showBuildStatus('Your portal is still finishing deployment. We’ll open the live login page as soon as it is ready.');
+                showBuildStatus('Your portal is still finishing deployment. Most portals are ready in a few minutes, and we’ll email your private access link as soon as final checks pass.');
                 await new Promise((resolve) => setTimeout(resolve, 3000));
             }
 
@@ -1040,7 +1041,9 @@
 
                     const readyPortalUrl = await waitForPortalReadiness();
                     if (!readyPortalUrl) {
-                        throw new Error('Your portal is still finishing deployment. Please wait a minute, then sign in from the live portal link.');
+                        showBuildStatus('Your password is ready. We’re finishing the portal checks in the background and will email your private access link as soon as everything is live.');
+                        setLoading(false);
+                        return;
                     }
 
                     const redirectUrl = new URL('/login', readyPortalUrl);
