@@ -983,6 +983,7 @@
         let lockoutUntil = null;
         let setupMode = false;
         let setupSession = null;
+        const SETUP_FLOW_TYPES = new Set(['invite', 'recovery', 'signup', 'magiclink', 'email', 'login']);
 
         togglePw.addEventListener('click', () => {
             const isHidden = pwInput.type === 'password';
@@ -1161,7 +1162,7 @@
             const refreshToken = hashParams.get('refresh_token');
             const flowType = hashParams.get('type');
 
-            if (!accessToken || !refreshToken || !['invite', 'recovery'].includes(flowType || '')) {
+            if (!accessToken || !refreshToken || !SETUP_FLOW_TYPES.has(flowType || '')) {
                 return;
             }
 
