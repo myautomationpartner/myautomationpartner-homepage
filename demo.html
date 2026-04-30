@@ -1397,39 +1397,10 @@
       animation: pulse 1.9s ease-out infinite;
     }
 
-    .screen-hotspot::before {
-      content: attr(data-tip);
-      position: absolute;
-      left: 50%;
-      bottom: calc(100% + 14px);
-      min-width: 160px;
-      max-width: 230px;
-      transform: translateX(-50%) translateY(6px);
-      border: 1px solid rgba(112, 228, 255, 0.32);
-      border-radius: 16px;
-      padding: 9px 11px;
-      color: var(--text);
-      background: rgba(7, 10, 18, 0.9);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.36);
-      backdrop-filter: blur(16px);
-      font-size: 11px;
-      line-height: 1.35;
-      font-weight: 850;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 160ms ease, transform 160ms ease;
-    }
-
     .screen-hotspot:hover,
     .screen-hotspot:focus-visible {
       outline: 2px solid white;
       outline-offset: 5px;
-    }
-
-    .screen-hotspot:hover::before,
-    .screen-hotspot:focus-visible::before {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
     }
 
     .screen-hotspot[data-hotspot="dashboard-apps"] { left: 81%; top: 58%; }
@@ -1595,11 +1566,11 @@
           <button class="screen-nav-button" type="button" data-view="inbox" aria-label="Show Inbox screen"></button>
           <button class="screen-nav-button" type="button" data-view="settings" aria-label="Explain Settings"></button>
 
-          <button class="screen-hotspot" type="button" data-hotspot="dashboard-apps" data-tip="App launcher: one place for daily tools" aria-label="Explain Dashboard app launcher"></button>
-          <button class="screen-hotspot" type="button" data-hotspot="documents-private" data-tip="Private documents and secure sharing" aria-label="Explain private document storage" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="publisher-approval" data-tip="Mobile request becomes an approved post" aria-label="Explain Publisher approval" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="campaign-guided" data-tip="Guided research and campaign ideas" aria-label="Explain Campaign Partner" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="inbox-mobile" data-tip="Message-to-post workflow proof" aria-label="Explain mobile request to post" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="dashboard-apps" aria-label="Explain Dashboard app launcher"></button>
+          <button class="screen-hotspot" type="button" data-hotspot="documents-private" aria-label="Explain private document storage" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="publisher-approval" aria-label="Explain Publisher approval" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="campaign-guided" aria-label="Explain Campaign Partner" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="inbox-mobile" aria-label="Explain mobile request to post" hidden></button>
           <div class="screen-caption" id="screen-caption">Dashboard</div>
         </div>
       </section>
@@ -1820,10 +1791,6 @@
 
     screenNavButtons.forEach((button) => {
       button.addEventListener('click', () => setView(button.dataset.view))
-      button.addEventListener('mouseenter', () => {
-        const next = views[button.dataset.view]
-        if (next) setGuide(next.guide, false)
-      })
       button.addEventListener('focus', () => {
         const next = views[button.dataset.view]
         if (next) setGuide(next.guide, false)
@@ -1833,7 +1800,6 @@
     hotspotButtons.forEach((button) => {
       const key = button.dataset.hotspot
       button.addEventListener('click', () => setGuide(key))
-      button.addEventListener('mouseenter', () => setGuide(key))
       button.addEventListener('focus', () => setGuide(key))
     })
 
