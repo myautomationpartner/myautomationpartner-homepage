@@ -126,6 +126,18 @@
       background: rgba(255, 255, 255, 0.08);
     }
 
+    .nav-links a.nav-how {
+      color: #081017;
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      box-shadow: 0 14px 30px rgba(156, 255, 100, 0.22);
+    }
+
+    .nav-links a.nav-how:hover,
+    .nav-links a.nav-how[aria-current="page"] {
+      color: #081017;
+      background: linear-gradient(135deg, #b9ff5f, #68e7ff);
+    }
+
     .nav-actions {
       display: flex;
       align-items: center;
@@ -1375,17 +1387,12 @@
     .screen-nav-button:hover,
     .screen-nav-button:focus-visible,
     .screen-nav-button.is-active {
-      outline: 2px solid rgba(112, 228, 255, 0.7);
-      outline-offset: -2px;
-      background: rgba(112, 228, 255, 0.1);
+      outline: 0;
+      background: transparent;
     }
 
     .screen-hotspot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 0 9px rgba(112, 228, 255, 0.1), 0 0 24px rgba(112, 228, 255, 0.64);
+      display: none;
     }
 
     .screen-hotspot::after {
@@ -1520,7 +1527,7 @@
       </a>
       <div class="nav-links" aria-label="Page sections">
         <a href="/index.html">Home</a>
-        <a href="/demo.html" aria-current="page">Demo</a>
+        <a class="nav-how" href="/demo.html" aria-current="page">How It Works</a>
         <a href="/index.html#story">Story</a>
       </div>
       <div class="nav-actions">
@@ -1532,7 +1539,7 @@
     <header class="demo-hero">
       <div class="demo-copy">
         <h1>Tour the actual <em>portal structure.</em></h1>
-        <p>This read-only demo uses real portal screens and the same navigation customers see after login. Use the screen tabs, portal sidebar, or glowing info dots to learn what each area does.</p>
+        <p>This read-only demo uses real portal screens and the same navigation customers see after login. Use the screen tabs or portal sidebar to learn what each area does.</p>
       </div>
       <aside class="demo-note">
         <strong>Demo business: Green Ridge Outdoor Services</strong>
