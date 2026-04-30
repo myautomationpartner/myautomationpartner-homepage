@@ -200,8 +200,8 @@
     .hero {
       min-height: calc(100vh - 84px);
       display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
-      gap: clamp(28px, 4vw, 58px);
+      grid-template-columns: minmax(0, 0.78fr) minmax(500px, 1.22fr);
+      gap: clamp(26px, 3.2vw, 46px);
       align-items: start;
       padding: 16px 0 82px;
     }
@@ -213,9 +213,9 @@
     }
 
     h1 {
-      max-width: 770px;
-      font-size: clamp(4rem, 8.1vw, 7.7rem);
-      line-height: 0.88;
+      max-width: 690px;
+      font-size: clamp(3.65rem, 7.15vw, 6.85rem);
+      line-height: 0.9;
       letter-spacing: -0.065em;
       font-weight: 900;
     }
@@ -231,10 +231,10 @@
     }
 
     .lead {
-      max-width: 640px;
+      max-width: 580px;
       margin-top: 30px;
       color: var(--soft);
-      font-size: clamp(1.06rem, 1.35vw, 1.24rem);
+      font-size: clamp(1.02rem, 1.16vw, 1.14rem);
       line-height: 1.68;
     }
 
@@ -286,6 +286,7 @@
       grid-column: 2;
       grid-row: 1 / span 2;
       display: grid;
+      gap: 52px;
       align-items: start;
       justify-items: center;
       perspective: 1400px;
@@ -409,7 +410,7 @@
 
     .portal-card {
       position: relative;
-      width: min(690px, 96vw);
+      width: min(780px, 104vw);
       border: 1px solid var(--line-strong);
       border-radius: 44px;
       background:
@@ -426,6 +427,68 @@
 
     .portal-shot-card {
       margin-top: 0;
+    }
+
+    .founder-quote {
+      position: relative;
+      width: min(700px, 94vw);
+      border: 1px solid rgba(112, 228, 255, 0.18);
+      border-left: 3px solid var(--cyan);
+      border-radius: 28px;
+      padding: 28px 30px 26px;
+      color: var(--soft);
+      background:
+        linear-gradient(135deg, rgba(15, 22, 38, 0.82), rgba(8, 12, 23, 0.72)),
+        rgba(255, 255, 255, 0.045);
+      box-shadow:
+        0 26px 72px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(22px);
+      transform: translateX(-8px);
+    }
+
+    .founder-quote::before {
+      content: "“";
+      position: absolute;
+      left: 20px;
+      top: -24px;
+      color: rgba(112, 228, 255, 0.36);
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 84px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .founder-quote blockquote {
+      margin: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .founder-quote p {
+      margin: 0;
+      font-size: clamp(0.98rem, 1.02vw, 1.08rem);
+      line-height: 1.66;
+    }
+
+    .founder-quote blockquote p:first-child {
+      color: var(--text);
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.35rem, 1.7vw, 1.7rem);
+      font-style: italic;
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    .quote-close {
+      margin-top: 18px !important;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .quote-close strong {
+      color: var(--text);
+      font-weight: 850;
     }
 
     .portal-top {
@@ -476,8 +539,8 @@
 
     .portal-shot-reel {
       position: relative;
-      height: min(430px, calc(100vh - 212px));
-      min-height: 330px;
+      height: min(500px, calc(100vh - 168px));
+      min-height: 370px;
       overflow: hidden;
       background:
         radial-gradient(circle at 16% 0%, rgba(112, 228, 255, 0.16), transparent 22rem),
@@ -992,19 +1055,6 @@
       max-width: 620px;
     }
 
-    .origin-copy {
-      display: grid;
-      gap: 22px;
-      color: var(--soft);
-      font-size: clamp(1.04rem, 1.25vw, 1.22rem);
-      line-height: 1.78;
-    }
-
-    .origin-copy strong {
-      color: var(--text);
-      font-weight: 800;
-    }
-
     .channel-strip {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -1124,6 +1174,10 @@
         min-height: 520px;
         margin-bottom: 52px;
       }
+      .founder-quote {
+        width: min(100%, 720px);
+        transform: none;
+      }
       .portal-card {
         width: min(100%, 720px);
         transform: none;
@@ -1156,6 +1210,18 @@
       .portal-shot-reel {
         height: 330px;
         min-height: 330px;
+      }
+      .founder-quote {
+        border-radius: 22px;
+        padding: 26px 22px 22px;
+      }
+      .founder-quote::before {
+        left: 16px;
+        top: -26px;
+        font-size: 74px;
+      }
+      .founder-quote blockquote p:first-child {
+        font-size: 1.28rem;
       }
       .portal-body { grid-template-columns: 1fr; }
       .sidebar { display: none; }
@@ -1210,6 +1276,7 @@
         </a>
         <div class="nav-links" aria-label="Page sections">
           <a href="#portal">Portal</a>
+          <a href="/demo.html">Demo</a>
           <a href="#story">Story</a>
         </div>
         <div class="nav-actions">
@@ -1224,7 +1291,7 @@
           <p class="lead">Customers now reach you through texts, DMs, website chat, email, comments, and reviews. MAP brings the work into one portal so you can respond faster and get back to serving customers.</p>
           <div class="hero-actions">
             <a class="primary-action" href="/beta-intake/">Start your 30-day trial</a>
-            <a class="secondary-action" href="/login.html">Open portal</a>
+            <a class="secondary-action" href="/demo.html">Explore demo</a>
           </div>
         </div>
 
@@ -1265,16 +1332,23 @@
               </figure>
             </div>
           </article>
+          <aside class="founder-quote" aria-label="Why My Automation Partner was built">
+            <blockquote>
+              <p>When we started in business 28 years ago, customers had a phone number and an answering machine. Today they reach out through texts, social media, website chat, email, comments, reviews, and forms.</p>
+              <p>For a solo owner or lean operation, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
+            </blockquote>
+            <p class="quote-close"><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence moving so you can get back to the product or service you set out to offer.</p>
+          </aside>
         </div>
 
         <div class="signal-row" aria-label="Product highlights">
           <div class="signal">
             <strong>5</strong>
-            <span>starter posts generated during setup from your business profile</span>
+            <span>research-backed ideas and posts built around your business</span>
           </div>
           <div class="signal">
             <strong>1</strong>
-            <span>portal for drafts, approvals, inbox, chat, files, and social connections</span>
+            <span>portal for drafts, approvals, inbox, files, and social connections</span>
           </div>
           <div class="signal">
             <strong>$25</strong>
@@ -1287,8 +1361,8 @@
     <section class="next-band" aria-label="Next section preview">
       <div class="next-inner">
         <h2>Next: how MAP gives every channel one place to land.</h2>
+        <a class="next-item" href="/demo.html"><i></i><span>Explore the demo portal</span></a>
         <a class="next-item" href="#story"><i></i><span>Why we built it</span></a>
-        <div class="next-item"><i></i><span>One place to respond</span></div>
         <div class="next-item"><i></i><span>More time for your work</span></div>
       </div>
     </section>
@@ -1309,11 +1383,6 @@
         </div>
       </div>
       <div>
-        <div class="origin-copy">
-          <p>When we started in business 28 years ago, customers had a phone number and an answering machine. Today they reach out through texts, social media, website chat, email, comments, reviews, and forms.</p>
-          <p>For a solo owner or lean operation, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
-          <p><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence moving so you can get back to the product or service you set out to offer.</p>
-        </div>
         <div class="origin-points">
           <div class="origin-point">
             <i></i>
