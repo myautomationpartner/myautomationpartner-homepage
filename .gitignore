@@ -24,6 +24,7 @@ secrets/
 dist/
 build/
 *.log
+.wrangler/
 
 # Testing
 coverage/
@@ -33,3 +34,4 @@ coverage/
 tmp/
 temp/
 *.tmp
+hero-mockup/

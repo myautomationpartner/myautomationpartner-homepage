@@ -581,16 +581,198 @@
             .actions .button-secondary { width: 100%; }
             .footer-row { flex-direction: column; align-items: flex-start; }
         }
+
+        /* Clean MAP dark theme override */
+        :root {
+            --gold: #baff65;
+            --gold-soft: rgba(186, 255, 101, 0.1);
+            --gold-border: rgba(186, 255, 101, 0.24);
+            --bg: #07090f;
+            --bg-elevated: rgba(15, 20, 35, 0.9);
+            --bg-panel: rgba(255,255,255,0.055);
+            --line: rgba(255,255,255,0.12);
+            --text: #f5f7fb;
+            --muted: #a6afc2;
+            --success: #baff65;
+            --danger: #ff9a9a;
+            --shadow: 0 34px 90px rgba(0,0,0,0.42);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 46% -10%, rgba(112, 228, 255, 0.2), transparent 32rem),
+                radial-gradient(circle at 86% 16%, rgba(186, 255, 101, 0.13), transparent 24rem),
+                linear-gradient(180deg, #07090f 0%, #0b0e18 58%, #090c14 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.24;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+            background-size: 72px 72px;
+            mask-image: linear-gradient(to bottom, black, transparent 74%);
+        }
+
+        header {
+            background: rgba(7,9,15,0.72);
+            border-bottom-color: var(--line);
+        }
+
+        .logo-wrap img {
+            width: 48px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 11px;
+            border: 1px solid var(--line);
+        }
+
+        .logo-text span:first-child {
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--muted);
+        }
+
+        .logo-text span:last-child {
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #baff65, #70e4ff);
+            color: #071018;
+            box-shadow: 0 18px 42px rgba(112, 228, 255, 0.2);
+        }
+
+        .button-secondary,
+        .link-muted {
+            color: var(--muted);
+            border-color: var(--line);
+        }
+
+        main { position: relative; z-index: 1; }
+
+        .intro {
+            grid-template-columns: minmax(0, 0.74fr) minmax(420px, 1.26fr);
+            gap: clamp(28px, 5vw, 72px);
+        }
+
+        .hero-panel,
+        .form-panel {
+            background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
+            border-color: var(--line);
+            border-radius: 28px;
+            backdrop-filter: blur(24px);
+        }
+
+        .hero-panel {
+            padding: clamp(28px, 4vw, 48px);
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        .hero-panel::before,
+        .eyebrow,
+        .hero-grid,
+        .secondary-proof,
+        .proof-list + .proof-list { display: none; }
+
+        h1 {
+            font-size: clamp(3.5rem, 6.4vw, 6.15rem);
+            line-height: 0.9;
+            letter-spacing: -0.065em;
+            margin-bottom: 24px;
+            max-width: 8.8ch;
+        }
+
+        .hero-copy {
+            color: #dbe3f4;
+            font-size: clamp(1rem, 1.25vw, 1.16rem);
+            line-height: 1.72;
+            margin-bottom: 28px;
+        }
+
+        .proof-list {
+            padding: 0;
+            margin-top: 28px;
+            background: transparent;
+            border: none;
+        }
+
+        .section-kicker,
+        .group-title {
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        .proof-list ol {
+            color: var(--muted);
+            gap: 10px;
+        }
+
+        .form-panel { padding: clamp(24px, 3vw, 34px); }
+
+        .form-panel h2 {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            letter-spacing: -0.055em;
+        }
+
+        .form-panel > p,
+        .field-note,
+        .choice-body small,
+        .choice-body span,
+        .checkbox-row p,
+        .footnote,
+        .footer-row { color: var(--muted); }
+
+        input,
+        select,
+        textarea,
+        .choice-body,
+        .checkbox-row {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--line);
+            color: var(--text);
+        }
+
+        input::placeholder,
+        textarea::placeholder { color: rgba(166,175,194,0.7); }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: rgba(112, 228, 255, 0.48);
+            box-shadow: 0 0 0 4px rgba(112, 228, 255, 0.12);
+            background: rgba(255,255,255,0.09);
+        }
+
+        .choice-body .plan-price { color: var(--gold); }
+        .choice-body { cursor: default; }
+
+        label { color: var(--text); }
+
+        footer { position: relative; z-index: 1; border-top-color: var(--line); }
+
+        @media (max-width: 1080px) {
+            .intro { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 <header>
     <div class="header-inner">
         <a href="/" class="logo-wrap">
-            <img alt="My Automation Partner Logo" src="/assets/MyAutomationPartner-Logo.png" width="46" height="46">
+            <img alt="My Automation Partner Logo" src="/assets/map-option-b-mark.png" width="48" height="38">
             <div class="logo-text">
-                <span>My</span>
-                <span>Automation Partner</span>
+                <span>Start your portal</span>
+                <span>My Automation Partner</span>
             </div>
         </a>
         <div class="header-actions">
@@ -605,9 +787,9 @@
     <div class="shell intro">
         <section class="hero-panel" aria-label="Signup overview">
             <span class="eyebrow">30-Day Free Trial</span>
-            <h1>Start your free trial, then pay only if you keep going.</h1>
+            <h1>The phone stopped being the only front door.</h1>
             <p class="hero-copy">
-                Start with a simple setup form. No card is required today. If you decide to continue after 30 days, your subscription is just $25 per month. We will send a reminder 5 days before the trial ends.
+                Start with a simple setup form. No card is required today. We use your business details to create your portal, seed your first ideas, and help every customer channel feel easier to manage.
             </p>
 
             <div class="hero-grid">
@@ -638,7 +820,7 @@
                 </ol>
             </div>
 
-            <div class="proof-list">
+            <div class="proof-list secondary-proof">
                 <span class="section-kicker">What we collect</span>
                 <ul>
                     <li>Business name, contact name, email, and website</li>
@@ -652,9 +834,9 @@
 
         <section class="form-panel">
             <span class="section-kicker">Customer Signup</span>
-            <h2>Start your 30-day free trial.</h2>
+            <h2>Start your 30-day trial.</h2>
             <p>
-                There is only one subscription: $25 per month after the trial. No payment information is required today.
+                Tell us the essentials. MAP will use them to prepare your first portal.
             </p>
 
             <div id="statusSuccess" class="status-banner success" role="status" aria-live="polite"></div>
@@ -1036,7 +1218,7 @@
             body: JSON.stringify(payload)
         });
 
-        if (primaryResponse.status !== 404) {
+        if (primaryResponse.ok) {
             let primaryData = {};
             try {
                 primaryData = await primaryResponse.json();
@@ -1044,6 +1226,12 @@
                 throw new Error('Unexpected response from the signup endpoint.');
             }
             return { response: primaryResponse, data: primaryData, viaFallback: false };
+        }
+
+        if (primaryResponse.status !== 404) {
+            console.warn('Primary signup endpoint failed; using Supabase Edge fallback.', {
+                status: primaryResponse.status
+            });
         }
 
         const fallbackResponse = await fetch(EDGE_FALLBACK_URL, {

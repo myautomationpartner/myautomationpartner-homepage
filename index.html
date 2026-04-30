@@ -1,666 +1,1131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Automation Partner | Social Publishing for Small Business Owners</title>
-    <meta name="description" content="My Automation Partner helps small business owners stay consistent on social media with a cleaner publishing workflow, client portal, and support that feels closer to having your own agency at a fraction of the price.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --bg: #f4efe7;
-            --surface: rgba(255, 255, 255, 0.72);
-            --surface-strong: #fffdf9;
-            --line: rgba(25, 42, 54, 0.12);
-            --text: #182733;
-            --muted: #61717d;
-            --ink-soft: #243845;
-            --accent: #3aa39a;
-            --accent-deep: #236f69;
-            --accent-warm: #d9915c;
-            --shadow: 0 24px 70px rgba(23, 35, 43, 0.12);
-            --radius-xl: 32px;
-            --radius-lg: 24px;
-            --radius-md: 18px;
-            --max: 1180px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            min-height: 100vh;
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(circle at top left, rgba(58, 163, 154, 0.16), transparent 28%),
-                radial-gradient(circle at top right, rgba(217, 145, 92, 0.14), transparent 24%),
-                linear-gradient(180deg, #fbf8f2 0%, #f4efe7 54%, #efe8dd 100%);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a { color: inherit; text-decoration: none; }
-        img { display: block; max-width: 100%; }
-
-        .shell {
-            width: min(var(--max), calc(100% - 32px));
-            margin: 0 auto;
-        }
-
-        .topbar {
-            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
-            background: rgba(255, 255, 255, 0.38);
-            backdrop-filter: blur(18px);
-        }
-
-        .topbar-inner {
-            width: min(var(--max), calc(100% - 32px));
-            margin: 0 auto;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 12px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }
-
-        .topbar-inner strong { color: var(--ink-soft); }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
-            background: rgba(251, 248, 242, 0.76);
-            backdrop-filter: blur(18px);
-        }
-
-        .header-inner {
-            width: min(var(--max), calc(100% - 32px));
-            margin: 0 auto;
-            min-height: 78px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .brand-mark {
-            width: 52px;
-            height: 52px;
-            border-radius: 18px;
-            padding: 6px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(24, 39, 51, 0.08);
-            box-shadow: 0 16px 32px rgba(24, 39, 51, 0.08);
-        }
-
-        .brand-copy {
-            display: grid;
-            gap: 3px;
-        }
-
-        .brand-copy span:first-child {
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .brand-copy span:last-child {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--ink-soft);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        nav a {
-            padding: 10px 14px;
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 14px;
-            font-weight: 600;
-            transition: 160ms ease;
-        }
-
-        nav a:hover {
-            color: var(--text);
-            background: rgba(24, 39, 51, 0.05);
-        }
-
-        .button,
-        .button-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border-radius: 999px;
-            padding: 14px 20px;
-            font-size: 14px;
-            font-weight: 700;
-            transition: 160ms ease;
-            border: 1px solid transparent;
-        }
-
-        .button {
-            background: var(--text);
-            color: #f6f3ee;
-            box-shadow: 0 14px 28px rgba(24, 39, 51, 0.18);
-        }
-
-        .button:hover { transform: translateY(-1px); }
-
-        .button-secondary {
-            background: rgba(255, 255, 255, 0.72);
-            color: var(--ink-soft);
-            border-color: rgba(24, 39, 51, 0.1);
-        }
-
-        .button-secondary:hover {
-            background: rgba(255, 255, 255, 0.92);
-            transform: translateY(-1px);
-        }
-
-        main { padding: 40px 0 72px; }
-
-        .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(360px, 500px);
-            gap: 30px;
-            align-items: center;
-            padding: 28px 0 18px;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.64);
-            border: 1px solid rgba(24, 39, 51, 0.1);
-            color: var(--accent-deep);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
-        }
-
-        h1 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(3rem, 5vw, 5.2rem);
-            line-height: 0.96;
-            letter-spacing: -0.05em;
-            max-width: 10ch;
-            margin-bottom: 20px;
-            color: #14212c;
-        }
-
-        .hero-copy {
-            max-width: 60ch;
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--muted);
-            margin-bottom: 28px;
-        }
-
-        .hero-copy strong { color: var(--ink-soft); }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .mini-proof {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 22px;
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .mini-proof strong {
-            display: block;
-            margin-bottom: 3px;
-            color: var(--ink-soft);
-            font-size: 15px;
-        }
-
-        .hero-visual {
-            position: relative;
-        }
-
-        .showcase {
-            position: relative;
-            overflow: hidden;
-            border-radius: 36px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.62));
-            border: 1px solid rgba(24, 39, 51, 0.09);
-            box-shadow: var(--shadow);
-            padding: 18px;
-        }
-
-        .showcase::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at top right, rgba(58, 163, 154, 0.14), transparent 26%),
-                radial-gradient(circle at bottom left, rgba(217, 145, 92, 0.1), transparent 20%);
-            pointer-events: none;
-        }
-
-        .shot-frame {
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            border-radius: 28px;
-            border: 1px solid rgba(24, 39, 51, 0.08);
-            background: #f8f6f1;
-        }
-
-        .shot-frame img {
-            width: 100%;
-            aspect-ratio: 1 / 1.02;
-            object-fit: cover;
-        }
-
-        .float-card {
-            position: absolute;
-            z-index: 2;
-            max-width: 220px;
-            border-radius: 22px;
-            border: 1px solid rgba(24, 39, 51, 0.08);
-            background: rgba(255, 253, 249, 0.96);
-            padding: 16px;
-            box-shadow: 0 20px 44px rgba(24, 39, 51, 0.14);
-        }
-
-        .float-card strong {
-            display: block;
-            color: var(--ink-soft);
-            margin-bottom: 6px;
-        }
-
-        .float-card p {
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.55;
-        }
-
-        .float-top {
-            top: -12px;
-            left: -18px;
-        }
-
-        .float-bottom {
-            right: -18px;
-            bottom: 18px;
-        }
-
-        .section {
-            margin-top: 34px;
-            padding: 28px;
-            border-radius: var(--radius-xl);
-            border: 1px solid rgba(24, 39, 51, 0.08);
-            background: var(--surface);
-            box-shadow: 0 18px 40px rgba(24, 39, 51, 0.06);
-            backdrop-filter: blur(18px);
-        }
-
-        .section-title {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .section-title h2 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2rem, 3vw, 2.8rem);
-            letter-spacing: -0.04em;
-        }
-
-        .section-title p {
-            max-width: 56ch;
-            color: var(--muted);
-            line-height: 1.65;
-        }
-
-        .feature-grid,
-        .step-grid,
-        .screen-grid {
-            display: grid;
-            gap: 16px;
-        }
-
-        .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .step-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .screen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-        .card {
-            padding: 22px;
-            border-radius: var(--radius-lg);
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(24, 39, 51, 0.08);
-        }
-
-        .card small {
-            display: inline-block;
-            margin-bottom: 14px;
-            color: var(--accent-deep);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .card h3 {
-            font-size: 20px;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            color: var(--ink-soft);
-        }
-
-        .card p {
-            color: var(--muted);
-            line-height: 1.65;
-            font-size: 15px;
-        }
-
-        .screen-card {
-            overflow: hidden;
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(24, 39, 51, 0.08);
-            background: rgba(255, 255, 255, 0.82);
-        }
-
-        .screen-card img {
-            width: 100%;
-            aspect-ratio: 1.18 / 1;
-            object-fit: cover;
-            object-position: top center;
-            border-bottom: 1px solid rgba(24, 39, 51, 0.08);
-        }
-
-        .screen-card figcaption {
-            padding: 16px 18px 18px;
-        }
-
-        .screen-card strong {
-            display: block;
-            margin-bottom: 6px;
-            color: var(--ink-soft);
-            font-size: 16px;
-        }
-
-        .screen-card span {
-            display: block;
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .cta-block {
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) auto;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .cta-block h3 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2rem, 3vw, 2.8rem);
-            line-height: 1;
-            letter-spacing: -0.04em;
-            margin-bottom: 10px;
-        }
-
-        .cta-block p {
-            color: var(--muted);
-            max-width: 55ch;
-            line-height: 1.65;
-        }
-
-        footer {
-            padding: 30px 0 44px;
-        }
-
-        .footer-row {
-            width: min(var(--max), calc(100% - 32px));
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        @media (max-width: 980px) {
-            .hero,
-            .feature-grid,
-            .step-grid,
-            .cta-block {
-                grid-template-columns: 1fr;
-            }
-
-            .float-top,
-            .float-bottom {
-                position: static;
-                margin-top: 14px;
-                max-width: none;
-            }
-
-            .hero-visual { order: -1; }
-        }
-
-        @media (max-width: 760px) {
-            .header-inner,
-            .topbar-inner,
-            .shell,
-            .footer-row {
-                width: min(var(--max), calc(100% - 24px));
-            }
-
-            nav { display: none; }
-            main { padding-top: 22px; }
-            .section { padding: 22px; }
-            .button,
-            .button-secondary { width: 100%; }
-            .hero-actions { align-items: stretch; }
-            .footer-row { flex-direction: column; align-items: flex-start; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Automation Partner | One Front Door for Every Customer Conversation</title>
+  <meta name="description" content="My Automation Partner gives small business owners one clean portal for customer conversations, social publishing, approvals, files, and follow-up.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; }
+
+    :root {
+      color-scheme: dark;
+      --bg: #07090f;
+      --bg-2: #0c1020;
+      --text: #f5f7fb;
+      --muted: #a6afc2;
+      --soft: #dbe3f4;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.2);
+      --panel: rgba(16, 22, 39, 0.76);
+      --panel-strong: rgba(23, 32, 55, 0.92);
+      --cyan: #70e4ff;
+      --lime: #baff65;
+      --rose: #ff7ab8;
+      --violet: #988cff;
+      --orange: #ffb66c;
+      --shadow: 0 34px 90px rgba(0, 0, 0, 0.45);
+      --max: 1220px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -12%, rgba(112, 228, 255, 0.22), transparent 33rem),
+        radial-gradient(circle at 85% 18%, rgba(186, 255, 101, 0.14), transparent 25rem),
+        radial-gradient(circle at 12% 36%, rgba(152, 140, 255, 0.13), transparent 24rem),
+        linear-gradient(180deg, #07090f 0%, #0b0e18 54%, #0f1320 100%);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.34;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .page::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 102px;
+      width: min(980px, 92vw);
+      height: min(980px, 92vw);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background:
+        radial-gradient(circle, rgba(112, 228, 255, 0.13), transparent 39%),
+        conic-gradient(from 130deg, rgba(112, 228, 255, 0.0), rgba(112, 228, 255, 0.32), rgba(186, 255, 101, 0.2), rgba(152, 140, 255, 0.26), rgba(112, 228, 255, 0.0));
+      filter: blur(2px);
+      opacity: 0.68;
+      z-index: 0;
+      animation: slow-turn 32s linear infinite;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: max-content;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 38px;
+      object-fit: cover;
+      border-radius: 11px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .brand span {
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(10, 14, 25, 0.5);
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: max-content;
+    }
+
+    .ghost-link {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 10px;
+    }
+
+    .primary-action,
+    .secondary-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .primary-action {
+      padding: 0 19px;
+      color: #081017;
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      box-shadow: 0 18px 42px rgba(112, 228, 255, 0.22);
+    }
+
+    .secondary-action {
+      padding: 0 18px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--line);
+    }
+
+    .primary-action:hover,
+    .secondary-action:hover { transform: translateY(-2px); }
+
+    .hero {
+      min-height: calc(100vh - 84px);
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+      gap: clamp(28px, 4vw, 58px);
+      align-items: center;
+      padding: 36px 0 90px;
+    }
+
+    .hero-copy {
+      padding-bottom: 40px;
+    }
+
+    h1 {
+      max-width: 770px;
+      font-size: clamp(4rem, 8.1vw, 7.7rem);
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+      font-weight: 900;
+    }
+
+    h1 em {
+      display: inline-block;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.035em;
+      color: var(--lime);
+      text-shadow: 0 0 36px rgba(186, 255, 101, 0.18);
+    }
+
+    .lead {
+      max-width: 640px;
+      margin-top: 30px;
+      color: var(--soft);
+      font-size: clamp(1.06rem, 1.35vw, 1.24rem);
+      line-height: 1.68;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .signal-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 42px;
+      max-width: 655px;
+    }
+
+    .signal {
+      min-height: 118px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
+      padding: 18px;
+      backdrop-filter: blur(20px);
+    }
+
+    .signal strong {
+      display: block;
+      font-size: 25px;
+      letter-spacing: -0.04em;
+      margin-bottom: 9px;
+    }
+
+    .signal span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .visual-stage {
+      position: relative;
+      min-height: 650px;
+      display: grid;
+      place-items: center;
+      perspective: 1400px;
+    }
+
+    .orbit {
+      position: absolute;
+      width: min(620px, 88vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(112, 228, 255, 0.18);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(112, 228, 255, 0.1), transparent 33%),
+        conic-gradient(from 90deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.28), rgba(186, 255, 101, 0.22), rgba(255, 122, 184, 0.18), rgba(112, 228, 255, 0));
+      mask-image: radial-gradient(circle, transparent 48%, black 49%, black 56%, transparent 57%);
+      filter: drop-shadow(0 0 38px rgba(112, 228, 255, 0.16));
+      animation: slow-turn 24s linear infinite reverse;
+    }
+
+    .logo-orb {
+      position: absolute;
+      left: 16px;
+      top: 82px;
+      width: 138px;
+      height: 138px;
+      border-radius: 34px;
+      z-index: 4;
+      transform-style: preserve-3d;
+      animation: logo-drift 8s ease-in-out infinite;
+    }
+
+    .logo-orb::before,
+    .logo-orb::after {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      border-radius: inherit;
+      background: conic-gradient(from 120deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.45), rgba(186, 255, 101, 0.35), rgba(152, 140, 255, 0.42), rgba(112, 228, 255, 0));
+      filter: blur(18px);
+      opacity: 0.58;
+      transform: translateZ(-24px);
+    }
+
+    .logo-orb::after {
+      inset: 12px;
+      filter: blur(10px);
+      opacity: 0.35;
+      transform: translateZ(18px) rotate(26deg);
+    }
+
+    .logo-cube {
+      position: absolute;
+      inset: 18px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.94), rgba(214, 235, 244, 0.8)),
+        radial-gradient(circle at 70% 20%, rgba(112, 228, 255, 0.42), transparent 60%);
+      box-shadow:
+        0 34px 70px rgba(0,0,0,0.34),
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        inset 0 -18px 32px rgba(9, 16, 24, 0.12);
+      transform-style: preserve-3d;
+      animation: logo-spin 7s ease-in-out infinite;
+    }
+
+    .logo-cube img {
+      width: 94px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.22));
+      transform: translateZ(34px);
+      animation: logo-face 7s ease-in-out infinite;
+    }
+
+    .logo-ring {
+      position: absolute;
+      inset: -4px;
+      border: 1px solid rgba(186, 255, 101, 0.45);
+      border-radius: 34px;
+      transform: rotateX(72deg) rotateZ(18deg);
+      opacity: 0.78;
+    }
+
+    .logo-ring:nth-child(2) {
+      border-color: rgba(112, 228, 255, 0.48);
+      transform: rotateY(68deg) rotateZ(-16deg);
+    }
+
+    .portal-card {
+      position: relative;
+      width: min(625px, 92vw);
+      border: 1px solid var(--line-strong);
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)),
+        rgba(12, 16, 29, 0.82);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.12);
+      overflow: hidden;
+      transform: rotateX(7deg) rotateY(-11deg) rotateZ(1deg);
+      transform-style: preserve-3d;
+      animation: float-card 7s ease-in-out infinite;
+    }
+
+    .portal-top {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .window-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line-strong);
+    }
+
+    .window-dots span:nth-child(1) { background: #ff7d7d; }
+    .window-dots span:nth-child(2) { background: #ffd76d; }
+    .window-dots span:nth-child(3) { background: var(--lime); }
+
+    .url-pill {
+      min-width: 245px;
+      text-align: center;
+      color: #d7e1f5;
+      background: rgba(5, 8, 15, 0.52);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .portal-body {
+      display: grid;
+      grid-template-columns: 156px 1fr;
+      min-height: 428px;
+    }
+
+    .sidebar {
+      padding: 18px 14px;
+      border-right: 1px solid var(--line);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mini-brand img {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      object-fit: cover;
+    }
+
+    .side-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      height: 34px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 0 10px;
+      border-radius: 12px;
+      margin-bottom: 7px;
+    }
+
+    .side-item.active {
+      color: #091018;
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+    }
+
+    .side-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.88;
+    }
+
+    .dashboard {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+      background:
+        radial-gradient(circle at 74% 0%, rgba(112, 228, 255, 0.16), transparent 24rem),
+        rgba(7, 10, 18, 0.28);
+    }
+
+    .dash-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .dash-heading h2 {
+      max-width: 310px;
+      font-size: 24px;
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+    }
+
+    .status-pill {
+      color: #091018;
+      background: var(--lime);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      min-width: max-content;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 12px;
+    }
+
+    .product-shot {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      min-height: 218px;
+      position: relative;
+    }
+
+    .product-shot img {
+      width: 100%;
+      height: 100%;
+      min-height: 218px;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.86;
+      filter: saturate(1.04) contrast(1.05);
+    }
+
+    .product-shot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(7, 10, 18, 0.86));
+    }
+
+    .week-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .week-card h3 {
+      font-size: 13px;
+      letter-spacing: -0.01em;
+    }
+
+    .post-line {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 9px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .post-line .day {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #091018;
+      font-size: 11px;
+      font-weight: 900;
+      background: var(--cyan);
+    }
+
+    .post-line:nth-child(3) .day { background: var(--lime); }
+    .post-line:nth-child(4) .day { background: var(--rose); color: #fff; }
+
+    .post-line strong {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 3px;
+    }
+
+    .post-line span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .ai-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .ai-tile {
+      min-height: 92px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      padding: 13px;
+    }
+
+    .ai-tile span {
+      display: block;
+      width: 34px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--cyan);
+      margin-bottom: 16px;
+      box-shadow: 0 0 18px rgba(112, 228, 255, 0.38);
+    }
+
+    .ai-tile:nth-child(2) span { background: var(--lime); box-shadow: 0 0 18px rgba(186, 255, 101, 0.32); }
+    .ai-tile:nth-child(3) span { background: var(--orange); box-shadow: 0 0 18px rgba(255, 182, 108, 0.28); }
+
+    .ai-tile strong {
+      display: block;
+      font-size: 12px;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .ai-tile p {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .floating-note {
+      position: absolute;
+      right: 0;
+      bottom: 78px;
+      width: 228px;
+      border: 1px solid rgba(186, 255, 101, 0.35);
+      border-radius: 24px;
+      padding: 16px;
+      background: rgba(10, 14, 25, 0.82);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.34);
+      backdrop-filter: blur(24px);
+      z-index: 3;
+      animation: note-float 5.6s ease-in-out infinite;
+    }
+
+    .floating-note strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .floating-note p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .spark {
+      position: absolute;
+      width: 76px;
+      height: 76px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      color: #071018;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--lime));
+      box-shadow: 0 24px 58px rgba(112, 228, 255, 0.3);
+      z-index: 3;
+    }
+
+    .spark.two {
+      right: 56px;
+      top: 36px;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--rose), var(--violet));
+      color: #fff;
+      transform: rotate(15deg);
+    }
+
+    .next-band {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      border-top: 1px solid var(--line);
+      background: rgba(10, 14, 25, 0.66);
+      backdrop-filter: blur(22px);
+    }
+
+    .next-inner {
+      width: min(var(--max), calc(100% - 40px));
+      min-height: 88px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.85fr repeat(3, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .next-inner h2 {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 750;
+      line-height: 1.4;
+    }
+
+    .next-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 750;
+      min-width: 0;
+    }
+
+    .next-item i {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .next-item i::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+
+    .next-item:nth-child(3) i::after { background: var(--lime); }
+    .next-item:nth-child(4) i::after { background: var(--rose); }
+
+    .origin {
+      position: relative;
+      z-index: 1;
+      padding: 112px 0 120px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(112, 228, 255, 0.12), transparent 28rem),
+        radial-gradient(circle at 82% 24%, rgba(186, 255, 101, 0.1), transparent 24rem),
+        linear-gradient(180deg, #0f1320 0%, #090c14 100%);
+      border-top: 1px solid var(--line);
+    }
+
+    .origin-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr);
+      gap: clamp(34px, 6vw, 86px);
+      align-items: start;
+    }
+
+    .origin-kicker {
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .origin h2 {
+      font-size: clamp(2.6rem, 5vw, 5.3rem);
+      line-height: 0.92;
+      letter-spacing: -0.065em;
+      max-width: 620px;
+    }
+
+    .origin-copy {
+      display: grid;
+      gap: 22px;
+      color: var(--soft);
+      font-size: clamp(1.04rem, 1.25vw, 1.22rem);
+      line-height: 1.78;
+    }
+
+    .origin-copy strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .channel-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .channel-strip span {
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255,255,255,0.055);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .origin-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .origin-point {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      padding: 18px;
+      min-height: 138px;
+    }
+
+    .origin-point i {
+      display: block;
+      width: 32px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--cyan);
+      margin-bottom: 18px;
+    }
+
+    .origin-point:nth-child(2) i { background: var(--lime); }
+    .origin-point:nth-child(3) i { background: var(--rose); }
+
+    .origin-point strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .origin-point span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    @keyframes slow-turn {
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    @keyframes float-card {
+      0%, 100% { transform: rotateX(7deg) rotateY(-11deg) rotateZ(1deg) translateY(0); }
+      50% { transform: rotateX(8deg) rotateY(-8deg) rotateZ(1deg) translateY(-14px); }
+    }
+
+    @keyframes logo-drift {
+      0%, 100% { transform: translate3d(0, 0, 34px) rotateZ(-8deg); }
+      50% { transform: translate3d(14px, -16px, 56px) rotateZ(5deg); }
+    }
+
+    @keyframes logo-spin {
+      0%, 100% { transform: rotateX(12deg) rotateY(-22deg) rotateZ(-5deg); }
+      50% { transform: rotateX(18deg) rotateY(24deg) rotateZ(4deg); }
+    }
+
+    @keyframes logo-face {
+      0%, 100% { transform: translateZ(34px) scale(1); }
+      50% { transform: translateZ(42px) scale(1.04); }
+    }
+
+    @keyframes note-float {
+      0%, 100% { transform: translateY(0) rotate(3deg); }
+      50% { transform: translateY(-12px) rotate(-1deg); }
+    }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 28px;
+      }
+      .hero-copy { padding-bottom: 0; }
+      h1 { max-width: 8.5ch; }
+      .visual-stage {
+        min-height: 580px;
+        margin-bottom: 52px;
+      }
+      .portal-card { transform: none; }
+      .floating-note { right: 8px; bottom: 34px; }
+      .logo-orb { left: -6px; top: 58px; transform: scale(0.9); }
+      .next-inner { grid-template-columns: 1fr 1fr; padding: 18px 0; }
+    }
+
+    @media (max-width: 680px) {
+      .shell, .next-inner { width: min(100% - 28px, var(--max)); }
+      .nav { min-height: 72px; }
+      .brand span { font-size: 13px; }
+      .brand img { width: 38px; height: 32px; }
+      .ghost-link { display: none; }
+      .primary-action { min-height: 42px; padding-inline: 15px; }
+      h1 {
+        font-size: clamp(3.35rem, 18vw, 5.1rem);
+        max-width: 8.2ch;
+      }
+      .lead { font-size: 1rem; }
+      .signal-row { grid-template-columns: 1fr; }
+      .signal { min-height: auto; }
+      .visual-stage { min-height: 610px; }
+      .portal-body { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .workflow, .ai-row { grid-template-columns: 1fr; }
+      .product-shot img, .product-shot { min-height: 190px; }
+      .url-pill { display: none; }
+      .spark { display: none; }
+      .logo-orb {
+        width: 104px;
+        height: 104px;
+        left: 8px;
+        top: 36px;
+      }
+      .logo-cube img { width: 66px; }
+      .floating-note {
+        position: relative;
+        width: auto;
+        right: auto;
+        bottom: auto;
+        margin: -10px 14px 0;
+      }
+      .next-band { position: relative; }
+      .next-inner { grid-template-columns: 1fr; }
+      .origin { padding: 74px 0 86px; }
+      .origin-grid { grid-template-columns: 1fr; }
+      .channel-strip { grid-template-columns: repeat(2, 1fr); }
+      .origin-points { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="topbar">
-        <div class="topbar-inner">
-            <span>Beta preview underway</span>
-            <strong>Client enrollment opens June 1</strong>
+  <main class="page">
+    <div class="shell">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="/">
+          <img src="assets/map-option-b-mark.png" alt="My Automation Partner">
+          <span>My Automation Partner</span>
+        </a>
+        <div class="nav-links" aria-label="Page sections">
+          <a href="#portal">Portal</a>
+          <a href="#story">Story</a>
         </div>
+        <div class="nav-actions">
+          <a class="ghost-link" href="/login.html">Sign in</a>
+          <a class="primary-action" href="/beta-intake/">Start trial</a>
+        </div>
+      </nav>
+
+      <section class="hero" id="portal">
+        <div class="hero-copy">
+          <h1>The phone stopped being the only <em>front door.</em></h1>
+          <p class="lead">Customers now reach you through texts, DMs, website chat, email, comments, and reviews. MAP brings the work into one portal so small teams can respond faster and get back to serving customers.</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="/beta-intake/">Start your 30-day trial</a>
+            <a class="secondary-action" href="/login.html">Open portal</a>
+          </div>
+          <div class="signal-row" aria-label="Product highlights">
+            <div class="signal">
+              <strong>5</strong>
+              <span>starter posts generated during setup from your business profile</span>
+            </div>
+            <div class="signal">
+              <strong>1</strong>
+              <span>portal for drafts, approvals, inbox, chat, files, and social connections</span>
+            </div>
+            <div class="signal">
+              <strong>$25</strong>
+              <span>monthly launch plan after the no-card trial period</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual-stage" aria-label="MAP portal preview">
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="logo-orb" aria-hidden="true">
+            <span class="logo-ring"></span>
+            <span class="logo-ring"></span>
+            <span class="logo-cube">
+              <img src="assets/map-option-b-mark.png" alt="">
+            </span>
+          </div>
+          <div class="spark two" aria-hidden="true">↗</div>
+
+          <article class="portal-card">
+            <div class="portal-top">
+              <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="url-pill">myautomationpartner.com/portal/you</div>
+            </div>
+            <div class="portal-body">
+              <aside class="sidebar" aria-label="Portal navigation preview">
+                <div class="mini-brand">
+                  <img src="assets/map-option-b-mark.png" alt="">
+                  <span>MAP</span>
+                </div>
+                <div class="side-item active"><span class="side-dot"></span>Publisher</div>
+                <div class="side-item"><span class="side-dot"></span>Radar</div>
+                <div class="side-item"><span class="side-dot"></span>Inbox</div>
+                <div class="side-item"><span class="side-dot"></span>Settings</div>
+              </aside>
+              <div class="dashboard">
+                <div class="dash-heading">
+                  <h2>Your next week is already drafted.</h2>
+                  <span class="status-pill">Ready for review</span>
+                </div>
+                <div class="workflow">
+                  <div class="product-shot">
+                    <img src="assets/portal-publishing-live.png" alt="Publishing calendar preview">
+                  </div>
+                  <div class="week-card">
+                    <h3>Launch week queue</h3>
+                    <div class="post-line">
+                      <span class="day">M</span>
+                      <div><strong>Manual task poll</strong><span>Ask followers what they want off their plate.</span></div>
+                    </div>
+                    <div class="post-line">
+                      <span class="day">W</span>
+                      <div><strong>Behind-the-scenes win</strong><span>Turn one client save into a short story.</span></div>
+                    </div>
+                    <div class="post-line">
+                      <span class="day">F</span>
+                      <div><strong>Offer reminder</strong><span>Invite customers into a simple next step.</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-row">
+                  <div class="ai-tile">
+                    <span></span>
+                    <strong>Opportunity Radar</strong>
+                    <p>Fresh ideas from your business, market, and calendar.</p>
+                  </div>
+                  <div class="ai-tile">
+                    <span></span>
+                    <strong>Partner Format</strong>
+                    <p>Captions shaped for each social channel.</p>
+                  </div>
+                  <div class="ai-tile">
+                    <span></span>
+                    <strong>Content Inbox</strong>
+                    <p>Reply, approve, and keep momentum from one place.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <aside class="floating-note" aria-label="AI partner note">
+            <strong>Partner note</strong>
+            <p>“I found three useful angles for next week. I drafted the safest five and left them in Publisher.”</p>
+          </aside>
+        </div>
+      </section>
     </div>
 
-    <header>
-        <div class="header-inner">
-            <a href="/" class="brand">
-                <img class="brand-mark" src="/assets/MyAutomationPartner-Logo.png" alt="My Automation Partner logo" width="52" height="52">
-                <div class="brand-copy">
-                    <span>Client systems</span>
-                    <span>My Automation Partner</span>
-                </div>
-            </a>
+    <section class="next-band" aria-label="Next section preview">
+      <div class="next-inner">
+        <h2>Next: how MAP gives every channel one place to land.</h2>
+        <a class="next-item" href="#story"><i></i><span>Why we built it</span></a>
+        <div class="next-item"><i></i><span>One place to respond</span></div>
+        <div class="next-item"><i></i><span>More time for your work</span></div>
+      </div>
+    </section>
+  </main>
 
-            <nav aria-label="Primary">
-                <a href="#product">Product</a>
-                <a href="#process">How it works</a>
-                <a href="/login">Client login</a>
-            </nav>
+  <section class="origin" id="story">
+    <div class="shell origin-grid">
+      <div>
+        <div class="origin-kicker">Built from real small-business life</div>
+        <h2>One place to catch the conversations that matter.</h2>
+        <div class="channel-strip" aria-label="Modern customer channels">
+          <span>Text</span>
+          <span>Email</span>
+          <span>DMs</span>
+          <span>Chat</span>
+          <span>Reviews</span>
+          <span>Forms</span>
         </div>
-    </header>
-
-    <main>
-        <div class="shell">
-            <section class="hero">
-                <div>
-                    <span class="eyebrow">Social publishing for small business owners</span>
-                    <h1>Stay visible on social without paying agency prices.</h1>
-                    <p class="hero-copy">
-                        My Automation Partner gives small business owners a <strong>cleaner publishing workflow</strong>, a branded client portal, and the kind of support that keeps content moving without the usual agency overhead.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a class="button" href="/signup">View beta preview</a>
-                        <a class="button-secondary" href="/login">Client login</a>
-                    </div>
-
-                    <div class="mini-proof" aria-label="Product proof points">
-                        <div>
-                            <strong>Know what is going out</strong>
-                            <span>Scheduled posts, edits, approvals, and next steps stay visible in one place.</span>
-                        </div>
-                        <div>
-                            <strong>Spend less time chasing content</strong>
-                            <span>MAP gives owners a workflow that feels guided instead of reactive.</span>
-                        </div>
-                        <div>
-                            <strong>Keep files with the work</strong>
-                            <span>Assets, folders, previews, and links stay inside the same portal.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-visual">
-                    <div class="showcase">
-                        <div class="shot-frame">
-                            <img src="/assets/portal-publishing-live.png" alt="Live publishing workflow screenshot">
-                        </div>
-                    </div>
-                    <div class="float-card float-top">
-                        <strong>Built for real client publishing</strong>
-                        <p>Clients can see what is scheduled, edit it, and keep approvals inside the same workspace.</p>
-                    </div>
-                    <div class="float-card float-bottom">
-                        <strong>Free up owner time</strong>
-                        <p>The goal is to help small business owners spend less time coordinating content and more time running the business.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="product">
-                <div class="section-title">
-                    <h2>What this replaces for a small business owner</h2>
-                    <p>Instead of paying agency prices for basic coordination, MAP gives you one place to manage publishing, keep assets organized, and stay on top of what is going out.</p>
-                </div>
-
-                <div class="screen-grid" style="margin-bottom: 16px;">
-                    <figure class="screen-card">
-                        <img src="/assets/portal-documents-live.png" alt="Live document storage screenshot">
-                        <figcaption>
-                            <strong>Document storage that supports the work</strong>
-                            <span>Files, previews, folders, and secure links stay organized inside the same portal so clients are not chasing assets across email threads.</span>
-                        </figcaption>
-                    </figure>
-                    <figure class="screen-card">
-                        <img src="/assets/portal-publishing-live.png" alt="Live scheduled publishing screenshot">
-                        <figcaption>
-                            <strong>Publishing that feels guided instead of chaotic</strong>
-                            <span>Scheduled posts, edits, and next-step actions stay visible in one clean publisher surface so clients feel supported without agency-level cost.</span>
-                        </figcaption>
-                    </figure>
-                </div>
-
-                <div class="feature-grid">
-                    <article class="card">
-                        <small>Publishing</small>
-                        <h3>A better way to stay consistent online.</h3>
-                        <p>MAP makes it easier to keep social channels active without manually managing every caption, timing change, and approval loop yourself.</p>
-                    </article>
-                    <article class="card">
-                        <small>Support</small>
-                        <h3>Closer to an agency than a software tool.</h3>
-                        <p>The experience is meant to feel guided and done-with-you, but at a price point that is far more realistic for small business owners.</p>
-                    </article>
-                    <article class="card">
-                        <small>Documents</small>
-                        <h3>Assets and approvals stay in the same place.</h3>
-                        <p>When files, previews, links, and publishing work together in one portal, small teams waste less time hunting for what they need.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section" id="process">
-                <div class="section-title">
-                    <h2>How it works</h2>
-                    <p>MAP is built to help small business owners get set up quickly, stay organized, and keep publishing moving without the usual agency overhead.</p>
-                </div>
-
-                <div class="step-grid">
-                    <article class="card">
-                        <small>01</small>
-                        <h3>Tell us about your business.</h3>
-                        <p>MAP uses your business details to prepare your portal, organize your workflow, and get you started without the usual setup chaos.</p>
-                    </article>
-                    <article class="card">
-                        <small>02</small>
-                        <h3>Get one place to manage the work.</h3>
-                        <p>Your files, approvals, scheduled posts, and publishing activity live inside one branded portal instead of getting lost across inboxes and disconnected tools.</p>
-                    </article>
-                    <article class="card">
-                        <small>03</small>
-                        <h3>Stay visible without agency-level cost.</h3>
-                        <p>MAP helps you stay organized and consistent online with a workflow that feels supported, but at a price point built for small business owners.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="cta-block">
-                    <div>
-                        <h3>Want early access before public enrollment opens?</h3>
-                        <p>Public client enrollment starts June 1. If you want a beta preview before then, email billing@myautomationpartner.com and we can talk through fit.</p>
-                    </div>
-                    <a class="button" href="/signup">See beta preview</a>
-                </div>
-            </section>
+      </div>
+      <div>
+        <div class="origin-copy">
+          <p>When we started in business 28 years ago, customers had a phone number and an answering machine. Today they reach out through texts, social media, website chat, email, comments, reviews, and forms.</p>
+          <p>For a solo owner or small team, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
+          <p><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence moving so you can get back to the product or service you set out to offer.</p>
         </div>
-    </main>
-
-    <footer>
-        <div class="footer-row">
-            <span>&copy; 2026 My Automation Partner</span>
-            <span>Client portals, planning, publishing, and cleaner onboarding.</span>
+        <div class="origin-points">
+          <div class="origin-point">
+            <i></i>
+            <strong>Catch the message</strong>
+            <span>Bring scattered customer touchpoints into a cleaner operating rhythm.</span>
+          </div>
+          <div class="origin-point">
+            <i></i>
+            <strong>Keep momentum</strong>
+            <span>Turn business context into useful posts, reminders, and replies.</span>
+          </div>
+          <div class="origin-point">
+            <i></i>
+            <strong>Focus again</strong>
+            <span>Spend less energy chasing channels and more energy serving customers.</span>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
