@@ -964,6 +964,13 @@
         linear-gradient(145deg, rgba(16, 24, 42, 0.92), rgba(7, 10, 18, 0.86)),
         rgba(255,255,255,0.04);
       box-shadow: 0 28px 70px rgba(0,0,0,0.34);
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .guide-bubble.is-updating {
+      border-color: rgba(112, 228, 255, 0.56);
+      box-shadow: 0 30px 78px rgba(0,0,0,0.36), 0 0 0 4px rgba(112, 228, 255, 0.08);
+      transform: translateY(-2px);
     }
 
     .guide-bubble::before {
@@ -1010,6 +1017,7 @@
 
     .guide-actions {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
@@ -1023,6 +1031,16 @@
       cursor: pointer;
       font-size: 12px;
       font-weight: 850;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .guide-actions button:hover,
+    .guide-actions button:focus-visible,
+    .guide-actions button.is-active {
+      border-color: rgba(112, 228, 255, 0.42);
+      color: var(--text);
+      background: rgba(112, 228, 255, 0.14);
+      transform: translateY(-1px);
     }
 
     .hotspot {
@@ -1276,6 +1294,46 @@
       font-weight: 820;
     }
 
+    .demo-screen-tabs {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      overflow-x: auto;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018)),
+        rgba(5, 8, 15, 0.58);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(112, 228, 255, 0.32) transparent;
+    }
+
+    .demo-screen-tabs button {
+      flex: 0 0 auto;
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 0 15px;
+      color: var(--soft);
+      background: rgba(255,255,255,0.055);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+      white-space: nowrap;
+    }
+
+    .demo-screen-tabs button:hover,
+    .demo-screen-tabs button:focus-visible,
+    .demo-screen-tabs button.is-active {
+      border-color: rgba(112, 228, 255, 0.5);
+      color: #061018;
+      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      box-shadow: 0 16px 34px rgba(112, 228, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
     .actual-screen {
       position: relative;
       aspect-ratio: 16 / 10;
@@ -1315,7 +1373,8 @@
     .screen-nav-button[data-view="settings"] { top: 48.2%; }
 
     .screen-nav-button:hover,
-    .screen-nav-button:focus-visible {
+    .screen-nav-button:focus-visible,
+    .screen-nav-button.is-active {
       outline: 2px solid rgba(112, 228, 255, 0.7);
       outline-offset: -2px;
       background: rgba(112, 228, 255, 0.1);
@@ -1338,10 +1397,39 @@
       animation: pulse 1.9s ease-out infinite;
     }
 
+    .screen-hotspot::before {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 14px);
+      min-width: 160px;
+      max-width: 230px;
+      transform: translateX(-50%) translateY(6px);
+      border: 1px solid rgba(112, 228, 255, 0.32);
+      border-radius: 16px;
+      padding: 9px 11px;
+      color: var(--text);
+      background: rgba(7, 10, 18, 0.9);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.36);
+      backdrop-filter: blur(16px);
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 850;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
     .screen-hotspot:hover,
     .screen-hotspot:focus-visible {
       outline: 2px solid white;
       outline-offset: 5px;
+    }
+
+    .screen-hotspot:hover::before,
+    .screen-hotspot:focus-visible::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .screen-hotspot[data-hotspot="dashboard-apps"] { left: 81%; top: 58%; }
@@ -1424,6 +1512,20 @@
         width: 100%;
       }
 
+      .demo-screen-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow: visible;
+        padding: 12px 14px;
+      }
+
+      .demo-screen-tabs button {
+        width: 100%;
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: 11px;
+      }
+
       .actual-screen {
         aspect-ratio: 16 / 11.5;
       }
@@ -1459,7 +1561,7 @@
     <header class="demo-hero">
       <div class="demo-copy">
         <h1>Tour the actual <em>portal structure.</em></h1>
-        <p>This read-only demo uses real portal screens and the same navigation customers see after login. Click the portal sidebar or glowing dots to learn what each area does.</p>
+        <p>This read-only demo uses real portal screens and the same navigation customers see after login. Use the screen tabs, portal sidebar, or glowing info dots to learn what each area does.</p>
       </div>
       <aside class="demo-note">
         <strong>Demo business: Green Ridge Outdoor Services</strong>
@@ -1475,6 +1577,15 @@
           <div class="read-only">Read-only demo</div>
         </div>
 
+        <div class="demo-screen-tabs" role="tablist" aria-label="Portal screens">
+          <button type="button" data-view-button="dashboard" role="tab" aria-selected="true">Dashboard</button>
+          <button type="button" data-view-button="documents" role="tab" aria-selected="false">Documents</button>
+          <button type="button" data-view-button="publisher" role="tab" aria-selected="false">Publisher</button>
+          <button type="button" data-view-button="campaigns" role="tab" aria-selected="false">Campaign Partner</button>
+          <button type="button" data-view-button="inbox" role="tab" aria-selected="false">Inbox</button>
+          <button type="button" data-view-button="settings" role="tab" aria-selected="false">Settings</button>
+        </div>
+
         <div class="actual-screen">
           <img id="portal-screen" src="assets/portal-reel-overview.png" alt="Dashboard screen from the MAP customer portal">
           <button class="screen-nav-button" type="button" data-view="dashboard" aria-label="Show Dashboard screen"></button>
@@ -1484,11 +1595,11 @@
           <button class="screen-nav-button" type="button" data-view="inbox" aria-label="Show Inbox screen"></button>
           <button class="screen-nav-button" type="button" data-view="settings" aria-label="Explain Settings"></button>
 
-          <button class="screen-hotspot" type="button" data-hotspot="dashboard-apps" aria-label="Explain Dashboard app launcher"></button>
-          <button class="screen-hotspot" type="button" data-hotspot="documents-private" aria-label="Explain private document storage" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="publisher-approval" aria-label="Explain Publisher approval" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="campaign-guided" aria-label="Explain Campaign Partner" hidden></button>
-          <button class="screen-hotspot" type="button" data-hotspot="inbox-mobile" aria-label="Explain mobile request to post" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="dashboard-apps" data-tip="App launcher: one place for daily tools" aria-label="Explain Dashboard app launcher"></button>
+          <button class="screen-hotspot" type="button" data-hotspot="documents-private" data-tip="Private documents and secure sharing" aria-label="Explain private document storage" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="publisher-approval" data-tip="Mobile request becomes an approved post" aria-label="Explain Publisher approval" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="campaign-guided" data-tip="Guided research and campaign ideas" aria-label="Explain Campaign Partner" hidden></button>
+          <button class="screen-hotspot" type="button" data-hotspot="inbox-mobile" data-tip="Message-to-post workflow proof" aria-label="Explain mobile request to post" hidden></button>
           <div class="screen-caption" id="screen-caption">Dashboard</div>
         </div>
       </section>
@@ -1503,9 +1614,12 @@
             <div class="tour-proof-item"><strong>Read-only</strong><span>The demo explains the workflow without exposing a real account or changing customer data.</span></div>
           </div>
           <div class="guide-actions">
+            <button type="button" data-view-button="dashboard">Dashboard</button>
             <button type="button" data-view-button="documents">Documents</button>
-            <button type="button" data-view-button="publisher">Publisher flow</button>
+            <button type="button" data-view-button="publisher">Publisher</button>
             <button type="button" data-view-button="campaigns">Campaign Partner</button>
+            <button type="button" data-view-button="inbox">Inbox</button>
+            <button type="button" data-view-button="settings">Settings</button>
           </div>
         </div>
       </aside>
@@ -1655,14 +1769,28 @@
     const guideCopy = document.getElementById('guide-copy')
     const proof = document.getElementById('tour-proof')
     const hotspotButtons = Array.from(document.querySelectorAll('.screen-hotspot'))
+    const screenNavButtons = Array.from(document.querySelectorAll('.screen-nav-button'))
+    const viewButtons = Array.from(document.querySelectorAll('[data-view-button]'))
+    const guideBubble = document.querySelector('.guide-bubble')
+    let guidePulseTimer
 
-    function setGuide(key) {
+    function pulseGuide() {
+      if (!guideBubble) return
+      window.clearTimeout(guidePulseTimer)
+      guideBubble.classList.add('is-updating')
+      guidePulseTimer = window.setTimeout(() => {
+        guideBubble.classList.remove('is-updating')
+      }, 260)
+    }
+
+    function setGuide(key, shouldPulse = true) {
       const next = guideText[key] || guideText.dashboard
       guideTitle.textContent = next.title
       guideCopy.textContent = next.copy
       proof.innerHTML = next.proof.map(([title, copy]) => (
         `<div class="tour-proof-item"><strong>${title}</strong><span>${copy}</span></div>`
       )).join('')
+      if (shouldPulse) pulseGuide()
     }
 
     function setView(viewKey) {
@@ -1673,18 +1801,32 @@
       hotspotButtons.forEach((button) => {
         button.hidden = !next.hotspots.includes(button.dataset.hotspot)
       })
+      screenNavButtons.forEach((button) => {
+        const isActive = button.dataset.view === viewKey
+        button.classList.toggle('is-active', isActive)
+        button.setAttribute('aria-current', isActive ? 'true' : 'false')
+      })
+      viewButtons.forEach((button) => {
+        const isActive = button.dataset.viewButton === viewKey
+        button.classList.toggle('is-active', isActive)
+        if (button.getAttribute('role') === 'tab') {
+          button.setAttribute('aria-selected', isActive ? 'true' : 'false')
+        } else {
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false')
+        }
+      })
       setGuide(next.guide)
     }
 
-    document.querySelectorAll('.screen-nav-button').forEach((button) => {
+    screenNavButtons.forEach((button) => {
       button.addEventListener('click', () => setView(button.dataset.view))
       button.addEventListener('mouseenter', () => {
         const next = views[button.dataset.view]
-        if (next) setGuide(next.guide)
+        if (next) setGuide(next.guide, false)
       })
       button.addEventListener('focus', () => {
         const next = views[button.dataset.view]
-        if (next) setGuide(next.guide)
+        if (next) setGuide(next.guide, false)
       })
     })
 
@@ -1695,9 +1837,11 @@
       button.addEventListener('focus', () => setGuide(key))
     })
 
-    document.querySelectorAll('[data-view-button]').forEach((button) => {
+    viewButtons.forEach((button) => {
       button.addEventListener('click', () => setView(button.dataset.viewButton))
     })
+
+    setView('dashboard')
   </script>
 </body>
 </html>
