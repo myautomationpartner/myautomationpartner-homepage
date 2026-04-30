@@ -31,7 +31,7 @@ A dedicated onboarding signup route for new MAP customers:
 Secure login portal for authenticated clients to access:
 - Real-time social media metrics
 - Content calendar
-- Team management
+- Owner-focused customer and content workflows
 - Performance analytics
 
 ## Structure
@@ -59,10 +59,10 @@ Secure login portal for authenticated clients to access:
 - **Responsive Design** — Mobile-first, works on all screen sizes
 
 ### Design System
-- **Color Scheme:** Dark theme (#0a0a0a background) with gold accents (#FFD700)
+- **Color Scheme:** Dark portal-inspired theme with cyan, lime, and blue accents
 - **Typography:** Inter font family with semantic hierarchy
-- **Components:** Cards, buttons, badges, stats blocks, grids
-- **Animations:** Smooth scrollbar, hover effects, pulse animations
+- **Components:** Cards, buttons, badges, rotating portal previews, stats blocks, grids
+- **Animations:** Smooth scrollbar, hover effects, portal reel fades, subtle motion effects
 
 ## Connected Systems
 - **Supabase:** Canonical onboarding intake contract and authenticated portal data
@@ -100,6 +100,12 @@ Secure login portal for authenticated clients to access:
 - ✅ Restored live production signup through Supabase Edge fallback while the broken Pages backend route is tracked as future cleanup
 - ✅ Added origin/referrer allowlisting on the public intake endpoints
 
+## Recent Updates (Apr 30, 2026)
+- ✅ Refreshed the homepage hero with the new portal preview reel
+- ✅ Added Chatwoot-style phone and post-request phone visuals for owner-first workflows
+- ✅ Shifted homepage language toward solo owner and lean operation use cases
+- ✅ Tuned hero spacing and reel timing for a faster two-second fade cycle
+
 ## Development Notes
 - Pure HTML/CSS — no build step required
 - Self-contained — all styles in `<style>` tag
@@ -109,6 +115,6 @@ Secure login portal for authenticated clients to access:
 
 ---
 
-**Last Updated:** April 23, 2026
-**Status:** Production-ready marketing site with structured signup intake path
-**Maintained By:** My Automation Partner Team
+**Last Updated:** April 30, 2026
+**Status:** Production-ready marketing site with structured signup intake path and refreshed portal hero
+**Maintained By:** My Automation Partner

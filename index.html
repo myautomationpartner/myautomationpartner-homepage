@@ -25,6 +25,7 @@
       --panel-strong: rgba(23, 32, 55, 0.92);
       --cyan: #70e4ff;
       --lime: #baff65;
+      --portal-blue: #38bdf8;
       --rose: #ff7ab8;
       --violet: #988cff;
       --orange: #ffb66c;
@@ -201,12 +202,14 @@
       display: grid;
       grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
       gap: clamp(28px, 4vw, 58px);
-      align-items: center;
-      padding: 36px 0 90px;
+      align-items: start;
+      padding: 16px 0 82px;
     }
 
     .hero-copy {
-      padding-bottom: 40px;
+      padding-bottom: 24px;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     h1 {
@@ -247,7 +250,9 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 42px;
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: -18px;
       max-width: 655px;
     }
 
@@ -277,34 +282,59 @@
 
     .visual-stage {
       position: relative;
-      min-height: 650px;
+      min-height: 0;
+      grid-column: 2;
+      grid-row: 1 / span 2;
       display: grid;
-      place-items: center;
+      align-items: start;
+      justify-items: center;
       perspective: 1400px;
+      min-width: 0;
+      padding-top: 0;
+    }
+
+    .visual-stage::before {
+      content: "";
+      position: absolute;
+      left: -34px;
+      top: 82px;
+      width: 410px;
+      height: 410px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 36%, rgba(112, 228, 255, 0.3), transparent 45%),
+        radial-gradient(circle at 70% 72%, rgba(56, 189, 248, 0.16), transparent 54%),
+        rgba(112, 228, 255, 0.08);
+      filter: blur(3px);
+      opacity: 0.72;
+      transform: rotate(-14deg);
     }
 
     .orbit {
       position: absolute;
-      width: min(620px, 88vw);
+      left: -54px;
+      top: 106px;
+      width: 270px;
       aspect-ratio: 1;
-      border-radius: 50%;
-      border: 1px solid rgba(112, 228, 255, 0.18);
+      border-radius: 46%;
+      border: 1px solid rgba(112, 228, 255, 0.32);
       background:
-        radial-gradient(circle at 50% 50%, rgba(112, 228, 255, 0.1), transparent 33%),
-        conic-gradient(from 90deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.28), rgba(186, 255, 101, 0.22), rgba(255, 122, 184, 0.18), rgba(112, 228, 255, 0));
-      mask-image: radial-gradient(circle, transparent 48%, black 49%, black 56%, transparent 57%);
+        radial-gradient(circle at 50% 50%, rgba(112, 228, 255, 0.1), transparent 38%),
+        conic-gradient(from 90deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.34), rgba(56, 189, 248, 0.26), rgba(152, 140, 255, 0.2), rgba(112, 228, 255, 0));
+      mask-image: radial-gradient(circle, transparent 48%, black 49%, black 52%, transparent 53%);
       filter: drop-shadow(0 0 38px rgba(112, 228, 255, 0.16));
-      animation: slow-turn 24s linear infinite reverse;
+      transform: rotateX(64deg) rotateZ(-14deg);
+      animation: orbit-turn 24s linear infinite reverse;
     }
 
     .logo-orb {
       position: absolute;
-      left: 16px;
-      top: 82px;
-      width: 138px;
-      height: 138px;
-      border-radius: 34px;
-      z-index: 4;
+      left: -2px;
+      top: 104px;
+      width: 176px;
+      height: 158px;
+      border-radius: 40px;
+      z-index: 5;
       transform-style: preserve-3d;
       animation: logo-drift 8s ease-in-out infinite;
     }
@@ -313,53 +343,61 @@
     .logo-orb::after {
       content: "";
       position: absolute;
-      inset: -10px;
+      inset: 0;
       border-radius: inherit;
-      background: conic-gradient(from 120deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.45), rgba(186, 255, 101, 0.35), rgba(152, 140, 255, 0.42), rgba(112, 228, 255, 0));
-      filter: blur(18px);
-      opacity: 0.58;
-      transform: translateZ(-24px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.54), rgba(112, 228, 255, 0.18)),
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.5), transparent 34%);
+      box-shadow:
+        0 28px 62px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.68);
+      backdrop-filter: blur(18px);
+      opacity: 0.86;
+      transform: translateZ(-12px);
     }
 
     .logo-orb::after {
-      inset: 12px;
-      filter: blur(10px);
-      opacity: 0.35;
-      transform: translateZ(18px) rotate(26deg);
+      inset: -18px;
+      border: 0;
+      background: conic-gradient(from 140deg, rgba(112, 228, 255, 0), rgba(112, 228, 255, 0.34), rgba(186, 255, 101, 0.18), rgba(152, 140, 255, 0.32), rgba(112, 228, 255, 0));
+      filter: blur(18px);
+      opacity: 0.56;
+      transform: translateZ(-26px) rotate(18deg);
     }
 
     .logo-cube {
       position: absolute;
-      inset: 18px;
+      left: 4px;
+      top: 48px;
+      width: 164px;
+      height: 78px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255,255,255,0.24);
-      border-radius: 28px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.94), rgba(214, 235, 244, 0.8)),
-        radial-gradient(circle at 70% 20%, rgba(112, 228, 255, 0.42), transparent 60%);
+      border: 1px solid rgba(112, 228, 255, 0.28);
+      border-radius: 2px;
+      background: #03050b;
       box-shadow:
-        0 34px 70px rgba(0,0,0,0.34),
-        inset 0 1px 0 rgba(255,255,255,0.8),
-        inset 0 -18px 32px rgba(9, 16, 24, 0.12);
+        0 28px 60px rgba(0,0,0,0.36),
+        inset 0 1px 0 rgba(255,255,255,0.08);
       transform-style: preserve-3d;
       animation: logo-spin 7s ease-in-out infinite;
     }
 
     .logo-cube img {
-      width: 94px;
+      width: 142px;
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.22));
-      transform: translateZ(34px);
+      filter: drop-shadow(0 0 16px rgba(112, 228, 255, 0.22));
+      transform: translateZ(34px) scale(1.02);
       animation: logo-face 7s ease-in-out infinite;
     }
 
     .logo-ring {
       position: absolute;
-      inset: -4px;
-      border: 1px solid rgba(186, 255, 101, 0.45);
-      border-radius: 34px;
+      inset: -20px;
+      border: 1px solid rgba(186, 255, 101, 0.28);
+      border-radius: 48%;
       transform: rotateX(72deg) rotateZ(18deg);
       opacity: 0.78;
     }
@@ -371,27 +409,35 @@
 
     .portal-card {
       position: relative;
-      width: min(625px, 92vw);
+      width: min(690px, 96vw);
       border: 1px solid var(--line-strong);
-      border-radius: 30px;
+      border-radius: 44px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)),
-        rgba(12, 16, 29, 0.82);
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.12);
+        linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.035)),
+        linear-gradient(180deg, rgba(45, 55, 73, 0.9), rgba(9, 13, 24, 0.92));
+      box-shadow:
+        0 42px 120px rgba(0, 0, 0, 0.56),
+        inset 0 1px 0 rgba(255,255,255,0.16);
       overflow: hidden;
-      transform: rotateX(7deg) rotateY(-11deg) rotateZ(1deg);
+      transform: translateX(-8px) rotateX(7deg) rotateY(-7deg) rotateZ(-1.2deg);
       transform-style: preserve-3d;
       animation: float-card 7s ease-in-out infinite;
     }
 
+    .portal-shot-card {
+      margin-top: 0;
+    }
+
     .portal-top {
-      height: 58px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      padding: 0 28px;
       border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,0.05);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035)),
+        rgba(22, 28, 42, 0.82);
     }
 
     .window-dots {
@@ -400,8 +446,8 @@
     }
 
     .window-dots span {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--line-strong);
     }
@@ -411,37 +457,115 @@
     .window-dots span:nth-child(3) { background: var(--lime); }
 
     .url-pill {
-      min-width: 245px;
+      min-width: 355px;
       text-align: center;
       color: #d7e1f5;
-      background: rgba(5, 8, 15, 0.52);
+      background: rgba(5, 8, 15, 0.64);
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 9px 14px;
-      font-size: 12px;
-      font-weight: 700;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 800;
     }
 
     .portal-body {
       display: grid;
-      grid-template-columns: 156px 1fr;
-      min-height: 428px;
+      grid-template-columns: 168px 1fr;
+      min-height: 548px;
+    }
+
+    .portal-shot-reel {
+      position: relative;
+      height: min(430px, calc(100vh - 212px));
+      min-height: 330px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 0%, rgba(112, 228, 255, 0.16), transparent 22rem),
+        linear-gradient(180deg, rgba(14, 22, 38, 0.98), rgba(5, 8, 16, 0.96));
+    }
+
+    .portal-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(18px) scale(1.015);
+      animation: portal-reel-fade 14s ease-in-out infinite;
+    }
+
+    .portal-slide:nth-child(1) { animation-delay: 0s; }
+    .portal-slide:nth-child(2) { animation-delay: 2s; }
+    .portal-slide:nth-child(3) { animation-delay: 4s; }
+    .portal-slide:nth-child(4) { animation-delay: 6s; }
+    .portal-slide:nth-child(5) { animation-delay: 8s; }
+    .portal-slide:nth-child(6) { animation-delay: 10s; }
+    .portal-slide:nth-child(7) { animation-delay: 12s; }
+
+    .portal-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      filter: saturate(1.04) contrast(1.04);
+    }
+
+    .portal-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(5, 8, 16, 0.16), transparent 26%, rgba(5, 8, 16, 0.08)),
+        linear-gradient(180deg, transparent 64%, rgba(5, 8, 16, 0.34));
+    }
+
+    .portal-slide figcaption {
+      position: absolute;
+      left: 24px;
+      bottom: 22px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 0 15px;
+      color: var(--soft);
+      background: rgba(5, 8, 16, 0.72);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.28);
+      backdrop-filter: blur(18px);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .portal-slide figcaption::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(112, 228, 255, 0.55);
     }
 
     .sidebar {
-      padding: 18px 14px;
+      padding: 110px 18px 20px;
       border-right: 1px solid var(--line);
-      background: rgba(255,255,255,0.035);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        rgba(22, 29, 43, 0.62);
     }
 
     .mini-brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 22px;
+      height: 0;
+      margin: 0;
       color: var(--soft);
       font-size: 12px;
       font-weight: 800;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .mini-brand img {
@@ -456,36 +580,39 @@
     .side-item {
       display: flex;
       align-items: center;
-      gap: 9px;
-      height: 34px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 0 10px;
-      border-radius: 12px;
-      margin-bottom: 7px;
+      gap: 14px;
+      height: 48px;
+      color: rgba(219, 227, 244, 0.7);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 0 16px;
+      border-radius: 16px;
+      margin-bottom: 14px;
     }
 
     .side-item.active {
       color: #091018;
-      background: linear-gradient(135deg, var(--lime), var(--cyan));
+      background: linear-gradient(135deg, var(--portal-blue), var(--cyan));
+      box-shadow: 0 18px 44px rgba(56, 189, 248, 0.24);
     }
 
     .side-dot {
-      width: 7px;
-      height: 7px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: currentColor;
       opacity: 0.88;
     }
 
     .dashboard {
-      padding: 20px;
+      padding: 36px 32px 30px;
       display: grid;
-      gap: 14px;
+      gap: 18px;
+      min-width: 0;
       background:
-        radial-gradient(circle at 74% 0%, rgba(112, 228, 255, 0.16), transparent 24rem),
-        rgba(7, 10, 18, 0.28);
+        radial-gradient(circle at 18% 0%, rgba(112, 228, 255, 0.22), transparent 22rem),
+        radial-gradient(circle at 90% 16%, rgba(56, 189, 248, 0.16), transparent 22rem),
+        rgba(7, 10, 18, 0.3);
     }
 
     .dash-heading {
@@ -496,105 +623,187 @@
     }
 
     .dash-heading h2 {
-      max-width: 310px;
-      font-size: 24px;
-      line-height: 1.06;
+      max-width: 390px;
+      font-size: 34px;
+      line-height: 1.04;
       letter-spacing: -0.045em;
     }
 
     .status-pill {
       color: #091018;
-      background: var(--lime);
+      background: linear-gradient(135deg, var(--cyan), var(--portal-blue));
       border-radius: 999px;
-      padding: 8px 10px;
-      font-size: 11px;
+      padding: 12px 17px;
+      font-size: 13px;
       font-weight: 900;
       min-width: max-content;
+      box-shadow: 0 18px 42px rgba(56, 189, 248, 0.22);
     }
 
     .workflow {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 12px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(210px, 0.92fr);
+      gap: 18px;
+      min-width: 0;
     }
 
     .product-shot {
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      background: rgba(255,255,255,0.08);
-      min-height: 218px;
+      background:
+        linear-gradient(180deg, rgba(247, 250, 252, 0.94), rgba(223, 229, 235, 0.62)),
+        #edf2f7;
+      min-height: 300px;
       position: relative;
+      padding: 18px;
+      color: #121925;
     }
 
-    .product-shot img {
-      width: 100%;
-      height: 100%;
-      min-height: 218px;
-      object-fit: cover;
-      object-position: center top;
-      opacity: 0.86;
-      filter: saturate(1.04) contrast(1.05);
+    .mini-schedule {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+      transform: scale(0.96);
+      transform-origin: top left;
+    }
+
+    .back-line {
+      color: rgba(18, 25, 37, 0.64);
+      font-size: 10px;
+      font-weight: 750;
+    }
+
+    .mini-schedule-card,
+    .mini-post-card {
+      border: 1px solid rgba(18, 25, 37, 0.08);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: 0 14px 34px rgba(18, 25, 37, 0.08);
+      padding: 15px;
+    }
+
+    .mini-kicker {
+      color: rgba(18, 25, 37, 0.42);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .mini-schedule-card strong {
+      display: block;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+      margin-bottom: 6px;
+    }
+
+    .mini-schedule-card span {
+      display: block;
+      color: rgba(18, 25, 37, 0.58);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .mini-post-card {
+      display: grid;
+      gap: 9px;
+      min-height: 104px;
+    }
+
+    .mini-post-meta {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      color: rgba(18, 25, 37, 0.55);
+      font-size: 9px;
+      font-weight: 750;
+    }
+
+    .mini-post-status {
+      color: #075985;
+      background: rgba(112, 228, 255, 0.26);
+      border: 1px solid rgba(56, 189, 248, 0.26);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mini-post-card strong {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .mini-post-card p {
+      color: rgba(18, 25, 37, 0.68);
+      font-size: 10px;
+      line-height: 1.45;
     }
 
     .product-shot::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 45%, rgba(7, 10, 18, 0.86));
+      background: linear-gradient(180deg, transparent 45%, rgba(7, 10, 18, 0.55));
+      pointer-events: none;
     }
 
     .week-card {
       border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      padding: 14px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.075);
+      padding: 20px;
       display: grid;
-      gap: 10px;
+      gap: 14px;
       align-content: start;
     }
 
     .week-card h3 {
-      font-size: 13px;
+      font-size: 19px;
       letter-spacing: -0.01em;
     }
 
     .post-line {
       display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 9px;
+      grid-template-columns: 42px 1fr;
+      gap: 13px;
       align-items: center;
-      padding: 8px;
-      border-radius: 14px;
-      background: rgba(0,0,0,0.18);
+      padding: 13px;
+      border-radius: 20px;
+      background: rgba(3, 8, 18, 0.34);
     }
 
     .post-line .day {
-      width: 32px;
-      height: 32px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      border-radius: 10px;
+      border-radius: 14px;
       color: #091018;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 900;
       background: var(--cyan);
     }
 
-    .post-line:nth-child(3) .day { background: var(--lime); }
+    .post-line:nth-child(3) .day { background: var(--portal-blue); }
     .post-line:nth-child(4) .day { background: var(--rose); color: #fff; }
 
     .post-line strong {
       display: block;
-      font-size: 11px;
-      margin-bottom: 3px;
+      font-size: 14px;
+      margin-bottom: 4px;
     }
 
     .post-line span {
       display: block;
       color: var(--muted);
-      font-size: 10px;
-      line-height: 1.35;
+      font-size: 12px;
+      line-height: 1.38;
     }
 
     .ai-row {
@@ -604,63 +813,63 @@
     }
 
     .ai-tile {
-      min-height: 92px;
+      min-height: 128px;
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 24px;
       background: rgba(255,255,255,0.06);
-      padding: 13px;
+      padding: 18px;
     }
 
     .ai-tile span {
       display: block;
-      width: 34px;
-      height: 6px;
+      width: 44px;
+      height: 7px;
       border-radius: 999px;
       background: var(--cyan);
       margin-bottom: 16px;
       box-shadow: 0 0 18px rgba(112, 228, 255, 0.38);
     }
 
-    .ai-tile:nth-child(2) span { background: var(--lime); box-shadow: 0 0 18px rgba(186, 255, 101, 0.32); }
+    .ai-tile:nth-child(2) span { background: var(--portal-blue); box-shadow: 0 0 18px rgba(56, 189, 248, 0.32); }
     .ai-tile:nth-child(3) span { background: var(--orange); box-shadow: 0 0 18px rgba(255, 182, 108, 0.28); }
 
     .ai-tile strong {
       display: block;
-      font-size: 12px;
+      font-size: 15px;
       line-height: 1.3;
       margin-bottom: 6px;
     }
 
     .ai-tile p {
       color: var(--muted);
-      font-size: 10px;
+      font-size: 12px;
       line-height: 1.45;
     }
 
     .floating-note {
       position: absolute;
-      right: 0;
-      bottom: 78px;
-      width: 228px;
-      border: 1px solid rgba(186, 255, 101, 0.35);
-      border-radius: 24px;
-      padding: 16px;
-      background: rgba(10, 14, 25, 0.82);
+      right: -26px;
+      bottom: 52px;
+      width: 318px;
+      border: 1px solid rgba(112, 228, 255, 0.35);
+      border-radius: 28px;
+      padding: 21px;
+      background: rgba(8, 11, 22, 0.92);
       box-shadow: 0 28px 70px rgba(0,0,0,0.34);
       backdrop-filter: blur(24px);
-      z-index: 3;
+      z-index: 6;
       animation: note-float 5.6s ease-in-out infinite;
     }
 
     .floating-note strong {
       display: block;
-      font-size: 13px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      margin-bottom: 10px;
     }
 
     .floating-note p {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 16px;
       line-height: 1.55;
     }
 
@@ -673,20 +882,21 @@
       place-items: center;
       color: #071018;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--cyan), var(--lime));
+      background: linear-gradient(135deg, var(--cyan), var(--portal-blue));
       box-shadow: 0 24px 58px rgba(112, 228, 255, 0.3);
       z-index: 3;
     }
 
     .spark.two {
-      right: 56px;
+      right: 22px;
       top: 36px;
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
+      width: 74px;
+      height: 74px;
+      border-radius: 22px;
       background: linear-gradient(135deg, var(--rose), var(--violet));
       color: #fff;
       transform: rotate(15deg);
+      font-size: 30px;
     }
 
     .next-band {
@@ -859,9 +1069,20 @@
       to { transform: translateX(-50%) rotate(360deg); }
     }
 
+    @keyframes portal-reel-fade {
+      0% { opacity: 0; transform: translateY(18px) scale(1.012); }
+      3.5%, 11.5% { opacity: 1; transform: translateY(0) scale(1); }
+      17%, 100% { opacity: 0; transform: translateY(-16px) scale(1.012); }
+    }
+
+    @keyframes orbit-turn {
+      0% { transform: rotateX(64deg) rotateZ(-14deg); }
+      100% { transform: rotateX(64deg) rotateZ(346deg); }
+    }
+
     @keyframes float-card {
-      0%, 100% { transform: rotateX(7deg) rotateY(-11deg) rotateZ(1deg) translateY(0); }
-      50% { transform: rotateX(8deg) rotateY(-8deg) rotateZ(1deg) translateY(-14px); }
+      0%, 100% { transform: translateX(-8px) rotateX(7deg) rotateY(-7deg) rotateZ(-1.2deg) translateY(0); }
+      50% { transform: translateX(-2px) rotateX(8deg) rotateY(-5deg) rotateZ(-1deg) translateY(-14px); }
     }
 
     @keyframes logo-drift {
@@ -891,14 +1112,25 @@
         padding-top: 28px;
       }
       .hero-copy { padding-bottom: 0; }
+      .hero-copy,
+      .visual-stage,
+      .signal-row {
+        grid-column: 1;
+        grid-row: auto;
+      }
+      .signal-row { margin-top: 0; }
       h1 { max-width: 8.5ch; }
       .visual-stage {
-        min-height: 580px;
+        min-height: 520px;
         margin-bottom: 52px;
       }
-      .portal-card { transform: none; }
+      .portal-card {
+        width: min(100%, 720px);
+        transform: none;
+        animation: none;
+      }
       .floating-note { right: 8px; bottom: 34px; }
-      .logo-orb { left: -6px; top: 58px; transform: scale(0.9); }
+      .logo-orb { left: -6px; top: 70px; transform: scale(0.88); }
       .next-inner { grid-template-columns: 1fr 1fr; padding: 18px 0; }
     }
 
@@ -916,7 +1148,15 @@
       .lead { font-size: 1rem; }
       .signal-row { grid-template-columns: 1fr; }
       .signal { min-height: auto; }
-      .visual-stage { min-height: 610px; }
+      .visual-stage { min-height: 455px; }
+      .portal-card {
+        width: 100%;
+        border-radius: 28px;
+      }
+      .portal-shot-reel {
+        height: 330px;
+        min-height: 330px;
+      }
       .portal-body { grid-template-columns: 1fr; }
       .sidebar { display: none; }
       .workflow, .ai-row { grid-template-columns: 1fr; }
@@ -929,7 +1169,13 @@
         left: 8px;
         top: 36px;
       }
-      .logo-cube img { width: 66px; }
+      .logo-cube {
+        left: 2px;
+        top: 32px;
+        width: 104px;
+        height: 52px;
+      }
+      .logo-cube img { width: 88px; }
       .floating-note {
         position: relative;
         width: auto;
@@ -975,104 +1221,65 @@
       <section class="hero" id="portal">
         <div class="hero-copy">
           <h1>The phone stopped being the only <em>front door.</em></h1>
-          <p class="lead">Customers now reach you through texts, DMs, website chat, email, comments, and reviews. MAP brings the work into one portal so small teams can respond faster and get back to serving customers.</p>
+          <p class="lead">Customers now reach you through texts, DMs, website chat, email, comments, and reviews. MAP brings the work into one portal so you can respond faster and get back to serving customers.</p>
           <div class="hero-actions">
             <a class="primary-action" href="/beta-intake/">Start your 30-day trial</a>
             <a class="secondary-action" href="/login.html">Open portal</a>
           </div>
-          <div class="signal-row" aria-label="Product highlights">
-            <div class="signal">
-              <strong>5</strong>
-              <span>starter posts generated during setup from your business profile</span>
-            </div>
-            <div class="signal">
-              <strong>1</strong>
-              <span>portal for drafts, approvals, inbox, chat, files, and social connections</span>
-            </div>
-            <div class="signal">
-              <strong>$25</strong>
-              <span>monthly launch plan after the no-card trial period</span>
-            </div>
-          </div>
         </div>
 
         <div class="visual-stage" aria-label="MAP portal preview">
-          <div class="orbit" aria-hidden="true"></div>
-          <div class="logo-orb" aria-hidden="true">
-            <span class="logo-ring"></span>
-            <span class="logo-ring"></span>
-            <span class="logo-cube">
-              <img src="assets/map-option-b-mark.png" alt="">
-            </span>
-          </div>
-          <div class="spark two" aria-hidden="true">↗</div>
-
-          <article class="portal-card">
+          <article class="portal-card portal-shot-card">
             <div class="portal-top">
               <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
               <div class="url-pill">myautomationpartner.com/portal/you</div>
             </div>
-            <div class="portal-body">
-              <aside class="sidebar" aria-label="Portal navigation preview">
-                <div class="mini-brand">
-                  <img src="assets/map-option-b-mark.png" alt="">
-                  <span>MAP</span>
-                </div>
-                <div class="side-item active"><span class="side-dot"></span>Publisher</div>
-                <div class="side-item"><span class="side-dot"></span>Radar</div>
-                <div class="side-item"><span class="side-dot"></span>Inbox</div>
-                <div class="side-item"><span class="side-dot"></span>Settings</div>
-              </aside>
-              <div class="dashboard">
-                <div class="dash-heading">
-                  <h2>Your next week is already drafted.</h2>
-                  <span class="status-pill">Ready for review</span>
-                </div>
-                <div class="workflow">
-                  <div class="product-shot">
-                    <img src="assets/portal-publishing-live.png" alt="Publishing calendar preview">
-                  </div>
-                  <div class="week-card">
-                    <h3>Launch week queue</h3>
-                    <div class="post-line">
-                      <span class="day">M</span>
-                      <div><strong>Manual task poll</strong><span>Ask followers what they want off their plate.</span></div>
-                    </div>
-                    <div class="post-line">
-                      <span class="day">W</span>
-                      <div><strong>Behind-the-scenes win</strong><span>Turn one client save into a short story.</span></div>
-                    </div>
-                    <div class="post-line">
-                      <span class="day">F</span>
-                      <div><strong>Offer reminder</strong><span>Invite customers into a simple next step.</span></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="ai-row">
-                  <div class="ai-tile">
-                    <span></span>
-                    <strong>Opportunity Radar</strong>
-                    <p>Fresh ideas from your business, market, and calendar.</p>
-                  </div>
-                  <div class="ai-tile">
-                    <span></span>
-                    <strong>Partner Format</strong>
-                    <p>Captions shaped for each social channel.</p>
-                  </div>
-                  <div class="ai-tile">
-                    <span></span>
-                    <strong>Content Inbox</strong>
-                    <p>Reply, approve, and keep momentum from one place.</p>
-                  </div>
-                </div>
-              </div>
+            <div class="portal-shot-reel">
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-overview.png" alt="Dashboard overview screen">
+                <figcaption>Dashboard overview</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-publisher.png" alt="Publisher calendar screen">
+                <figcaption>Publisher calendar</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-campaign.png" alt="Campaign partner screen">
+                <figcaption>Campaign Partner</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-documents.png" alt="Documents workspace screen">
+                <figcaption>Documents</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-inbox.png" alt="Inbox screen">
+                <figcaption>Inbox</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-chatwoot-phone.png" alt="Phone showing Chatwoot inbox with customer messages and replies">
+                <figcaption>Mobile chat inbox</figcaption>
+              </figure>
+              <figure class="portal-slide">
+                <img src="assets/portal-reel-post-request-phone.png" alt="Phone message requesting Facebook and Instagram posts from job photos">
+                <figcaption>Post request</figcaption>
+              </figure>
             </div>
           </article>
+        </div>
 
-          <aside class="floating-note" aria-label="AI partner note">
-            <strong>Partner note</strong>
-            <p>“I found three useful angles for next week. I drafted the safest five and left them in Publisher.”</p>
-          </aside>
+        <div class="signal-row" aria-label="Product highlights">
+          <div class="signal">
+            <strong>5</strong>
+            <span>starter posts generated during setup from your business profile</span>
+          </div>
+          <div class="signal">
+            <strong>1</strong>
+            <span>portal for drafts, approvals, inbox, chat, files, and social connections</span>
+          </div>
+          <div class="signal">
+            <strong>$25</strong>
+            <span>monthly launch plan after the no-card trial period</span>
+          </div>
         </div>
       </section>
     </div>
@@ -1104,7 +1311,7 @@
       <div>
         <div class="origin-copy">
           <p>When we started in business 28 years ago, customers had a phone number and an answering machine. Today they reach out through texts, social media, website chat, email, comments, reviews, and forms.</p>
-          <p>For a solo owner or small team, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
+          <p>For a solo owner or lean operation, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
           <p><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence moving so you can get back to the product or service you set out to offer.</p>
         </div>
         <div class="origin-points">
