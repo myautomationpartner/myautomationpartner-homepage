@@ -1255,21 +1255,21 @@
                         return;
                     }
 
-                    const redirectUrl = new URL(`${readyPortalUrl.replace(/\/+$/g, '')}/login`);
-                    redirectUrl.searchParams.set('setup', 'complete');
-                    if (email) {
-                        redirectUrl.searchParams.set('email', email);
+                    const sessionForPortal = (await supabase.auth.getSession()).data.session || setupSession;
+                    if (!sessionForPortal?.access_token || !sessionForPortal?.refresh_token) {
+                        throw new Error('Your password is ready, but we could not carry your secure session into the portal. Please use the login page.');
                     }
 
-                    try {
-                        await supabase.auth.signOut();
-                    } catch {
-                        // Best effort only. We still want to land the user on their tenant login page.
-                    }
+                    const redirectUrl = new URL(`${readyPortalUrl.replace(/\/+$/g, '')}/`);
+                    redirectUrl.hash = new URLSearchParams({
+                        access_token: sessionForPortal.access_token,
+                        refresh_token: sessionForPortal.refresh_token,
+                        type: 'login'
+                    }).toString();
 
                     setTimeout(() => {
                         window.location.href = redirectUrl.toString();
-                    }, 1800);
+                    }, 1200);
                     return;
                 }
 
