@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Enrollment Preview | My Automation Partner</title>
-    <meta name="description" content="My Automation Partner client enrollment opens June 1. Contact billing@myautomationpartner.com if you would like a beta preview before launch.">
+    <title>Coming in June | My Automation Partner</title>
+    <meta name="description" content="My Automation Partner client enrollment opens in June. Contact billing@myautomationpartner.com if you would like a beta preview before launch.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -170,6 +170,84 @@
             font-size: 18px;
             line-height: 1.7;
             margin-bottom: 28px;
+        }
+
+        .launch-graphic {
+            position: relative;
+            overflow: hidden;
+            min-height: 238px;
+            margin: 0 0 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(57,75,97,0.12);
+            background:
+                radial-gradient(circle at 18% 20%, rgba(121,216,197,0.42), transparent 28%),
+                radial-gradient(circle at 78% 18%, rgba(59,130,246,0.34), transparent 30%),
+                linear-gradient(135deg, rgba(16,27,40,0.96), rgba(34,50,72,0.92));
+            box-shadow: 0 26px 58px rgba(16,27,40,0.18);
+        }
+
+        .launch-graphic::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: linear-gradient(135deg, black, transparent 78%);
+        }
+
+        .launch-graphic::after {
+            content: "June";
+            position: absolute;
+            right: -12px;
+            bottom: -18px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(78px, 13vw, 150px);
+            line-height: 0.8;
+            letter-spacing: -0.08em;
+            color: rgba(255,255,255,0.12);
+        }
+
+        .launch-pill,
+        .launch-title,
+        .launch-subtitle {
+            position: relative;
+            z-index: 1;
+        }
+
+        .launch-pill {
+            display: inline-flex;
+            margin: 28px 0 18px 28px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            color: #07121f;
+            background: linear-gradient(135deg, var(--accent-mint), var(--accent-soft));
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            box-shadow: 0 16px 36px rgba(121,168,255,0.26);
+        }
+
+        .launch-title {
+            max-width: 7.5ch;
+            margin-left: 28px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(52px, 9vw, 92px);
+            line-height: 0.84;
+            letter-spacing: -0.075em;
+            color: #fff;
+        }
+
+        .launch-subtitle {
+            max-width: 32ch;
+            margin: 18px 28px 28px;
+            color: rgba(255,255,255,0.72);
+            font-size: 15px;
+            line-height: 1.55;
         }
 
         .notice {
@@ -367,8 +445,14 @@
     <main>
         <div class="shell launch-card">
             <section class="panel">
+                <div class="launch-graphic" aria-label="Coming in June">
+                    <span class="launch-pill">Public launch target</span>
+                    <div class="launch-title">Coming in June</div>
+                    <p class="launch-subtitle">MAP is finishing the public onboarding flow before the full go-live.</p>
+                </div>
+
                 <span class="eyebrow">Read-only enrollment preview</span>
-                <h1>Client enrollment opens June 1.</h1>
+                <h1>Client enrollment opens in June.</h1>
                 <p class="lead">
                     We are finishing the public rollout of the new My Automation Partner onboarding experience. If you are interested in early access, reach out and we can talk through a beta preview before launch.
                 </p>
@@ -435,7 +519,7 @@
     <footer>
         <div class="footer-row">
             <span>&copy; 2026 My Automation Partner</span>
-            <span>Enrollment preview only. Public launch starts June 1.</span>
+            <span>Enrollment preview only. Public launch target: June 2026.</span>
         </div>
     </footer>
 </body>
