@@ -27,6 +27,13 @@ A dedicated onboarding signup route for new MAP customers:
 - Submits to a same-origin MAP endpoint at `/api/onboarding/signup`
 - Automatically falls back to the live Supabase Edge intake endpoint if the Pages backend route is unavailable in production
 
+### Product Demo (`/demo.html`)
+A public product walkthrough using current live-portal screenshot assets:
+- Screenshot-led hero showing the refreshed Inbox and mobile Publisher surfaces
+- Four-step workflow: capture a request, create a post, plan a campaign, and keep files close
+- Tabbed screenshot showcase for Inbox, Create Post, Campaign Partner, and Files
+- Mobile proof section for Publisher, Inbox, and Settings
+
 ### Client Login (`login.html`)
 Secure login portal for authenticated clients to access:
 - Real-time social media metrics
@@ -105,6 +112,11 @@ Secure login portal for authenticated clients to access:
 - ✅ Added Chatwoot-style phone and post-request phone visuals for owner-first workflows
 - ✅ Shifted homepage language toward solo owner and lean operation use cases
 - ✅ Tuned hero spacing and reel timing for a faster two-second fade cycle
+
+## Recent Updates (May 28, 2026)
+- ✅ Rebuilt `/demo.html` around current May 27-28 portal screenshots from the launch asset set
+- ✅ Added a screenshot-led demo flow for Inbox, Create Post, Campaign Partner, Files, and mobile portal usage
+- ✅ Kept the demo static and separate from logged-in portal runtime code
 
 ## Development Notes
 - Pure HTML/CSS — no build step required
