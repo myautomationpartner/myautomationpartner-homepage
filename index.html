@@ -563,16 +563,17 @@
       inset: 0;
       opacity: 0;
       transform: translateY(18px) scale(1.015);
-      animation: portal-reel-fade 24.5s ease-in-out infinite;
+      animation: portal-reel-fade 32s ease-in-out infinite;
     }
 
     .portal-slide:nth-child(1) { animation-delay: 0s; }
-    .portal-slide:nth-child(2) { animation-delay: 3.5s; }
-    .portal-slide:nth-child(3) { animation-delay: 7s; }
-    .portal-slide:nth-child(4) { animation-delay: 10.5s; }
-    .portal-slide:nth-child(5) { animation-delay: 14s; }
-    .portal-slide:nth-child(6) { animation-delay: 17.5s; }
-    .portal-slide:nth-child(7) { animation-delay: 21s; }
+    .portal-slide:nth-child(2) { animation-delay: 4s; }
+    .portal-slide:nth-child(3) { animation-delay: 8s; }
+    .portal-slide:nth-child(4) { animation-delay: 12s; }
+    .portal-slide:nth-child(5) { animation-delay: 16s; }
+    .portal-slide:nth-child(6) { animation-delay: 20s; }
+    .portal-slide:nth-child(7) { animation-delay: 24s; }
+    .portal-slide:nth-child(8) { animation-delay: 28s; }
 
     .portal-slide img {
       width: 100%;
@@ -580,6 +581,40 @@
       object-fit: cover;
       object-position: top left;
       filter: saturate(1.04) contrast(1.04);
+    }
+
+    .portal-slide.mobile-app {
+      background:
+        radial-gradient(circle at 32% 18%, rgba(112, 228, 255, 0.22), transparent 16rem),
+        radial-gradient(circle at 84% 72%, rgba(152, 140, 255, 0.16), transparent 15rem),
+        linear-gradient(135deg, rgba(12, 18, 32, 0.98), rgba(4, 7, 14, 0.98));
+    }
+
+    .portal-slide.mobile-app img {
+      position: absolute;
+      top: 20px;
+      right: clamp(18px, 8vw, 88px);
+      width: auto;
+      height: calc(100% - 40px);
+      max-width: min(45%, 260px);
+      object-fit: contain;
+      object-position: center;
+      border-radius: 30px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+    }
+
+    .portal-slide.mobile-app::before {
+      content: attr(data-proof);
+      position: absolute;
+      left: 28px;
+      top: 34px;
+      z-index: 2;
+      max-width: min(300px, 46%);
+      color: var(--text);
+      font-size: clamp(1.55rem, 2.4vw, 2.35rem);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: 0;
     }
 
     .portal-slide::after {
@@ -1132,8 +1167,8 @@
 
     @keyframes portal-reel-fade {
       0% { opacity: 0; transform: translateY(18px) scale(1.012); }
-      4.5%, 12% { opacity: 1; transform: translateY(0) scale(1); }
-      19%, 100% { opacity: 0; transform: translateY(-16px) scale(1.012); }
+      3.5%, 10.5% { opacity: 1; transform: translateY(0) scale(1); }
+      14%, 100% { opacity: 0; transform: translateY(-16px) scale(1.012); }
     }
 
     @keyframes orbit-turn {
@@ -1333,22 +1368,26 @@
                 <img src="assets/portal-reel-inbox.png" alt="Inbox screen">
                 <figcaption>Inbox</figcaption>
               </figure>
-              <figure class="portal-slide">
-                <img src="assets/portal-reel-chatwoot-phone.png" alt="Phone showing Chatwoot inbox with customer messages and replies">
-                <figcaption>Mobile chat inbox</figcaption>
+              <figure class="portal-slide mobile-app" data-proof="The portal works cleanly from your phone.">
+                <img src="assets/portal-reel-mobile-dashboard.png" alt="Current mobile Dashboard screen">
+                <figcaption>Mobile dashboard</figcaption>
               </figure>
-              <figure class="portal-slide">
-                <img src="assets/portal-reel-post-request-phone.png" alt="Phone message requesting Facebook and Instagram posts from job photos">
-                <figcaption>Post request</figcaption>
+              <figure class="portal-slide mobile-app" data-proof="Schedule, review, and adjust posts anywhere.">
+                <img src="assets/portal-reel-mobile-publisher.png" alt="Current mobile Publisher calendar screen">
+                <figcaption>Mobile Publisher</figcaption>
+              </figure>
+              <figure class="portal-slide mobile-app" data-proof="My Partner stays with the work on mobile.">
+                <img src="assets/portal-reel-mobile-my-partner.png" alt="Current mobile My Partner thread screen">
+                <figcaption>Mobile My Partner</figcaption>
               </figure>
             </div>
           </article>
           <aside class="founder-quote" aria-label="Why My Automation Partner was built">
             <blockquote>
-              <p>When we started in business 28 years ago, customers had a phone number and an answering machine. Today they reach out through texts, social media, website chat, email, comments, reviews, and forms.</p>
-              <p>For a solo owner or lean operation, just keeping up can become a full-time job. Messages get missed, follow-ups slip, and a reputation you worked hard to build can suffer quietly in the background.</p>
+              <p>When we started our business 28 years ago, customers reached out through a phone call and an answering machine. Today, communication happens everywhere — text messages, social media, website chat, email, comments, reviews, and contact forms.</p>
+              <p>For a solo owner or lean operation, simply keeping up can become a full-time job. Messages get missed, follow-ups slip through the cracks, and the reputation you worked hard to build can quietly suffer in the background.</p>
             </blockquote>
-            <p class="quote-close"><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence moving so you can get back to the product or service you set out to offer.</p>
+            <p class="quote-close"><strong>My Automation Partner brings those conversations and content tasks into one place</strong>, helps you respond faster, and keeps your social presence active — so you can get back to focusing on the product or service you set out to provide.</p>
           </aside>
         </div>
 
