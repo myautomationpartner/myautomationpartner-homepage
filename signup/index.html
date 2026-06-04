@@ -904,6 +904,7 @@
                         <label>
                             Country
                             <select id="country_code" name="country_code">
+                                <option value="">Select country</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="GB">United Kingdom</option>
@@ -970,12 +971,12 @@
                         </label>
                         <label>
                             ZIP / Postal code
-                            <input id="postal_code" name="postal_code" type="text" inputmode="text" autocomplete="postal-code" placeholder="13760">
+                            <input id="postal_code" name="postal_code" type="text" inputmode="text" autocomplete="postal-code" placeholder="ZIP or postal code">
                         </label>
                         <label>
                             County
-                            <input id="county" name="county" type="text" placeholder="Broome County">
-                            <span class="field-note">Helpful for local businesses. We can auto-enrich this later from ZIP when needed.</span>
+                            <input id="county" name="county" type="text" placeholder="County, parish, or region">
+                            <span class="field-note">Optional. Helpful for local businesses when you know it.</span>
                         </label>
                     </div>
                 </div>
