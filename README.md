@@ -27,11 +27,11 @@ A dedicated onboarding signup route for new MAP customers:
 - Submits to a same-origin MAP endpoint at `/api/onboarding/signup`
 - Automatically falls back to the live Supabase Edge intake endpoint if the Pages backend route is unavailable in production
 
-### Customer Social Setup Guide (`/customer-social-setup/`)
-A sendable public guide for new MAP customers preparing social accounts before their first setup session:
+### Social Account Starter Guide (`/customer-social-setup/`)
+A sendable public guide for business owners creating or cleaning up social accounts:
 - Explains Facebook personal-profile and business Page requirements in plain language
 - Covers Instagram professional accounts and Meta Business Suite basics
-- Lists website chat, paid ads, and security best practices
+- Helps first-time users understand account ownership, duplicate-account cleanup, website chat, paid ads, and security best practices
 - Includes a print/save-as-PDF action for customer handoff
 
 ### Product Demo (`/demo.html`)
@@ -126,7 +126,7 @@ Secure login portal for authenticated clients to access:
 - ✅ Kept the demo static and separate from logged-in portal runtime code
 
 ## Recent Updates (Jun 15, 2026)
-- ✅ Added `/customer-social-setup/` as a sendable customer setup guide for Facebook, Instagram, website chat, paid ads, and account-security prep
+- ✅ Added `/customer-social-setup/` as a sendable beginner-friendly social account starter guide for Facebook, Instagram, website chat, paid ads, ownership, and account-security prep
 
 ## Development Notes
 - Pure HTML/CSS — no build step required
