@@ -780,6 +780,152 @@
             .shell { grid-template-columns: 1fr; }
             h1 { max-width: 10ch; }
         }
+
+        @media (max-width: 760px) {
+            body {
+                min-height: 100dvh;
+                background:
+                    radial-gradient(circle at 82% 4%, rgba(186, 255, 101, 0.1), transparent 18rem),
+                    radial-gradient(circle at 8% 18%, rgba(112, 228, 255, 0.12), transparent 22rem),
+                    #07090f;
+            }
+
+            body::before {
+                opacity: 0.14;
+                background-size: 56px 56px;
+                mask-image: linear-gradient(to bottom, black, transparent 54%);
+            }
+
+            header {
+                background: rgba(7, 9, 15, 0.84);
+                backdrop-filter: blur(18px);
+            }
+
+            .header-inner {
+                min-height: 68px;
+            }
+
+            .brand {
+                gap: 11px;
+            }
+
+            .brand img {
+                width: 42px;
+                height: 34px;
+                border-radius: 10px;
+            }
+
+            .brand-copy span:first-child {
+                display: none;
+            }
+
+            .brand-copy span:last-child {
+                font-size: 15px;
+                letter-spacing: -0.02em;
+            }
+
+            main {
+                display: flex;
+                align-items: flex-start;
+                min-height: calc(100dvh - 69px);
+                padding: clamp(34px, 8dvh, 68px) 0 28px;
+            }
+
+            .shell {
+                display: block;
+                width: min(100% - 32px, 440px);
+            }
+
+            .panel {
+                display: none;
+            }
+
+            .login-panel {
+                padding: 0;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+                backdrop-filter: none;
+            }
+
+            .login-panel::before {
+                content: "SECURE CLIENT PORTAL";
+                display: block;
+                margin-bottom: 14px;
+                color: var(--accent-mint);
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: 0.16em;
+            }
+
+            .login-panel h2 {
+                max-width: 11ch;
+                margin-bottom: 10px;
+                font-size: clamp(2.35rem, 11vw, 3.15rem);
+                line-height: 0.96;
+                letter-spacing: -0.07em;
+            }
+
+            .login-panel > p {
+                max-width: 30ch;
+                margin-bottom: 28px;
+                font-size: 15px;
+                line-height: 1.55;
+            }
+
+            form {
+                gap: 18px;
+            }
+
+            .form-group {
+                gap: 8px;
+            }
+
+            label {
+                font-size: 11px;
+            }
+
+            input {
+                min-height: 56px;
+                padding: 15px 48px 15px 16px;
+                border-radius: 16px;
+                font-size: 16px;
+            }
+
+            .toggle-pw {
+                right: 6px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .btn-login {
+                min-height: 56px;
+                margin-top: 2px;
+                border-radius: 16px;
+                font-size: 15px;
+                box-shadow: 0 16px 34px rgba(112, 228, 255, 0.16);
+            }
+
+            .btn-login:active:not(:disabled) {
+                transform: scale(0.985);
+            }
+
+            .login-footer {
+                margin-top: 24px;
+                font-size: 12px;
+                line-height: 1.55;
+            }
+
+            .alert,
+            .build-status {
+                border-radius: 16px;
+            }
+
+            footer {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -863,8 +1009,8 @@
             </section>
 
             <section class="login-panel">
-                <h2 id="formHeading">Sign in to your portal.</h2>
-                <p id="formLead">Everything MAP is helping with lives here.</p>
+                <h2 id="formHeading">Open your workspace.</h2>
+                <p id="formLead">Sign in and pick up right where you left off.</p>
 
                 <div class="alert alert-error" id="alertError" role="alert">
                     <span id="alertErrorMsg">Invalid email or password. Please try again.</span>
