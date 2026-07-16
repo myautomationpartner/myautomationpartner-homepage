@@ -6,6 +6,9 @@
     <title>Client Portal Login | My Automation Partner</title>
     <meta name="description" content="Sign in to your My Automation Partner client portal.">
     <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -791,9 +794,7 @@
             }
 
             body::before {
-                opacity: 0.14;
-                background-size: 56px 56px;
-                mask-image: linear-gradient(to bottom, black, transparent 54%);
+                display: none;
             }
 
             header {
@@ -875,6 +876,8 @@
             }
 
             form {
+                position: relative;
+                z-index: 2;
                 gap: 18px;
             }
 
@@ -887,10 +890,16 @@
             }
 
             input {
+                position: relative;
+                z-index: 1;
                 min-height: 56px;
                 padding: 15px 48px 15px 16px;
                 border-radius: 16px;
                 font-size: 16px;
+                pointer-events: auto;
+                touch-action: manipulation;
+                -webkit-user-select: text;
+                user-select: text;
             }
 
             .toggle-pw {
