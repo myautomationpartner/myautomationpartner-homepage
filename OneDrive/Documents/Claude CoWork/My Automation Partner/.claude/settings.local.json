@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "mcp__n8n-mcp__n8n_health_check",
+      "mcp__coolify__get_version",
+      "mcp__n8n-mcp__n8n_executions",
+      "mcp__n8n-mcp__n8n_get_workflow",
+      "mcp__n8n-mcp__n8n_update_full_workflow",
+      "mcp__n8n-mcp__n8n_test_workflow",
+      "Read(//c/Users/kenny/**)"
+    ]
+  }
+}

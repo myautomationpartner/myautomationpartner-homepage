@@ -1,0 +1,15 @@
+# Credentials — NEVER commit
+credential.txt
+.env
+.env.local
+*.key
+*.pem
+/secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp

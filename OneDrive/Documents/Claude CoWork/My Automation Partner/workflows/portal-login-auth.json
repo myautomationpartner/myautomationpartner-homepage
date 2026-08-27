@@ -1,0 +1,373 @@
+{
+  "name": "portal-login-auth",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "portal-login",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://myautomationpartner.com"
+        }
+      },
+      "name": "Receive login request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "portal-login"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "email",
+              "value": "={{ $json.body.email ? $json.body.email.toLowerCase().trim() : '' }}"
+            },
+            {
+              "name": "password",
+              "value": "={{ $json.body.password || '' }}"
+            }
+          ]
+        }
+      },
+      "name": "Extract and sanitize credentials",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.email }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.password }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Are credentials present?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://tables.fillout.com/api/v1/bases/{{$credentials.filloutBaseId}}/tables/{{$credentials.filloutUsersTableId}}/records",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "filter",
+              "value": "={{ JSON.stringify([{\"fieldName\": \"Email\", \"operator\": \"equals\", \"value\": $json.email}]) }}"
+            },
+            {
+              "name": "limit",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "GET user record from Zite",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [900, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "FilloutApiKey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.records ? $json.records.length : 0 }}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "name": "Is user found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "userId",
+              "value": "={{ $json.records[0].id }}"
+            },
+            {
+              "name": "storedPasswordHash",
+              "value": "={{ $json.records[0].fields['Password Hash'] }}"
+            },
+            {
+              "name": "isActive",
+              "value": "={{ $json.records[0].fields['Active'] }}"
+            },
+            {
+              "name": "linkedClientId",
+              "value": "={{ $json.records[0].fields['Linked Client'] ? $json.records[0].fields['Linked Client'][0] : '' }}"
+            }
+          ]
+        }
+      },
+      "name": "Extract user fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 120]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.isActive }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Is account active?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1560, 120]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Hash the submitted password using SHA-256\n// Compare against the stored hash from Zite\nconst crypto = require('crypto');\n\nconst submittedPassword = $('Extract and sanitize credentials').first().json.password;\nconst storedHash = $json.storedPasswordHash;\n\nconst submittedHash = crypto\n  .createHash('sha256')\n  .update(submittedPassword)\n  .digest('hex');\n\nconst passwordMatch = submittedHash === storedHash;\n\nreturn [{ json: {\n  ...($json),\n  passwordMatch\n}}];"
+      },
+      "name": "Verify password hash",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1780, 60]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.passwordMatch }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Does password match?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2000, 60]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://tables.fillout.com/api/v1/bases/{{$credentials.filloutBaseId}}/tables/{{$credentials.filloutClientsTableId}}/records/{{ $json.linkedClientId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "name": "GET client portal URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [2220, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "FilloutApiKey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "redirectUrl",
+              "value": "={{ $json.fields['Portal URL'] }}"
+            }
+          ]
+        }
+      },
+      "name": "Extract portal redirect URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [2440, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, redirectUrl: $json.redirectUrl }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "https://myautomationpartner.com"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond with redirect URL",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2660, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"message\": \"Invalid email or password.\" }",
+        "options": {
+          "responseCode": 401,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "https://myautomationpartner.com"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond invalid credentials",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2220, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"message\": \"Your account is currently inactive. Contact support@myautomationpartner.com\" }",
+        "options": {
+          "responseCode": 403,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "https://myautomationpartner.com"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond account inactive",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1780, 240]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"message\": \"Invalid email or password.\" }",
+        "options": {
+          "responseCode": 401,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "https://myautomationpartner.com"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond user not found",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1340, 340]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"message\": \"Email and password are required.\" }",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "https://myautomationpartner.com"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond missing credentials",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 420]
+    }
+  ],
+  "connections": {
+    "Receive login request": {
+      "main": [[{ "node": "Extract and sanitize credentials", "type": "main", "index": 0 }]]
+    },
+    "Extract and sanitize credentials": {
+      "main": [[{ "node": "Are credentials present?", "type": "main", "index": 0 }]]
+    },
+    "Are credentials present?": {
+      "main": [
+        [{ "node": "GET user record from Zite", "type": "main", "index": 0 }],
+        [{ "node": "Respond missing credentials", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET user record from Zite": {
+      "main": [[{ "node": "Is user found?", "type": "main", "index": 0 }]]
+    },
+    "Is user found?": {
+      "main": [
+        [{ "node": "Extract user fields", "type": "main", "index": 0 }],
+        [{ "node": "Respond user not found", "type": "main", "index": 0 }]
+      ]
+    },
+    "Extract user fields": {
+      "main": [[{ "node": "Is account active?", "type": "main", "index": 0 }]]
+    },
+    "Is account active?": {
+      "main": [
+        [{ "node": "Verify password hash", "type": "main", "index": 0 }],
+        [{ "node": "Respond account inactive", "type": "main", "index": 0 }]
+      ]
+    },
+    "Verify password hash": {
+      "main": [[{ "node": "Does password match?", "type": "main", "index": 0 }]]
+    },
+    "Does password match?": {
+      "main": [
+        [{ "node": "GET client portal URL", "type": "main", "index": 0 }],
+        [{ "node": "Respond invalid credentials", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET client portal URL": {
+      "main": [[{ "node": "Extract portal redirect URL", "type": "main", "index": 0 }]]
+    },
+    "Extract portal redirect URL": {
+      "main": [[{ "node": "Respond with redirect URL", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "portal" },
+    { "name": "auth" }
+  ]
+}
