@@ -14,7 +14,7 @@ A fully responsive marketing site showcasing:
 - **Five Pillars** — Premium service offerings (Unified Portal, Social Automation, Growth Analytics, Unified Inbox, Smart Calendar)
 - **Benefits** — Why clients choose MAP (zero tech skills, expert support, custom workflows) with impact stats
 - **Features** — 6 detailed capability cards (all-in-one hub, hourly syncs, secure portals, automated digests, fast onboarding, scalability)
-- **Pricing** — 3 transparent plans (Starter $29, Growth $79, Agency $199)
+- **Pricing** — 30-day free trial, then $25/month starter (no card at signup)
 - **Structured Signup CTA** — homepage CTAs now route to `/signup/` instead of `mailto:` conversion
 - **CTA & Footer** — Conversion points with company info, signup flow, and portal links
 
@@ -83,7 +83,7 @@ Secure login portal for authenticated clients to access:
 - **Cloudflare Pages Functions:** Intended same-origin homepage intake endpoint (`/api/onboarding/signup`)
 - **Supabase Edge Function:** Current live signup fallback endpoint (`/functions/v1/homepage-signup-intake`)
 - **n8n:** Metrics collection & automation workflows
-- **Metricool:** Real-time Instagram, TikTok, Facebook metrics API
+- **Zernio:** Social OAuth and publishing (Metricool is dropped)
 - **Resend:** Email delivery for client digests
 
 ## Deployment
@@ -96,8 +96,8 @@ Secure login portal for authenticated clients to access:
 ## Client Access
 - Public landing page: No authentication required
 - Authenticated portal (login.html): Requires credentials
-- Role-based access: Admin/Editor/Viewer roles in Zite
-- Data isolation: Each client linked to their Metricool account
+- Role-based access: Supabase JWT `user_role` (portal), not Zite
+- Data isolation: Each client is a Supabase tenant (`client_id` / `client_slug`)
 
 ## Recent Updates (Apr 1, 2026)
 - ✅ Added "Five Pillars of Modern Automation" bento-grid section
