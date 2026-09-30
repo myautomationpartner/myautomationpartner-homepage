@@ -1,142 +1,43 @@
-# My Automation Partner — Client Portal
+# My Automation Partner — Consulting Website
 
-**Purpose:** Marketing landing page & client portal for My Automation Partner
+Static public website for the My Automation Partner consulting business.
 
-**Entry Point:** `index.html` (public landing page) | `login.html` (client login)
+## Current direction
 
-## Overview
+The homepage presents MAP as an independent technology consultant for small businesses, with an initial focus on:
 
-### Public Landing Page (`index.html`)
-A fully responsive marketing site showcasing:
-- **Hero Section** — Value proposition with CTA and key metrics
-- **Integration Showcase** — Scrolling ticker of connected platforms
-- **How It Works** — Cards highlighting core features (analytics, calendar, automation, reporting)
-- **Five Pillars** — Premium service offerings (Unified Portal, Social Automation, Growth Analytics, Unified Inbox, Smart Calendar)
-- **Benefits** — Why clients choose MAP (zero tech skills, expert support, custom workflows) with impact stats
-- **Features** — 6 detailed capability cards (all-in-one hub, hourly syncs, secure portals, automated digests, fast onboarding, scalability)
-- **Pricing** — 30-day free trial, then $25/month starter (no card at signup)
-- **Structured Signup CTA** — homepage CTAs now route to `/signup/` instead of `mailto:` conversion
-- **CTA & Footer** — Conversion points with company info, signup flow, and portal links
+- social-media tool selection and setup
+- customer-message and follow-up workflows
+- practical AI adoption
+- technology and subscription cleanup
 
-### Public Signup (`/signup/`)
-A dedicated onboarding signup route for new MAP customers:
-- Structured intake form aligned to the live onboarding DB contract
-- Required fields: business name, contact name, email, website URL, selected plan, consent
-- Optional fields: phone, primary goal, preferred contact method, requested social platforms, notes
-- Client-side validation plus loading, success, and error states
-- Submits to a same-origin MAP endpoint at `/api/onboarding/signup`
-- Automatically falls back to the live Supabase Edge intake endpoint if the Pages backend route is unavailable in production
-
-### Social Account Starter Guide (`/customer-social-setup/`)
-A sendable public guide for business owners creating or cleaning up social accounts:
-- Explains Facebook personal-profile and business Page requirements in plain language
-- Covers Instagram professional accounts, X, and TikTok basics
-- Helps first-time users understand account ownership, duplicate-account cleanup, and account-security best practices
-- Includes a print/save-as-PDF action for customer handoff
-
-### Product Demo (`/demo.html`)
-A public product walkthrough using current live-portal screenshot assets:
-- Screenshot-led hero showing the refreshed Inbox and mobile Publisher surfaces
-- Four-step workflow: capture a request, create a post, plan a campaign, and keep files close
-- Tabbed screenshot showcase for Inbox, Create Post, Campaign Partner, and Files
-- Mobile proof section for Publisher, Inbox, and Settings
-
-### Client Login (`login.html`)
-Secure login portal for authenticated clients to access:
-- Real-time social media metrics
-- Content calendar
-- Owner-focused customer and content workflows
-- Performance analytics
+The primary conversion path is a direct email conversation at `billing@myautomationpartner.com`. The homepage no longer promotes the former MAP portal product, subscriptions, trials, or software pricing.
 
 ## Structure
-```
-01-portal/
-├── index.html              # Main landing page (production)
-├── signup/
-│   └── index.html          # Structured MAP signup experience
-├── functions/
-│   └── api/onboarding/
-│       └── signup.js       # Same-origin intake handler
-├── login.html              # Client login page
-├── SIGNUP_INTAKE.md        # Canonical homepage payload + backend contract
-├── README.md               # This file
-├── .gitignore              # Git ignore rules
-└── assets/
-    ├── MyAutomationPartner-Logo.png  # Main logo (PNG)
-    └── logo.svg                       # Vector logo backup
-```
 
-## Tech Stack
-- **HTML5** — Semantic structure
-- **CSS3** — Modern styling with CSS variables, gradients, animations
-- **Vanilla JavaScript** — Lightweight, no framework dependencies
-- **Responsive Design** — Mobile-first, works on all screen sizes
+- `index.html` — current consulting homepage
+- `assets/` — MAP brand marks and archived product imagery
+- `customer-social-setup/` — existing public social-account setup reference
+- `demo.html`, `login.html`, `signup/`, `beta-intake/` — legacy product surfaces retained temporarily during controlled decommission; they are not linked from the consulting homepage
 
-### Design System
-- **Color Scheme:** Dark portal-inspired theme with cyan, lime, and blue accents
-- **Typography:** Inter font family with semantic hierarchy
-- **Components:** Cards, buttons, badges, rotating portal previews, stats blocks, grids
-- **Animations:** Smooth scrollbar, hover effects, portal reel fades, subtle motion effects
+## Hosting
 
-## Connected Systems
-- **Supabase:** Canonical onboarding intake contract and authenticated portal data
-- **Cloudflare Pages Functions:** Intended same-origin homepage intake endpoint (`/api/onboarding/signup`)
-- **Supabase Edge Function:** Current live signup fallback endpoint (`/functions/v1/homepage-signup-intake`)
-- **n8n:** Metrics collection & automation workflows
-- **Zernio:** Social OAuth and publishing (Metricool is dropped)
-- **Resend:** Email delivery for client digests
+- Cloudflare Pages project: `my-automation-partner`
+- Production domain: `https://myautomationpartner.com`
+- Production branch: `main`
+- No build step is required
 
-## Deployment
-- **Hosting:** Cloudflare Pages
-- **Domain:** myautomationpartner.com
-- **DNS:** Cloudflare
-- **Assets:** Served locally + Cloudflare R2 for additional resources
-- **Runtime config:** Cloudflare Pages environment variables for the signup intake route
+The website and Cloudflare account currently operate on free tiers. Preserve the `myautomationpartner.com` zone and the separate `proposals.myautomationpartner.com` dependency used by Delphi Processing.
 
-## Client Access
-- Public landing page: No authentication required
-- Authenticated portal (login.html): Requires credentials
-- Role-based access: Supabase JWT `user_role` (portal), not Zite
-- Data isolation: Each client is a Supabase tenant (`client_id` / `client_slug`)
+## Local verification
 
-## Recent Updates (Apr 1, 2026)
-- ✅ Added "Five Pillars of Modern Automation" bento-grid section
-- ✅ Added "Automate Your Daily Tasks" benefits section with stat blocks
-- ✅ Replaced SVG logos with PNG asset from `/assets/MyAutomationPartner-Logo.png`
-- ✅ Enhanced responsive design for mobile/tablet
-- ✅ All sections fully styled and animated
+Serve the repository root with any static HTTP server, then verify desktop, tablet, and mobile widths. The homepage must have no horizontal overflow, load the MAP mark successfully, and keep all consultation buttons pointed to the MAP billing mailbox.
 
-## Recent Updates (Apr 23, 2026)
-- ✅ Replaced homepage `mailto:` pricing conversions with `/signup/`
-- ✅ Added dedicated `/signup/` onboarding flow aligned to `db-agent/ONBOARDING_CONTRACT.md`
-- ✅ Added same-origin intake handler at `/api/onboarding/signup`
-- ✅ Documented payload, env vars, and downstream webhook assumptions in `SIGNUP_INTAKE.md`
-- ✅ Restored live production signup through Supabase Edge fallback while the broken Pages backend route is tracked as future cleanup
-- ✅ Added origin/referrer allowlisting on the public intake endpoints
+## Deployment boundary
 
-## Recent Updates (Apr 30, 2026)
-- ✅ Refreshed the homepage hero with the new portal preview reel
-- ✅ Added Chatwoot-style phone and post-request phone visuals for owner-first workflows
-- ✅ Shifted homepage language toward solo owner and lean operation use cases
-- ✅ Tuned hero spacing and reel timing for a faster two-second fade cycle
+Changing the homepage must not delete or take over:
 
-## Recent Updates (May 28, 2026)
-- ✅ Rebuilt `/demo.html` around current May 27-28 portal screenshots from the launch asset set
-- ✅ Added a screenshot-led demo flow for Inbox, Create Post, Campaign Partner, Files, and mobile portal usage
-- ✅ Kept the demo static and separate from logged-in portal runtime code
-
-## Recent Updates (Jun 15, 2026)
-- ✅ Added `/customer-social-setup/` as a sendable beginner-friendly social account starter guide for Facebook, Instagram, X, TikTok, ownership, and account-security prep
-
-## Development Notes
-- Pure HTML/CSS — no build step required
-- Self-contained — all styles in `<style>` tag
-- Accessible — proper semantic HTML and ARIA labels
-- Performance optimized — minimal external requests
-- SEO friendly — proper meta tags and structured content
-
----
-
-**Last Updated:** April 30, 2026
-**Status:** Production-ready marketing site with structured signup intake path and refreshed portal hero
-**Maintained By:** My Automation Partner
+- the `myautomationpartner.com/portal/*` Worker route while the old portal is being archived
+- `proposals.myautomationpartner.com`
+- Supabase, Auth, Storage, or Edge Functions
+- shared Cloudflare resources used by Delphi, Pacesetter, Family Hub, or SCRIC projects
